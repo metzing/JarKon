@@ -23,7 +23,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)App.xaml">
       <SubType>Designer</SubType>
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <Generator>MSBuild:UpdateDesignTimeXAML</Generator>
     </EmbeddedResource>
   </ItemGroup>
 </Project>

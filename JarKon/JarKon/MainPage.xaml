@@ -4,7 +4,10 @@
              xmlns:local="clr-namespace:JarKon"
              x:Class="JarKon.MainPage">
 
-    <local:CardsPage Title="Cards"/>
-    <local:MapsPage Title="Map"/>
+    <local:MapsPage Title="Map"
+                    x:Name="mapsPage"/>
+
+    <local:CardsPage Title="Cards"
+                     x:Name="cardsPage"/>
 
 </TabbedPage>

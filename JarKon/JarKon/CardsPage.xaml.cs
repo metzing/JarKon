@@ -15,6 +15,9 @@ namespace JarKon
 		public CardsPage ()
 		{
 			InitializeComponent ();
+            listView.ItemsSource = MainPage.Vehicles;
 		}
+
+
 	}
 }

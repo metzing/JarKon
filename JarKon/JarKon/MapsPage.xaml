@@ -8,7 +8,8 @@
         <maps:Map VerticalOptions="FillAndExpand"
                   HorizontalOptions="FillAndExpand"
                   IsShowingUser="True"
-                  MapType="Street"/>
+                  MapType="Street"
+                  x:Name="map"/>
     </StackLayout>
 
 </ContentPage>

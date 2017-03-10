@@ -5,6 +5,6 @@
              x:Class="JarKon.MainPage">
 
     <local:CardsPage Title="Cards"/>
-    <local:MapsPage Title="Maps"/>
+    <local:MapsPage Title="Map"/>
 
 </TabbedPage>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JarKon.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,9 +10,13 @@ namespace JarKon
 {
 	public partial class MainPage : TabbedPage
 	{
+        public static IEnumerable<Vehicle> Vehicles;
+
 		public MainPage()
 		{
-			InitializeComponent();
+            Vehicles = Vehicle.GetDummyData();
+
+            InitializeComponent();
 		}
 	}
 }

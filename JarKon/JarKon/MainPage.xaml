@@ -3,8 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:JarKon"
              x:Class="JarKon.MainPage">
-
-    <local:CardsPage Title="Cards"/>
-    <local:MapsPage Title="Maps"/>
-
+    <local:CardsPage Title="Cards"
+                     x:Name="cardsPage"/>
+    
+    <local:MapsPage Title="Map"
+                    x:Name="mapsPage"/>
 </TabbedPage>

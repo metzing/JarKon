@@ -13,6 +13,7 @@ namespace JarKon.Model
         public bool Ignition { get; set; }
         public float InternalBatteryVoltage { get; set; }
         public float ExternalBatteryVoltage { get; set; }
+        public string DriverName { get; set; }
 
         public static List<Vehicle> GetDummyData()
         {
@@ -25,7 +26,8 @@ namespace JarKon.Model
                 Speed = 69,
                 Ignition = true,
                 InternalBatteryVoltage = 1,
-                ExternalBatteryVoltage = 2
+                ExternalBatteryVoltage = 2,
+                DriverName = "John Doe"
             });
 
             retu.Add(new Vehicle
@@ -35,7 +37,68 @@ namespace JarKon.Model
                 Speed = 420,
                 Ignition = false,
                 InternalBatteryVoltage = 3,
-                ExternalBatteryVoltage = 4
+                ExternalBatteryVoltage = 4,
+                DriverName = "Pikachu"
+            });
+            retu.Add(new Vehicle
+            {
+                ID = 2,
+                Position = new Position(47.408770, 19.017055),
+                Speed = 420,
+                Ignition = false,
+                InternalBatteryVoltage = 3,
+                ExternalBatteryVoltage = 4,
+                DriverName = "Pikachu"
+            });
+            retu.Add(new Vehicle
+            {
+                ID = 2,
+                Position = new Position(47.408770, 19.017055),
+                Speed = 420,
+                Ignition = false,
+                InternalBatteryVoltage = 3,
+                ExternalBatteryVoltage = 4,
+                DriverName = "Pikachu"
+            });
+            retu.Add(new Vehicle
+            {
+                ID = 2,
+                Position = new Position(47.408770, 19.017055),
+                Speed = 420,
+                Ignition = false,
+                InternalBatteryVoltage = 3,
+                ExternalBatteryVoltage = 4,
+                DriverName = "Pikachu"
+            });
+            retu.Add(new Vehicle
+            {
+                ID = 2,
+                Position = new Position(47.408770, 19.017055),
+                Speed = 420,
+                Ignition = false,
+                InternalBatteryVoltage = 3,
+                ExternalBatteryVoltage = 4,
+                DriverName = "Pikachu"
+            });
+            retu.Add(new Vehicle
+            {
+                ID = 2,
+                Position = new Position(47.408770, 19.017055),
+                Speed = 420,
+                Ignition = false,
+                InternalBatteryVoltage = 3,
+                ExternalBatteryVoltage = 4,
+                DriverName = "Pikachu"
+            });
+            retu.Add(new Vehicle
+            {
+                ID = 2,
+                Position = new Position(47.408770, 19.017055),
+                Speed = 420,
+                Ignition = false,
+                InternalBatteryVoltage = 3,
+                ExternalBatteryVoltage = 4,
+                DriverName = "Pikachu"
             });
 
             return retu;

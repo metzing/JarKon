@@ -1,14 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:JarKon"
              x:Class="JarKon.CardsPage">
-    <ScrollView VerticalOptions="FillAndExpand"
-                HorizontalOptions="FillAndExpand">
-        <ListView VerticalOptions="FillAndExpand"
-                  HorizontalOptions="FillAndExpand"
-                  x:Name="listView">
+    <ScrollView>
+        <ListView ItemsSource="{x:Static local:MainPage.Vehicles}"
+                  RowHeight="100">
             <ListView.ItemTemplate>
-                <Label Text="This is an item"/>
+                <DataTemplate>
+                    <local:Card DriverName="{Binding DriverName}"/>
+                </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
     </ScrollView>

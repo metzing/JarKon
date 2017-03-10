@@ -10,12 +10,13 @@ namespace JarKon
 {
 	public partial class MainPage : TabbedPage
 	{
-        public static List<Vehicle> Vehicles;
+        public static IEnumerable<Vehicle> Vehicles;
 
 		public MainPage()
 		{
-			InitializeComponent();
             Vehicles = Vehicle.GetDummyData();
+
+            InitializeComponent();
 		}
 	}
 }

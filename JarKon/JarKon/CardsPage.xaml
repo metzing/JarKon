@@ -5,10 +5,16 @@
              x:Class="JarKon.CardsPage">
     <ScrollView>
         <ListView ItemsSource="{x:Static local:MainPage.Vehicles}"
-                  RowHeight="100">
+                  HasUnevenRows="True">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <local:Card DriverName="{Binding DriverName}"/>
+                    <local:Card ID="{Binding ID}"
+                                Position="{Binding Position}"
+                                Speed="{Binding Speed}"
+                                Ignition="{Binding Ignition}"
+                                InternalVoltage="{Binding InternalBatteryVoltage}"
+                                ExternalVoltage="{Binding ExternalBatteryVoltage}"
+                                DriverName="{Binding DriverName}"/>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

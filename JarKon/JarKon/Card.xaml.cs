@@ -32,12 +32,28 @@ namespace JarKon
             set { SetValue(IDProperty, value); }
         }
 
-        public static readonly BindableProperty SpeedProperty =
-            BindableProperty.Create("Speed", typeof(float), typeof(Card), 0.0f);
+        public static readonly BindableProperty LongitudeProperty =
+            BindableProperty.Create("Longitude", typeof(double), typeof(Card), 0.0);
 
-        public float Speed
+        public double Longitude
         {
-            get { return (float)GetValue(IDProperty); }
+            get { return ((Position)GetValue(IDProperty)).Longitude; }
+        }
+
+        public static readonly BindableProperty LatitudeProperty =
+            BindableProperty.Create("Latitude", typeof(double), typeof(Card), 0.0);
+
+        public double Latitude
+        {
+            get { return ((Position)GetValue(IDProperty)).Latitude; }
+        }
+
+        public static readonly BindableProperty SpeedProperty =
+            BindableProperty.Create("Speed", typeof(double), typeof(Card), 0.0);
+
+        public double Speed
+        {
+            get { return (double)GetValue(IDProperty); }
             set { SetValue(IDProperty, value); }
         }
 
@@ -51,20 +67,20 @@ namespace JarKon
         }
 
         public static readonly BindableProperty InternalVoltageProperty =
-                   BindableProperty.Create("InternalVoltage", typeof(float), typeof(Card), 0.0f);
+                   BindableProperty.Create("InternalVoltage", typeof(double), typeof(Card), 0.0);
 
-        public float InternalVoltage
+        public double InternalVoltage
         {
-            get { return (float)GetValue(InternalVoltageProperty); }
+            get { return (double)GetValue(InternalVoltageProperty); }
             set { SetValue(InternalVoltageProperty, value); }
         }
 
         public static readonly BindableProperty ExternalVoltageProperty =
-                  BindableProperty.Create("ExternalVoltage", typeof(float), typeof(Card), 0.0f);
+                  BindableProperty.Create("ExternalVoltage", typeof(double), typeof(Card), 0.0);
 
-        public float ExternalVoltage
+        public double ExternalVoltage
         {
-            get { return (float)GetValue(ExternalVoltageProperty); }
+            get { return (double)GetValue(ExternalVoltageProperty); }
             set { SetValue(ExternalVoltageProperty, value); }
         }
 
@@ -82,6 +98,11 @@ namespace JarKon
         public Card()
         {
             InitializeComponent();
+        }
+
+        private void Button_Clicked(object sender, EventArgs e)
+        {
+
         }
     }
 }

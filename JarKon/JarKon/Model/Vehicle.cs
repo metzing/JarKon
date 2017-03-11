@@ -9,16 +9,16 @@ namespace JarKon.Model
     {
         public int ID { get; set; }
         public Position Position { get; set; }
-        public float Speed { get; set; }
+        public double Speed { get; set; }
         public bool Ignition { get; set; }
-        public float InternalBatteryVoltage { get; set; }
-        public float ExternalBatteryVoltage { get; set; }
+        public double InternalBatteryVoltage { get; set; }
+        public double ExternalBatteryVoltage { get; set; }
         public string DriverName { get; set; }
 
         public static List<Vehicle> GetDummyData()
         {
             List<Vehicle> retu = new List<Vehicle>();
-
+            
             retu.Add(new Vehicle
             {
                 ID = 1,

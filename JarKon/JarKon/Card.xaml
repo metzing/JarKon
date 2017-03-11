@@ -4,14 +4,63 @@
           x:Class="JarKon.Card">
     <ViewCell.View>
         <Frame OutlineColor="Black"
-               BackgroundColor="Green"
+               BackgroundColor="Gray"
                HasShadow="True"
                HorizontalOptions="Fill"
                VerticalOptions="Fill"
-               Margin="10">
-            <Label Text="{Binding DriverName}"
-                   HorizontalOptions="Center"
-                   VerticalOptions="Center"/>
+               Margin="6">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <BoxView Grid.Column="0"
+                         Grid.Row="0"
+                         Color="Lime"/>
+                <StackLayout Grid.Column="1"
+                             Grid.ColumnSpan="2"
+                             Grid.Row="0">
+                    <Label Text="{Binding DriverName}"/>
+                    <Label Text="{Binding DriverName}"/>
+                    <Label Text="{Binding DriverName}"/>
+                </StackLayout>
+                <!--<TextCell Grid.Column="0"
+                          Grid.Row="1"
+                          Text="Longitude" 
+                          Detail="{Binding Longitude}"/>
+                <<TextCell Grid.Column="1"
+                          Grid.Row="1"
+                          Text="Latitude" 
+                          Detail="{Binding Latitude}"/>
+                <TextCell Grid.Column="2"
+                          Grid.Row="1"
+                          Text="Speed" 
+                          Detail="{Binding Speed}"/>
+                <TextCell Grid.Column="0"
+                          Grid.Row="2"
+                          Text="Internal Voltage" 
+                          Detail="{Binding InternalVoltage}"/>
+                <TextCell Grid.Column="1"
+                          Grid.Row="2"
+                          Text="External Voltage" 
+                          Detail="{Binding ExternalVoltage}"/>
+                <TextCell Grid.Column="2"
+                          Grid.Row="2"
+                          Text="ID" 
+                          Detail="{Binding ID}"/>
+                <Button Grid.Column="0"
+                        Grid.ColumnSpan="3"
+                        Grid.Row="3"
+                        Text="Expand (TODO)"
+                        Clicked="Button_Clicked"/>-->
+            </Grid>
         </Frame>
     </ViewCell.View>
 </ViewCell>

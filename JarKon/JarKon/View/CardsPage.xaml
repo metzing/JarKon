@@ -4,7 +4,7 @@
              xmlns:local="clr-namespace:JarKon"
              x:Class="JarKon.CardsPage">
     <ScrollView>
-        <ListView ItemsSource="{x:Static local:MainPage.Vehicles}"
+        <ListView ItemsSource="{x:Static local:CardsViewModel.Vehicles}"
                   HasUnevenRows="True">
             <ListView.ItemTemplate>
                 <DataTemplate>

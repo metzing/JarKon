@@ -9,12 +9,15 @@
                HorizontalOptions="Fill"
                VerticalOptions="Fill"
                Margin="6">
-            <Grid>
+            <Grid
+                >
                 <Grid.RowDefinitions>
                     <RowDefinition Height="3*"/>
-                    <RowDefinition Height="2*"/>
-                    <RowDefinition Height="2*"/>
-                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
@@ -31,11 +34,12 @@
                     <Label Text="{Binding DriverName}"/>
                     <Label Text="{Binding DriverName}"/>
                 </StackLayout>
+                
                 <!--<TextCell Grid.Column="0"
                           Grid.Row="1"
                           Text="Longitude" 
                           Detail="{Binding Longitude}"/>
-                <<TextCell Grid.Column="1"
+                <TextCell Grid.Column="1"
                           Grid.Row="1"
                           Text="Latitude" 
                           Detail="{Binding Latitude}"/>
@@ -54,12 +58,13 @@
                 <TextCell Grid.Column="2"
                           Grid.Row="2"
                           Text="ID" 
-                          Detail="{Binding ID}"/>
+                          Detail="{Binding ID}"/>-->
+                
                 <Button Grid.Column="0"
                         Grid.ColumnSpan="3"
                         Grid.Row="3"
                         Text="Expand (TODO)"
-                        Clicked="Button_Clicked"/>-->
+                        Clicked="Button_Clicked"/>
             </Grid>
         </Frame>
     </ViewCell.View>

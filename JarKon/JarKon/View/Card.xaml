@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ViewCell xmlns="http://xamarin.com/schemas/2014/forms"
           xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-          x:Class="JarKon.Card">
+          xmlns:local="clr-namespace:JarKon.View"
+          x:Class="JarKon.View.Card">
     <ViewCell.View>
         <Frame OutlineColor="Black"
                BackgroundColor="Gray"
@@ -9,8 +10,7 @@
                HorizontalOptions="Fill"
                VerticalOptions="Fill"
                Margin="6">
-            <Grid
-                >
+            <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="3*"/>
                     <RowDefinition Height="*"/>
@@ -34,36 +34,19 @@
                     <Label Text="{Binding DriverName}"/>
                     <Label Text="{Binding DriverName}"/>
                 </StackLayout>
+
+                <Label Grid.Column="0"
+                       Grid.Row="1"
+                       Text="Longitude"/>
                 
-                <!--<TextCell Grid.Column="0"
-                          Grid.Row="1"
-                          Text="Longitude" 
-                          Detail="{Binding Longitude}"/>
-                <TextCell Grid.Column="1"
-                          Grid.Row="1"
-                          Text="Latitude" 
-                          Detail="{Binding Latitude}"/>
-                <TextCell Grid.Column="2"
-                          Grid.Row="1"
-                          Text="Speed" 
-                          Detail="{Binding Speed}"/>
-                <TextCell Grid.Column="0"
-                          Grid.Row="2"
-                          Text="Internal Voltage" 
-                          Detail="{Binding InternalVoltage}"/>
-                <TextCell Grid.Column="1"
-                          Grid.Row="2"
-                          Text="External Voltage" 
-                          Detail="{Binding ExternalVoltage}"/>
-                <TextCell Grid.Column="2"
-                          Grid.Row="2"
-                          Text="ID" 
-                          Detail="{Binding ID}"/>-->
+                <Label Grid.Column="0"
+                       Grid.Row="2"
+                       Text="{Binding Longitude}"/>
                 
                 <Button Grid.Column="0"
                         Grid.ColumnSpan="3"
-                        Grid.Row="3"
-                        Text="Expand (TODO)"
+                        Grid.Row="5"
+                        Text="Expand"
                         Clicked="Button_Clicked"/>
             </Grid>
         </Frame>

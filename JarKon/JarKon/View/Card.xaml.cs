@@ -8,11 +8,12 @@ using Xamarin.Forms;
 using Xamarin.Forms.Maps;
 using Xamarin.Forms.Xaml;
 
-namespace JarKon
+namespace JarKon.View
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Card : ViewCell
     {
+        
         #region propreties
         public static readonly BindableProperty IDProperty =
             BindableProperty.Create("ID", typeof(int), typeof(Card), 0);
@@ -28,16 +29,16 @@ namespace JarKon
 
         public Position Position
         {
-            get { return (Position)GetValue(IDProperty); }
-            set { SetValue(IDProperty, value); }
+            get { return (Position)GetValue(PositionProperty); }
+            set { SetValue(PositionProperty, value); }
         }
 
         public static readonly BindableProperty LongitudeProperty =
-            BindableProperty.Create("Longitude", typeof(double), typeof(Card), 0.0);
+            BindableProperty.Create("Longitude", typeof(string), typeof(Card), "");
 
-        public double Longitude
+        public string Longitude
         {
-            get { return ((Position)GetValue(IDProperty)).Longitude; }
+            get { return ((Position)GetValue(PositionProperty)).Longitude.ToString(); }
         }
 
         public static readonly BindableProperty LatitudeProperty =
@@ -45,7 +46,7 @@ namespace JarKon
 
         public double Latitude
         {
-            get { return ((Position)GetValue(IDProperty)).Latitude; }
+            get { return ((Position)GetValue(PositionProperty)).Latitude; }
         }
 
         public static readonly BindableProperty SpeedProperty =
@@ -53,8 +54,8 @@ namespace JarKon
 
         public double Speed
         {
-            get { return (double)GetValue(IDProperty); }
-            set { SetValue(IDProperty, value); }
+            get { return (double)GetValue(SpeedProperty); }
+            set { SetValue(SpeedProperty, value); }
         }
 
         public static readonly BindableProperty IgnitionProperty =

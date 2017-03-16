@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace JarKon
+namespace JarKon.View
 {
 	public partial class MainPage : TabbedPage
 	{

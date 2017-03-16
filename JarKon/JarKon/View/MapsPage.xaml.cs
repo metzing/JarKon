@@ -8,7 +8,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Xamarin.Forms.Maps;
 
-namespace JarKon
+namespace JarKon.View
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class MapsPage : ContentPage

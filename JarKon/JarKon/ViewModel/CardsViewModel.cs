@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Xamarin.Forms.Maps;
 
 namespace JarKon.ViewModel
 {
@@ -17,84 +16,64 @@ namespace JarKon.ViewModel
 
             new Vehicle
             {
-                ID = 1,
-                Position = new Position(47.472999, 19.052566),
-                Speed = 69,
-                Ignition = true,
-                InternalBatteryVoltage = 1,
-                ExternalBatteryVoltage = 2,
-                DriverName = "John Doe"
+                vehicleId = 1,
+                position = new Position{
+                    lat=47.472999f,
+                    lng=19.052566f},
+                speed = 69,
+                ignition = true,
+                extBattVolt = 1,
+                intBattVolt = 2,
+                driver = "John Doe"
             }),
 
             new Vehicle
             {
-                ID = 2,
-                Position = new Position(47.408770, 19.017055),
-                Speed = 420,
-                Ignition = false,
-                InternalBatteryVoltage = 3,
-                ExternalBatteryVoltage = 4,
-                DriverName = "Pikachu"
+                vehicleId = 2,
+                position = new Position{
+                    lat=47.408770f,
+                    lng =19.017055f},
+                speed = 420,
+                ignition = false,
+                intBattVolt = 3,
+                extBattVolt = 4,
+                driver = "Pikachu"
             },
             new Vehicle
             {
-                ID = 2,
-                Position = new Position(47.408770, 19.017055),
-                Speed = 420,
-                Ignition = false,
-                InternalBatteryVoltage = 3,
-                ExternalBatteryVoltage = 4,
-                DriverName = "Pikachu"
+                vehicleId = 2,
+                position = new Position{
+                    lat=47.408770f,
+                    lng =19.017055f},
+                speed = 420,
+                ignition = false,
+                intBattVolt = 3,
+                extBattVolt = 4,
+                driver = "Pikachu"
             },
             new Vehicle
             {
-                ID = 2,
-                Position = new Position(47.408770, 19.017055),
-                Speed = 420,
-                Ignition = false,
-                InternalBatteryVoltage = 3,
-                ExternalBatteryVoltage = 4,
-                DriverName = "Pikachu"
+                vehicleId = 2,
+                position = new Position{
+                    lat=47.408770f,
+                    lng =19.017055f},
+                speed = 420,
+                ignition = false,
+                intBattVolt = 3,
+                extBattVolt = 4,
+                driver = "Pikachu"
             },
             new Vehicle
             {
-                ID = 2,
-                Position = new Position(47.408770, 19.017055),
-                Speed = 420,
-                Ignition = false,
-                InternalBatteryVoltage = 3,
-                ExternalBatteryVoltage = 4,
-                DriverName = "Pikachu"
-            },
-            new Vehicle
-            {
-                ID = 2,
-                Position = new Position(47.408770, 19.017055),
-                Speed = 420,
-                Ignition = false,
-                InternalBatteryVoltage = 3,
-                ExternalBatteryVoltage = 4,
-                DriverName = "Pikachu"
-            },
-            new Vehicle
-            {
-                ID = 2,
-                Position = new Position(47.408770, 19.017055),
-                Speed = 420,
-                Ignition = false,
-                InternalBatteryVoltage = 3,
-                ExternalBatteryVoltage = 4,
-                DriverName = "Pikachu"
-            },
-            new Vehicle
-            {
-                ID = 2,
-                Position = new Position(47.408770, 19.017055),
-                Speed = 420,
-                Ignition = false,
-                InternalBatteryVoltage = 3,
-                ExternalBatteryVoltage = 4,
-                DriverName = "Pikachu"
+                vehicleId = 2,
+                position = new Position{
+                    lat=47.408770f,
+                    lng =19.017055f},
+                speed = 420,
+                ignition = false,
+                intBattVolt = 3,
+                extBattVolt = 4,
+                driver = "Pikachu"
             }
             };
 

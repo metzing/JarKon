@@ -9,20 +9,18 @@ using Xamarin.Forms.Xaml;
 
 namespace JarKon.View
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class CardsPage : ContentPage
-	{
-        Grid DataGrid;
-
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class CardsPage : ContentPage
+    {
         public CardsPage()
         {
             InitializeComponent();
-            
+
         }
 
         private void AddDetailsToGrid()
         {
-            
+
         }
-	}
+    }
 }

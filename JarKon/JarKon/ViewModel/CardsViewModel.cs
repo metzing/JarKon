@@ -1,18 +1,19 @@
 ﻿using JarKon.Model;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text;
 
 namespace JarKon.ViewModel
 {
     class CardsViewModel
     {
-        public static List<Vehicle> Vehicles = GetDummyData();
+        public static ObservableCollection<Vehicle> Vehicles = GetDummyData();
 
 
-        public static List<Vehicle> GetDummyData()
+        public static ObservableCollection<Vehicle> GetDummyData()
         {
-            List<Vehicle> retu = new List<Vehicle> {(
+            ObservableCollection<Vehicle> retu = new ObservableCollection<Vehicle> {(
 
             new Vehicle
             {

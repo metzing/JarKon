@@ -13,7 +13,7 @@ namespace JarKon
 		{
 			InitializeComponent();
 
-			MainPage = new JarKon.MainPage();
+			MainPage = new JarKon.View.MainPage();
 		}
 
 		protected override void OnStart ()

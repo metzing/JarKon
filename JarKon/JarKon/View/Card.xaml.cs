@@ -8,11 +8,12 @@ using Xamarin.Forms;
 using Xamarin.Forms.Maps;
 using Xamarin.Forms.Xaml;
 
-namespace JarKon
+namespace JarKon.View
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Card : ViewCell
     {
+        
         #region propreties
         public static readonly BindableProperty IDProperty =
             BindableProperty.Create("ID", typeof(int), typeof(Card), 0);
@@ -28,17 +29,33 @@ namespace JarKon
 
         public Position Position
         {
-            get { return (Position)GetValue(IDProperty); }
-            set { SetValue(IDProperty, value); }
+            get { return (Position)GetValue(PositionProperty); }
+            set { SetValue(PositionProperty, value); }
+        }
+
+        public static readonly BindableProperty LongitudeProperty =
+            BindableProperty.Create("Longitude", typeof(string), typeof(Card), "");
+
+        public string Longitude
+        {
+            get { return ((Position)GetValue(PositionProperty)).Longitude.ToString(); }
+        }
+
+        public static readonly BindableProperty LatitudeProperty =
+            BindableProperty.Create("Latitude", typeof(double), typeof(Card), 0.0);
+
+        public double Latitude
+        {
+            get { return ((Position)GetValue(PositionProperty)).Latitude; }
         }
 
         public static readonly BindableProperty SpeedProperty =
-            BindableProperty.Create("Speed", typeof(float), typeof(Card), 0.0f);
+            BindableProperty.Create("Speed", typeof(double), typeof(Card), 0.0);
 
-        public float Speed
+        public double Speed
         {
-            get { return (float)GetValue(IDProperty); }
-            set { SetValue(IDProperty, value); }
+            get { return (double)GetValue(SpeedProperty); }
+            set { SetValue(SpeedProperty, value); }
         }
 
         public static readonly BindableProperty IgnitionProperty =
@@ -51,20 +68,20 @@ namespace JarKon
         }
 
         public static readonly BindableProperty InternalVoltageProperty =
-                   BindableProperty.Create("InternalVoltage", typeof(float), typeof(Card), 0.0f);
+                   BindableProperty.Create("InternalVoltage", typeof(double), typeof(Card), 0.0);
 
-        public float InternalVoltage
+        public double InternalVoltage
         {
-            get { return (float)GetValue(InternalVoltageProperty); }
+            get { return (double)GetValue(InternalVoltageProperty); }
             set { SetValue(InternalVoltageProperty, value); }
         }
 
         public static readonly BindableProperty ExternalVoltageProperty =
-                  BindableProperty.Create("ExternalVoltage", typeof(float), typeof(Card), 0.0f);
+                  BindableProperty.Create("ExternalVoltage", typeof(double), typeof(Card), 0.0);
 
-        public float ExternalVoltage
+        public double ExternalVoltage
         {
-            get { return (float)GetValue(ExternalVoltageProperty); }
+            get { return (double)GetValue(ExternalVoltageProperty); }
             set { SetValue(ExternalVoltageProperty, value); }
         }
 
@@ -82,6 +99,11 @@ namespace JarKon
         public Card()
         {
             InitializeComponent();
+        }
+
+        private void Button_Clicked(object sender, EventArgs e)
+        {
+
         }
     }
 }

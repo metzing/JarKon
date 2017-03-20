@@ -1,0 +1,138 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:JarKon.ViewModel"
+             xmlns:local="clr-namespace:JarKon.View"
+             x:Class="JarKon.View.CardsPage">
+    <ScrollView>
+        <ListView ItemsSource="{x:Static vm:CardsViewModel.Vehicles}"
+                  HasUnevenRows="True">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <ViewCell.View>
+                            <Frame OutlineColor="Black"
+                                   HasShadow="True"
+                                   HorizontalOptions="Fill"
+                                   VerticalOptions="Fill"
+                                   Margin="6">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="3*"/>
+                                        <RowDefinition Height="4*"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="2*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <BoxView Grid.Column="0"
+                                             Grid.Row="0"
+                                             Color="Lime"/>
+                                    
+                                    <StackLayout Grid.Column="1"
+                                                 Grid.Row="0">
+                                        <Label HorizontalOptions="End"
+                                               Text="{Binding DriverName}"/>
+                                        <Label HorizontalOptions="End"
+                                               Text="{Binding DriverName}"/>
+                                        <Label HorizontalOptions="End"
+                                               Text="{Binding DriverName}"/>
+                                    </StackLayout>
+
+                                    <Grid Grid.Column="0"
+                                          Grid.ColumnSpan="2"
+                                          Grid.Row="1"
+                                          x:Name="DataGrid"
+                                          ColumnSpacing="2"
+                                          RowSpacing="2">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        
+                                        <Frame Grid.Row="0"
+                                               Grid.Column="0"
+                                               BackgroundColor="Gray"
+                                               OutlineColor="Black">
+                                            <StackLayout>
+                                            <Label Text="Longitude"
+                                                   HorizontalOptions="Start"/>
+                                            <Label Text="{Binding Position.Longitude}"
+                                                   HorizontalOptions="End"/>
+                                            </StackLayout>
+                                        </Frame>
+                                        <Frame Grid.Row="0"
+                                               Grid.Column="1"
+                                               BackgroundColor="Gray"
+                                               OutlineColor="Black">
+                                            <StackLayout>
+                                            <Label Text="Latitude"
+                                                   HorizontalOptions="Start"/>
+                                            <Label Text="{Binding Position.Latitude}"
+                                                   HorizontalOptions="End"/>
+                                            </StackLayout>
+                                        </Frame>
+                                        <Frame Grid.Row="0"
+                                               Grid.Column="2"
+                                               BackgroundColor="Gray"
+                                               OutlineColor="Black">
+                                            <StackLayout>
+                                                <Label Text="ID"
+                                                   HorizontalOptions="Start"/>
+                                                <Label Text="{Binding ID}"
+                                                   HorizontalOptions="End"/>
+                                            </StackLayout>
+                                        </Frame>
+                                        <Frame Grid.Row="1"
+                                               Grid.Column="0"
+                                               BackgroundColor="Gray"
+                                               OutlineColor="Black">
+                                            <StackLayout>
+                                                <Label Text="Speed"
+                                                   HorizontalOptions="Start"/>
+                                                <Label Text="{Binding Speed}"
+                                                   HorizontalOptions="End"/>
+                                            </StackLayout>
+                                        </Frame>
+                                        <Frame Grid.Row="1"
+                                               Grid.Column="1"
+                                               BackgroundColor="Gray"
+                                               OutlineColor="Black">
+                                            <StackLayout>
+                                                <Label Text="Ignition"
+                                                   HorizontalOptions="Start"/>
+                                                <Label Text="{Binding Ignition}"
+                                                   HorizontalOptions="End"/>
+                                            </StackLayout>
+                                        </Frame>
+                                        <Frame Grid.Row="1"
+                                               Grid.Column="2"
+                                               BackgroundColor="Gray"
+                                               OutlineColor="Black">
+                                            <StackLayout>
+                                                <Label Text="Internal Voltage"
+                                                   HorizontalOptions="Start"/>
+                                                <Label Text="{Binding InternalBatteryVoltage}"
+                                                   HorizontalOptions="End"/>
+                                            </StackLayout>
+                                        </Frame>
+                                    </Grid>
+                                    <Button Grid.Column="0"
+                                            Grid.ColumnSpan="2"
+                                            Grid.Row="3"
+                                            Text="Expand"/>
+                                </Grid>
+                            </Frame>
+                        </ViewCell.View>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </ScrollView>
+</ContentPage>

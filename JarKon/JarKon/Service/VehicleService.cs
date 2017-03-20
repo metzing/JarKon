@@ -6,6 +6,6 @@ namespace JarKon.Service
 {
     class VehicleService
     {
-
+        
     }
 }

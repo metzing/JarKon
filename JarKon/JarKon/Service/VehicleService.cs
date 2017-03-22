@@ -9,49 +9,210 @@ using System.Threading.Tasks;
 
 namespace JarKon.Service
 {
-    public class ServiceException : Exception
-    {
-        public string Name { get; set; }
-        public string Group { get; set; }
-    }
-
+    /// <summary>
+    /// Provides an interface for the API
+    /// </summary>
     public class VehicleService
     {
+        private Uri BaseURL = new Uri("http://jarkon.hu/api");
+
+        /// <summary>
+        /// Base method for HTTP GET requests
+        /// </summary>
+        /// <typeparam name="T">Type of the object requested</typeparam>
+        /// <param name="url">The URL of the endpoint</param>
+        /// <returns></returns>
         private async Task<T> GetAsync<T>(Uri url)
         {
             using (var client = new HttpClient())
             {
-                client.DefaultRequestHeaders.Add("APIKey", "rdc4YE=sZRH&^G+D4b73cqA2QqC*fzJ4SwB2C&=zB#CC@Aa%w3_K2zW?ysU@bPUQxW ^ P ^?3_4fW38TV ^ 5texx@e4XGNBUkwwt ^ n7RkmgxDuM3R4 ?% L ^ dfYy8FS = BDm");
+                client.DefaultRequestHeaders.Add("APIKey", "rdc4YE=sZRH&^G+D4b73cqA2QqC*fzJ4SwB2C&=zB#CC@Aa%w3_K2zW?ysU@bPUQxW^P^?3_4fW38TV^5texx@e4XGNBUkwwt^^n7RkmgxDuM3R4 ?%L^dfYy8FS=BDm");
                 var response = await client.GetAsync(url);
                 var json = await response.Content.ReadAsStringAsync();
 
-                if (CheckError(json))
-                {
-                    var jobject = JObject.Parse(json);
-                    throw new ServiceException
-                    {
-                        Name = (string)jobject["name"],
-                        Group = (string)jobject["group"]
-                    };
-                }
+                CheckError(json);
 
                 return JsonConvert.DeserializeObject<T>(json);
+            }
+        }
+        /// <summary>
+        /// Base method for HTTP POST requests
+        /// </summary>
+        /// <typeparam name="T">Type of object to be posted</typeparam>
+        /// <param name="url">Endpoint the object is posted to</param>
+        /// <param name="data">The actual object posted</param>
+        private async Task<string> PostAsync<T>(Uri url, T data)
+        {
+            using (var client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Add("APIKey", "rdc4YE=sZRH&^G+D4b73cqA2QqC*fzJ4SwB2C&=zB#CC@Aa%w3_K2zW?ysU@bPUQxW^P^?3_4fW38TV^5texx@e4XGNBUkwwt^^n7RkmgxDuM3R4 ?%L^dfYy8FS=BDm");
 
+                var json = JsonConvert.SerializeObject(data);
+                var httpContent = new StringContent(json);
+
+                var response = await (await client.PostAsync(url, httpContent)).Content.ReadAsStringAsync();
+
+                CheckError(response);
+
+                return response;
             }
         }
 
-        private bool CheckError(string json)
+        /// <summary>
+        /// Base method for HTTP PUT requests
+        /// </summary>
+        /// <typeparam name="T">Type of object to be put</typeparam>
+        /// <param name="url">Endpoint the object is put to</param>
+        /// <param name="data">The actual object put</param>
+        private async Task<string> PutAsync<T>(Uri url, T data)
+        {
+            using (var client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Add("APIKey", "rdc4YE=sZRH&^G+D4b73cqA2QqC*fzJ4SwB2C&=zB#CC@Aa%w3_K2zW?ysU@bPUQxW^P^?3_4fW38TV^5texx@e4XGNBUkwwt^^n7RkmgxDuM3R4 ?%L^dfYy8FS=BDm");
+
+                var json = JsonConvert.SerializeObject(data);
+                var httpContent = new StringContent(json);
+
+                var response = await (await client.PutAsync(url, httpContent)).Content.ReadAsStringAsync();
+
+                CheckError(response);
+
+                return response;
+            }
+        }
+
+        /// <summary>
+        /// Checks if the server's response was an ErrorResponse, throws an exception if so
+        /// </summary>
+        /// <param name="json">Response of the server</param>
+        private void CheckError(string json)
         {
             var testObj = JObject.Parse(json);
-            JToken token;
 
-            return testObj.TryGetValue("group", out token);
+            if ((string)testObj["type"] == "ErrorResponse")
+            {
+                var error = JsonConvert.DeserializeObject<ErrorResponse>(json);
+                throw new ServiceException
+                {
+                    Name = error.name,
+                    Group = error.group,
+                    Message = error.message
+                };
+            }
         }
 
-        public async Task<List<Vehicle>> GetVehicles()
+        /// <summary>
+        /// Handles a thrown ServiceException by displaying an alert to the tester
+        /// </summary>
+        /// <param name="se">Exception thrown</param>
+        private void HandleException(ServiceException se)
         {
-            return null;
+            Xamarin.Forms.Application.Current.MainPage.DisplayAlert($"Hiba: {se.Name}", se.Message, "OK");
+        }
+        /// <summary>
+        /// Sends a ping to the API
+        /// </summary>
+        /// <returns></returns>
+        public async Task GetPing()
+        {
+            try
+            {
+                await GetAsync<PingResponse>(new Uri(BaseURL, "/ping"));
+            }
+            catch(ServiceException se)
+            {
+                HandleException(se);
+            }
         }
 
+        /// <summary>
+        /// Logs in the user using username and password
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns>New token</returns>
+        public async Task<LoginResponse> Login(LoginRequest data)
+        {
+            string json = await PostAsync(new Uri(BaseURL, "/users/login"), data);
+
+            return JsonConvert.DeserializeObject<LoginResponse>(json);
+        }
+
+        /// <summary>
+        /// Logs in the user using it's token
+        /// </summary>
+        /// <param name="token">Old token</param>
+        /// <returns>New token</returns>
+        public async Task<LoginResponse> LoginWithToken(RenewLoginRequest request)
+        {
+            string json = await PutAsync(new Uri(BaseURL, "users/login"), request);
+
+            return JsonConvert.DeserializeObject<LoginResponse>(json);
+        }
+        /// <summary>
+        /// Get the header of all vehicles
+        /// </summary>
+        /// <returns>Vehicle headers</returns>
+        public async Task<VehicleResponse> GetVehicles(GeneralRequest request)
+        {
+            VehicleResponse result = null;
+            try
+            {
+                result = await GetAsync<VehicleResponse>(new Uri(BaseURL, $"/vehicles?userId={request.userId}"));
+            }
+            catch (ServiceException se)
+            {
+                HandleException(se);
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// Get the state of a vehicle
+        /// </summary>
+        /// <param name="vehicleID">ID of the vehicle</param>
+        /// <returns>Status of the vehicle</returns>
+        public async Task<VehicleStateResponse> GetVehicleState(VehicleStatusRequest request)
+        {
+            VehicleStateResponse result = null;
+            try
+            {
+                result = await GetAsync<VehicleStateResponse>(new Uri(BaseURL, $"/vehicles/states?vehicleId={request.vehicleId}"));
+            }
+            catch (ServiceException se)
+            {
+                HandleException(se);
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// Gets the state of all of the vehicles
+        /// </summary>
+        /// <returns>State of all the vehicles</returns>
+        public async Task<VehicleStateResponse> GetVehicleStates(GeneralRequest request)
+        {
+            VehicleStateResponse result = null;
+            try
+            {
+                result = await GetAsync<VehicleStateResponse>(new Uri(BaseURL, $"/states?userId={request.userId}"));
+            }
+            catch (ServiceException se)
+            {
+                HandleException(se);
+            }
+            return result;
+        }
+
+        
+    }
+
+    /// <summary>
+    /// Indicates an error with API usage, or reachability. For testing purposes.
+    /// </summary>
+    public class ServiceException : Exception
+    {
+        public string Name { get; set; }
+        public string Group { get; set; }
+        new public string Message { get; set; }
     }
 }

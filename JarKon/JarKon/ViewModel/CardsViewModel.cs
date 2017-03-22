@@ -8,14 +8,14 @@ namespace JarKon.ViewModel
 {
     class CardsViewModel
     {
-        public static ObservableCollection<Vehicle> Vehicles = GetDummyData();
+        public static ObservableCollection<VehicleState> Vehicles = GetDummyData();
 
 
-        public static ObservableCollection<Vehicle> GetDummyData()
+        public static ObservableCollection<VehicleState> GetDummyData()
         {
-            ObservableCollection<Vehicle> retu = new ObservableCollection<Vehicle> {(
+            ObservableCollection<VehicleState> retu = new ObservableCollection<VehicleState> {(
 
-            new Vehicle
+            new VehicleState
             {
                 vehicleId = 1,
                 position = new Position{
@@ -28,7 +28,7 @@ namespace JarKon.ViewModel
                 driver = "John Doe"
             }),
 
-            new Vehicle
+            new VehicleState
             {
                 vehicleId = 2,
                 position = new Position{
@@ -40,7 +40,7 @@ namespace JarKon.ViewModel
                 extBattVolt = 4,
                 driver = "Pikachu"
             },
-            new Vehicle
+            new VehicleState
             {
                 vehicleId = 2,
                 position = new Position{
@@ -52,7 +52,7 @@ namespace JarKon.ViewModel
                 extBattVolt = 4,
                 driver = "Pikachu"
             },
-            new Vehicle
+            new VehicleState
             {
                 vehicleId = 2,
                 position = new Position{
@@ -64,7 +64,7 @@ namespace JarKon.ViewModel
                 extBattVolt = 4,
                 driver = "Pikachu"
             },
-            new Vehicle
+            new VehicleState
             {
                 vehicleId = 2,
                 position = new Position{

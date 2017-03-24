@@ -35,13 +35,14 @@ namespace JarKon.Service
                 return JsonConvert.DeserializeObject<T>(json);
             }
         }
+
         /// <summary>
         /// Base method for HTTP POST requests
         /// </summary>
         /// <typeparam name="T">Type of object to be posted</typeparam>
         /// <param name="url">Endpoint the object is posted to</param>
         /// <param name="data">The actual object posted</param>
-        private async Task<string> PostAsync<T>(Uri url, T data)
+        private async Task<LoginResponse> PostAsync<T>(Uri url, T data)
         {
             using (var client = new HttpClient())
             {
@@ -52,9 +53,10 @@ namespace JarKon.Service
 
                 var response = await (await client.PostAsync(url, httpContent)).Content.ReadAsStringAsync();
 
+
                 CheckError(response);
 
-                return response;
+                return JsonConvert.DeserializeObject<LoginResponse>(response);
             }
         }
 
@@ -64,7 +66,7 @@ namespace JarKon.Service
         /// <typeparam name="T">Type of object to be put</typeparam>
         /// <param name="url">Endpoint the object is put to</param>
         /// <param name="data">The actual object put</param>
-        private async Task<string> PutAsync<T>(Uri url, T data)
+        private async Task<LoginResponse> PutAsync<T>(Uri url, T data)
         {
             using (var client = new HttpClient())
             {
@@ -77,7 +79,7 @@ namespace JarKon.Service
 
                 CheckError(response);
 
-                return response;
+                return JsonConvert.DeserializeObject<LoginResponse>(response);
             }
         }
 
@@ -109,32 +111,42 @@ namespace JarKon.Service
         {
             Xamarin.Forms.Application.Current.MainPage.DisplayAlert($"Hiba: {se.Name}", se.Message, "OK");
         }
+        
         /// <summary>
-        /// Sends a ping to the API
+        /// Sends a ping to the API. For dev purposes, should not be in the final build.
         /// </summary>
         /// <returns></returns>
-        public async Task GetPing()
+        public async Task<PingResponse> GetPing()
         {
+            PingResponse response = null;
             try
             {
-                await GetAsync<PingResponse>(new Uri(BaseURL, "/ping"));
+                response = await GetAsync<PingResponse>(new Uri(BaseURL, "/ping"));
             }
             catch(ServiceException se)
             {
                 HandleException(se);
             }
+            return response;
         }
 
         /// <summary>
         /// Logs in the user using username and password
         /// </summary>
-        /// <param name="data"></param>
+        /// <param name="request"></param>
         /// <returns>New token</returns>
-        public async Task<LoginResponse> Login(LoginRequest data)
+        public async Task<LoginResponse> Login(LoginRequest request)
         {
-            string json = await PostAsync(new Uri(BaseURL, "/users/login"), data);
-
-            return JsonConvert.DeserializeObject<LoginResponse>(json);
+            LoginResponse response = null;
+            try
+            {
+                response = await PostAsync(new Uri(BaseURL, "/users/login"), request);
+            }
+            catch(ServiceException se)
+            {
+                HandleException(se);
+            }
+            return response;
         }
 
         /// <summary>
@@ -144,9 +156,16 @@ namespace JarKon.Service
         /// <returns>New token</returns>
         public async Task<LoginResponse> LoginWithToken(RenewLoginRequest request)
         {
-            string json = await PutAsync(new Uri(BaseURL, "users/login"), request);
-
-            return JsonConvert.DeserializeObject<LoginResponse>(json);
+            LoginResponse response = null;
+            try
+            {
+                response = await PutAsync(new Uri(BaseURL, "/users/login"), request);
+            }
+            catch (ServiceException se)
+            {
+                HandleException(se);
+            }
+            return response;
         }
         /// <summary>
         /// Get the header of all vehicles
@@ -201,9 +220,7 @@ namespace JarKon.Service
                 HandleException(se);
             }
             return result;
-        }
-
-        
+        }              
     }
 
     /// <summary>

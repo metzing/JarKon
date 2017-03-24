@@ -26,7 +26,7 @@
         public object fuel2 { get; set; }
         public object sumBurnedFuel { get; set; }
         public object axleNumSet { get; set; }
-        public object driver { get; set; }
+        public string driver { get; set; }
     }
 
     public class Position

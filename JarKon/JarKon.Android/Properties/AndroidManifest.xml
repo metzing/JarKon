@@ -9,6 +9,6 @@
 	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 	<uses-permission android:name="android.permission.INTERNET" />
 	<application android:label="JarKon.Android">
-    <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyBOQV2SGnNpFXqkKyvyuvlODgwKYmY04AM" />
-  </application>
+		<meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyBOQV2SGnNpFXqkKyvyuvlODgwKYmY04AM" />
+	</application>
 </manifest>

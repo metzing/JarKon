@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using Xamarin.Forms.Maps;
 
 namespace JarKon.View
 {
@@ -16,7 +15,6 @@ namespace JarKon.View
 		public MapsPage ()
 		{
 			InitializeComponent ();
-            map.MoveToRegion(new MapSpan(new Position(47.4811281, 18.9902184),1,1));
 		}
 	}
 }

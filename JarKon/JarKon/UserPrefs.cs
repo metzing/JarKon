@@ -6,6 +6,6 @@ namespace JarKon
 {
     class UserPrefs
     {
-        public static List<string> DisplayedVehicleProperties;
+       // public static List<string> DisplayedVehicleProperties;
     }
 }

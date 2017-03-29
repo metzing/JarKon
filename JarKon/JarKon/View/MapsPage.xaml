@@ -9,7 +9,8 @@
                   HorizontalOptions="FillAndExpand"
                   IsShowingUser="True"
                   MapType="Street"
-                  x:Name="map"/>
+                  x:Name="map"
+                  x:FieldModifier="public"/>
     </StackLayout>
 
 </ContentPage>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JarKon.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,7 +19,8 @@ namespace JarKon
 
 		protected override void OnStart ()
 		{
-			// Handle when your app starts
+            MapsPageViewModel mapsVM = new MapsPageViewModel();
+            mapsVM.LoadPins();
 		}
 
 		protected override void OnSleep ()

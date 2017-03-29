@@ -33,7 +33,6 @@
 		<string>Icon-60@2x.png</string>
 		<string>Icon-76.png</string>
 		<string>Icon-76@2x.png</string>
-		<string>Default.png</string>
 		<string>Default@2x.png</string>
 		<string>Default-568h@2x.png</string>
 		<string>Default-Portrait.png</string>
@@ -45,11 +44,32 @@
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen.storyboard</string>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Can we use your location</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>We are using your location</string>
 	<key>CFBundleShortVersionString</key>
 	<string></string>
+	<key>UIPrerenderedIcon</key>
+	<false/>
+	<key>UIStatusBarTintParameters</key>
+	<dict>
+		<key>UINavigationBar</key>
+		<dict>
+			<key>Style</key>
+			<string>UIBarStyleDefault</string>
+			<key>Translucent</key>
+			<false/>
+			<key>TintColor</key>
+			<dict>
+				<key>Red</key>
+				<real>0.72156862745098</real>
+				<key>Green</key>
+				<real>0.819607843137255</real>
+				<key>Blue</key>
+				<real>0.913725490196078</real>
+			</dict>
+		</dict>
+	</dict>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>We are using your location</string>
 </dict>
 </plist>

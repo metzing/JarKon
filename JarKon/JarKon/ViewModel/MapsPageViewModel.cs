@@ -23,8 +23,14 @@ namespace JarKon.ViewModel
                 Pin newPin = new Pin();
                 newPin.Position = new Xamarin.Forms.GoogleMaps.Position(vehicle.position.lat, vehicle.position.lng);
                 newPin.Label = vehicle.driver;
+                newPin.Icon = GetIconFor(vehicle);
                 map.Pins.Add(newPin);
             }
+        }
+
+        private BitmapDescriptor GetIconFor(VehicleState vehicle)
+        {
+            return BitmapDescriptorFactory.FromBundle("vehicle_bubble_13_green.png");
         }
     }
 }

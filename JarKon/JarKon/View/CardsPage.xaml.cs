@@ -12,7 +12,7 @@ namespace JarKon.View
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class CardsPage : ContentPage
-	{
+    {
         public class SimpleObject
         {
             public string TextValue

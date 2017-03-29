@@ -1,17 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:vm="clr-namespace:JarKon.ViewModel"
              xmlns:local="clr-namespace:JarKon.View"
-             x:Class="JarKon.View.CardsPage">
-    <ScrollView>
-        <ListView ItemsSource="{x:Static vm:CardsViewModel.Vehicles}"
-                  HasUnevenRows="True">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <local:Card/>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-    </ScrollView>
+             xmlns:ctrl="clr-namespace:Jarkon.ViewModel"
+             x:Class="JarKon.View.CardsPage"
+             BackgroundColor ="White">
+  
+
+   
+ 
+  <ScrollView>
+      <StackLayout
+        HorizontalOptions="StartAndExpand"
+        BackgroundColor ="White"
+        Padding="1,1,1,1">
+        
+        <ctrl:Accordion x:Name="MainOne" />
+    
+      </StackLayout>
+     
+   </ScrollView>
+     
 </ContentPage>

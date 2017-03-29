@@ -18,6 +18,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Service\Responses.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Service\VehicleService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\MapsPageViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\Accordion.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\CustomFrame.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)View\Card.xaml.cs">
       <DependentUpon>Card.xaml</DependentUpon>
       <SubType>Code</SubType>

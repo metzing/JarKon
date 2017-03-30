@@ -9,9 +9,9 @@
 
    
  
-  <ScrollView>
+  <ScrollView HorizontalOptions="FillAndExpand">
       <StackLayout
-        HorizontalOptions="StartAndExpand"
+        HorizontalOptions="FillAndExpand"
         BackgroundColor ="White"
         Padding="1,1,1,1">
         

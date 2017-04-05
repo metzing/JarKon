@@ -42,7 +42,13 @@ namespace JarKon.ViewModel
 
         private void OnPinClicked(object sender, PinClickedEventArgs e)
         {
-            e.Pin.Icon = BitmapDescriptorFactory.FromView(new ContentView()
+            e.Pin.Icon = BitmapDescriptorFactory.FromView(
+                new Accordion()
+                {
+                    WidthRequest=300,
+                    HeightRequest=300
+                }
+                /*new ContentView()
             {
                 WidthRequest = 200,
                 HeightRequest = 100,
@@ -52,7 +58,8 @@ namespace JarKon.ViewModel
                     Text = "Content",
                     TextColor = Color.Black
                 }
-            });
+            }*/
+            );
 
             if (previousPin != null)
                 previousPin.Icon = GetIconFor(Provider.Vehicles.Find(v => v.plateNumber == previousPin.Label));

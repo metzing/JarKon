@@ -16,6 +16,7 @@ namespace Jarkon.ViewModel
         {
             var mMainLayout = new StackLayout();
             Content = mMainLayout;
+            DataBind();
         }
 
         public Accordion(List<AccordionSource> aSource)

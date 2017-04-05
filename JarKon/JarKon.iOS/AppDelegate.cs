@@ -23,7 +23,8 @@ namespace JarKon.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.Init();
-            global::Xamarin.FormsGoogleMaps.Init("AIzaSyBzrWsss8fKFaXSO5T_bxM_-OgptG5lsws");
+            global::Xamarin.FormsMaps.Init();
+
             LoadApplication(new JarKon.App());
 
             return base.FinishedLaunching(app, options);

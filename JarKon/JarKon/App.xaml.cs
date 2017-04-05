@@ -1,4 +1,5 @@
-﻿using JarKon.ViewModel;
+﻿using JarKon.Core;
+using JarKon.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,8 @@ namespace JarKon
 {
 	public partial class App : Application
 	{
+        public Provider provider { get; private set; }
+
 		public App ()
 		{
 			InitializeComponent();
@@ -19,6 +22,7 @@ namespace JarKon
 
 		protected override void OnStart ()
 		{
+            provider = new Provider();
             MapsPageViewModel mapsVM = new MapsPageViewModel();
             mapsVM.LoadPins();
 		}

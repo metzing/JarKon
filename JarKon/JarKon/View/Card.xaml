@@ -8,7 +8,9 @@
                HasShadow="True"
                HorizontalOptions="Fill"
                VerticalOptions="Fill"
-               Margin="6">
+               Margin="6"
+               WidthRequest="300"
+               HeightRequest="300">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="3*"/>

@@ -1,36 +1,40 @@
-﻿using JarKon.Model;
+﻿using Jarkon.ViewModel;
+using JarKon.Core;
+using JarKon.Model;
 using JarKon.View;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
-using Xamarin.Forms.GoogleMaps;
+using Xamarin.Forms;
+using Xamarin.Forms.Maps;
 
 namespace JarKon.ViewModel
 {
     class MapsPageViewModel
     {
-        public ObservableCollection<VehicleState> vehicles = CardsViewModel.GetDummyData();
-
         private MapsPage mapsPage = ((MainPage)App.Current.MainPage).MapsPage;
+        private Provider Provider { get { return ((App)App.Current).provider; } }
 
         public void LoadPins()
         {
-            Map map = mapsPage.Map;
+            CustomMap map = mapsPage.Map;
 
-            foreach (var vehicle in vehicles)
+            foreach (var vehicle in Provider.Vehicles)
             {
-                Pin newPin = new Pin();
-                newPin.Position = new Xamarin.Forms.GoogleMaps.Position(vehicle.position.lat, vehicle.position.lng);
-                newPin.Label = vehicle.driver;
-                newPin.Icon = GetIconFor(vehicle);
-                map.Pins.Add(newPin);
+                CustomPin newPin = new CustomPin();
+                VehicleState state = Provider.VehicleStates.Find(s => s.vehicleId == vehicle.vehicleId);
+                newPin.Pin.Position = new Xamarin.Forms.Maps.Position(state.position.lat, state.position.lng);
+                newPin.Pin.Label = vehicle.plateNumber;
+                newPin.Pin.Clicked += Pop;
+                map.CustomPins.Add(newPin);
             }
         }
 
-        private BitmapDescriptor GetIconFor(VehicleState vehicle)
+        private void Pop(object sender, EventArgs e)
         {
-            return BitmapDescriptorFactory.FromBundle("vehicle_bubble_13_green.png");
+            
         }
     }
 }
+

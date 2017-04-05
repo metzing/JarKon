@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
 using Xamarin.Forms;
-using Xamarin.Forms.GoogleMaps;
+using Xamarin.Forms.Maps;
 
 namespace JarKon.ViewModel
 {
@@ -25,45 +25,12 @@ namespace JarKon.ViewModel
             {
                 Pin newPin = new Pin();
                 VehicleState state = Provider.VehicleStates.Find(s => s.vehicleId == vehicle.vehicleId);
-                newPin.Position = new Xamarin.Forms.GoogleMaps.Position(state.position.lat, state.position.lng);
+                newPin.Position = new Xamarin.Forms.Maps.Position(state.position.lat, state.position.lng);
                 newPin.Label = vehicle.plateNumber;
-                newPin.Icon = GetIconFor(vehicle);
                 map.Pins.Add(newPin);
+
             }
-            map.PinClicked += OnPinClicked;
-        }
-
-
-
-        private BitmapDescriptor GetIconFor(Vehicle vehicle)
-        {
-            return BitmapDescriptorFactory.FromBundle("vehicle_bubble_13_green.png");
-        }
-
-        private void OnPinClicked(object sender, PinClickedEventArgs e)
-        {
-            e.Pin.Icon = BitmapDescriptorFactory.FromView(
-                new Accordion()
-                {
-                    WidthRequest=300,
-                    HeightRequest=300
-                }
-                /*new ContentView()
-            {
-                WidthRequest = 200,
-                HeightRequest = 100,
-                BackgroundColor = Color.White,
-                Content = new Label
-                {
-                    Text = "Content",
-                    TextColor = Color.Black
-                }
-            }*/
-            );
-
-            if (previousPin != null)
-                previousPin.Icon = GetIconFor(Provider.Vehicles.Find(v => v.plateNumber == previousPin.Label));
-            previousPin = e.Pin;
         }
     }
 }
+

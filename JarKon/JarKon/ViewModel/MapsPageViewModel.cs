@@ -14,22 +14,26 @@ namespace JarKon.ViewModel
     class MapsPageViewModel
     {
         private MapsPage mapsPage = ((MainPage)App.Current.MainPage).MapsPage;
-        private Pin previousPin;
         private Provider Provider { get { return ((App)App.Current).provider; } }
 
         public void LoadPins()
         {
-            Map map = mapsPage.Map;
+            CustomMap map = mapsPage.Map;
 
             foreach (var vehicle in Provider.Vehicles)
             {
-                Pin newPin = new Pin();
+                CustomPin newPin = new CustomPin();
                 VehicleState state = Provider.VehicleStates.Find(s => s.vehicleId == vehicle.vehicleId);
-                newPin.Position = new Xamarin.Forms.Maps.Position(state.position.lat, state.position.lng);
-                newPin.Label = vehicle.plateNumber;
-                map.Pins.Add(newPin);
-
+                newPin.Pin.Position = new Xamarin.Forms.Maps.Position(state.position.lat, state.position.lng);
+                newPin.Pin.Label = vehicle.plateNumber;
+                newPin.Pin.Clicked += Pop;
+                map.CustomPins.Add(newPin);
             }
+        }
+
+        private void Pop(object sender, EventArgs e)
+        {
+            
         }
     }
 }

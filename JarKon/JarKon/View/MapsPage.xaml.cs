@@ -10,20 +10,41 @@ using Xamarin.Forms.Xaml;
 
 namespace JarKon.View
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class MapsPage : ContentPage
-	{
-		public MapsPage ()
-		{
-			InitializeComponent ();
-		}
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class MapsPage : ContentPage
+    {
+        public MapsPage()
+        {
+            InitializeComponent();
+        }
 
-        public Map Map
+        public CustomMap Map
         {
             get
             {
                 return map;
             }
         }
-	}
+    }
+
+    public class CustomMap : Map
+    {
+        public List<CustomPin> CustomPins { get; set; }
+
+        public CustomMap()
+        {
+            CustomPins = new List<CustomPin>();
+        }
+    }
+
+    public class CustomPin
+    {
+        public Pin Pin { get; set; }
+        public bool isSelected;
+
+        public CustomPin()
+        {
+            Pin = new Pin();
+        }
+    }
 }

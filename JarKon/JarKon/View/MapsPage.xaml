@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
+             xmlns:local="clr-namespace:JarKon.View"
              x:Class="JarKon.View.MapsPage">
 
 
@@ -29,13 +29,14 @@
 
         <ContentView Style="{StaticResource InternalViewStyle}">
             <StackLayout VerticalOptions="FillAndExpand"
-                             HorizontalOptions="FillAndExpand">
-                <maps:Map VerticalOptions="FillAndExpand"
-                              HorizontalOptions="FillAndExpand"
-                              IsShowingUser="True"
-                              MapType="Street"
-                              x:Name="map"
-                              x:FieldModifier="public"/>
+                         HorizontalOptions="FillAndExpand">
+
+                <local:CustomMap VerticalOptions="FillAndExpand"
+                                 HorizontalOptions="FillAndExpand"
+                                 IsShowingUser="True"
+                                 MapType="Street"
+                                 x:Name="map"
+                                 x:FieldModifier="public"/>
             </StackLayout>
         </ContentView>
 

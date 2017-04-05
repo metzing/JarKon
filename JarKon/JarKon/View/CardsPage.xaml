@@ -5,18 +5,18 @@
              xmlns:ctrl="clr-namespace:Jarkon.ViewModel"
              x:Class="JarKon.View.CardsPage"
              BackgroundColor ="White">
-  
-
-   
+  <ContentPage.Padding>
+    <OnPlatform x:TypeArguments="Thickness"
+                iOS ="0,30,0,0"
+                Android ="20,20,20,20 "/>
+  </ContentPage.Padding>
  
   <ScrollView HorizontalOptions="FillAndExpand">
       <StackLayout
         HorizontalOptions="FillAndExpand"
         BackgroundColor ="White"
-        Padding="1,1,1,1">
-        
+        Padding="20,0,20,0">
         <ctrl:Accordion x:Name="MainOne" />
-    
       </StackLayout>
      
    </ScrollView>

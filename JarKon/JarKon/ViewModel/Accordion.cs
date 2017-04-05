@@ -39,6 +39,7 @@ namespace Jarkon.ViewModel
 
         public void DataBind()
         {
+           
             var vMainLayout = new StackLayout();
             vMainLayout.HeightRequest = 0;
             if (mDataSource != null)
@@ -46,10 +47,7 @@ namespace Jarkon.ViewModel
                 foreach (var vSingleItem in mDataSource)
                 {
                     
-                
-
-                    
-
+          
                     vMainLayout.HeightRequest += 300;
 
                     // var vTopRight = new AccordionTopRightView();
@@ -108,71 +106,9 @@ namespace Jarkon.ViewModel
                         BackgroundColor = Color.White,
                         Children =
                         {
-                            new StackLayout
-                            {
-                                Orientation = StackOrientation.Vertical,
-                                VerticalOptions = LayoutOptions.FillAndExpand,
-                                HorizontalOptions = LayoutOptions.FillAndExpand,
-                                BackgroundColor = Color.FromHex("f4f4f3"),
-                                Padding = 5,
-                                Children = {
-                                    new Label { Text = "Lat",
-                                                TextColor = Color.Black,
-                                                HorizontalOptions = LayoutOptions.StartAndExpand
-
-                                    },
-                                    new Label { Text = "47.445416",
-                                        TextColor = Color.Black,
-                                        FontAttributes = FontAttributes.Bold,
-                                        HorizontalOptions = LayoutOptions.EndAndExpand,
-
-                                    }
-                               }
-                            },
-
-                            new StackLayout
-                            {
-                                Orientation = StackOrientation.Vertical,
-                                VerticalOptions = LayoutOptions.FillAndExpand,
-                                HorizontalOptions = LayoutOptions.FillAndExpand,
-                                BackgroundColor = Color.FromHex("f4f4f3"),
-                                Padding = 5,
-                                Children = {
-                                    new Label { Text = "Lat",
-                                                TextColor = Color.Black,
-                                                HorizontalOptions = LayoutOptions.StartAndExpand
-
-                                    },
-                                    new Label { Text = "47.445416",
-                                        TextColor = Color.Black,
-                                        FontAttributes = FontAttributes.Bold,
-                                        HorizontalOptions = LayoutOptions.EndAndExpand,
-
-                                    }
-                               }
-                            },
-
-                            new StackLayout
-                            {
-                                Orientation = StackOrientation.Vertical,
-                                VerticalOptions = LayoutOptions.FillAndExpand,
-                                HorizontalOptions = LayoutOptions.FillAndExpand,
-                                BackgroundColor = Color.FromHex("f4f4f3"),
-                                Padding = 5,
-                                Children = {
-                                    new Label { Text = "Lat",
-                                                TextColor = Color.Black,
-                                                HorizontalOptions = LayoutOptions.StartAndExpand
-
-                                    },
-                                    new Label { Text = "47.445416",
-                                        TextColor = Color.Black,
-                                        FontAttributes = FontAttributes.Bold,
-                                        HorizontalOptions = LayoutOptions.EndAndExpand,
-
-                                    }
-                               }
-                            }
+                            new AccordionCardView("Lat","47.444"),
+                            new AccordionCardView("Lat","47.444"),
+                            new AccordionCardView("Lat","47.444"),
                         }
 
 
@@ -186,97 +122,13 @@ namespace Jarkon.ViewModel
                         BackgroundColor = Color.White,
                         Children =
                         {
-                            new StackLayout
-                            {
-                                Orientation = StackOrientation.Vertical,
-                                VerticalOptions = LayoutOptions.FillAndExpand,
-                                HorizontalOptions = LayoutOptions.FillAndExpand,
-                                 BackgroundColor = Color.FromHex("f4f4f3"),
-                                Padding = 5,
-                                Children = {
-                                    new Label { Text = "Lat",
-                                                TextColor = Color.Black,
-                                                HorizontalOptions = LayoutOptions.StartAndExpand
-
-                                    },
-                                    new Label { Text = "47.445416",
-                                        TextColor = Color.Black,
-                                        FontAttributes = FontAttributes.Bold,
-                                        HorizontalOptions = LayoutOptions.EndAndExpand,
-
-                                    }
-                               }
-                            },
-
-                            new StackLayout
-                            {
-                                Orientation = StackOrientation.Vertical,
-                                VerticalOptions = LayoutOptions.FillAndExpand,
-                                HorizontalOptions = LayoutOptions.FillAndExpand,
-                                BackgroundColor = Color.FromHex("f4f4f3"),
-                                Padding = 5,
-                                Children = {
-                                    new Label { Text = "Lat",
-                                                TextColor = Color.Black,
-                                                HorizontalOptions = LayoutOptions.StartAndExpand
-
-                                    },
-                                    new Label { Text = "47.445416",
-                                        TextColor = Color.Black,
-                                        FontAttributes = FontAttributes.Bold,
-                                        HorizontalOptions = LayoutOptions.EndAndExpand,
-
-                                    }
-                               }
-                            },
-
-                            new StackLayout
-                            {
-                                Orientation = StackOrientation.Vertical,
-                                VerticalOptions = LayoutOptions.FillAndExpand,
-                                HorizontalOptions = LayoutOptions.FillAndExpand,
-                                BackgroundColor = Color.FromHex("f4f4f3"),
-                                Padding = 5,
-                                Children = {
-                                    new Label { Text = "Lat",
-                                                TextColor = Color.Black,
-                                                HorizontalOptions = LayoutOptions.StartAndExpand
-
-                                    },
-                                    new Label { Text = "47.445416",
-                                        TextColor = Color.Black,
-                                        FontAttributes = FontAttributes.Bold,
-                                        HorizontalOptions = LayoutOptions.EndAndExpand,
-
-                                    }
-                               }
-                            }
+                            new AccordionCardView("Lat","47.444"),
+                            new AccordionCardView("Lat","47.444"),
+                            new AccordionCardView("Lat","47.444"),
                         }
 
 
                     };
-
-
-
-                    /*for (int i = 0; i < 2; i++)
-                    {
-                        for (int j = 0;j<3 ; j++)
-                        {
-                            grid.Children.Add(topCenter,i,j);
-                        }
-                    }*/
-
-
-
-                    /* var vGridViewLayout = new StackLayout()
-                     {
-                         Orientation = StackOrientation.Vertical,
-                         BackgroundColor = Color.White,
-                         Children = {
-                             grid
-                         }
-                     };*/
-
 
                     var vHeaderButton = new AccordionButton();
 
@@ -288,16 +140,60 @@ namespace Jarkon.ViewModel
 
 
                     vHeaderButton.AssosiatedContent = vAccordionContent;
-             
 
-                    vMainLayout.Children.Add(vHeaderViewLayout);
-
+                    /*vMainLayout.Children.Add(vHeaderViewLayout);
                     vMainLayout.Children.Add(item);
                     vMainLayout.Children.Add(item2);
                     vMainLayout.Children.Add(vHeaderButton);
-                    vMainLayout.Children.Add(vAccordionContent);
+                    vMainLayout.Children.Add(vAccordionContent);*/
 
+                    StackLayout content = new StackLayout
+                    {
+                        Orientation = StackOrientation.Vertical,
+                        VerticalOptions = LayoutOptions.FillAndExpand,
+                        HorizontalOptions = LayoutOptions.FillAndExpand,
+                        BackgroundColor = Color.White,
+                        Padding=5,
+                        Children =
+                        {
+                            vHeaderViewLayout,
+                            item,
+                            item2,
+                            vHeaderButton,
+                            vAccordionContent
+                        }
+                    };
 
+                    StackLayout frameGap = new StackLayout()
+                    {
+                        Orientation = StackOrientation.Vertical,
+                        VerticalOptions = LayoutOptions.FillAndExpand,
+                        HorizontalOptions = LayoutOptions.FillAndExpand,
+                        BackgroundColor = Color.FromHex("dedede"),
+                        Padding = 1,
+                        Children =
+                        {
+                            content
+                        }
+
+                    };
+
+                    StackLayout frame = new StackLayout()
+                    {
+                        Orientation = StackOrientation.Vertical,
+                        VerticalOptions = LayoutOptions.FillAndExpand,
+                        HorizontalOptions = LayoutOptions.FillAndExpand,
+                        BackgroundColor = Color.Gray,
+                        Children =
+                        {
+                            frameGap
+                        }
+
+                    };
+
+                   
+                    vMainLayout.Children.Add(frame);
+                    
 
                 }
             }
@@ -356,7 +252,7 @@ namespace Jarkon.ViewModel
         {
             Orientation = StackOrientation.Vertical;
             BackgroundColor = Color.White;
-            HorizontalOptions = LayoutOptions.CenterAndExpand;
+            HorizontalOptions = LayoutOptions.FillAndExpand;
             VerticalOptions = LayoutOptions.CenterAndExpand;
             Children.Add(ArrowImage = new Image {
                 HeightRequest = 25,
@@ -397,10 +293,11 @@ namespace Jarkon.ViewModel
         {
             HorizontalOptions = LayoutOptions.StartAndExpand;
 
-
         }
 
     }
+
+  
 
     public class AccordionCardView : StackLayout
     {
@@ -430,6 +327,8 @@ namespace Jarkon.ViewModel
             HorizontalOptions = LayoutOptions.FillAndExpand;
             BackgroundColor = Color.FromHex("f4f4f3");
             Padding = 5;
+            Children.Add(labelTop);
+            Children.Add(labelBottom);
 
         }
     }
@@ -457,6 +356,19 @@ namespace Jarkon.ViewModel
 
         }
     }
+
+   /* public class AccordionCardView: StackLayout
+    {
+        public AccordionCardView(string textTop, string TextBottom)
+        {
+            Orientation = StackOrientation.Vertical;
+            VerticalOptions = LayoutOptions.FillAndExpand;
+            HorizontalOptions = LayoutOptions.FillAndExpand;
+            BackgroundColor = Color.FromHex("f4f4f3");
+            Padding = 5;
+        }
+                         
+    }*/
 
 
     public class AccordionTopRightView : StackLayout

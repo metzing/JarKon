@@ -11,12 +11,12 @@ using Xamarin.Forms.Maps;
 
 namespace JarKon.ViewModel
 {
-    class MapsPageViewModel
+    public static class MapsPageViewModel
     {
-        private MapsPage mapsPage = ((MainPage)App.Current.MainPage).MapsPage;
-        private Provider Provider { get { return ((App)App.Current).provider; } }
+        private static MapsPage mapsPage = ((MainPage)App.Current.MainPage).MapsPage;
+        private static Provider Provider { get { return ((App)App.Current).provider; } }
 
-        public void LoadPins()
+        public static void LoadPins()
         {
             CustomMap map = mapsPage.Map;
 
@@ -26,14 +26,13 @@ namespace JarKon.ViewModel
                 VehicleState state = Provider.VehicleStates.Find(s => s.vehicleId == vehicle.vehicleId);
                 newPin.Pin.Position = new Xamarin.Forms.Maps.Position(state.position.lat, state.position.lng);
                 newPin.Pin.Label = vehicle.plateNumber;
-                newPin.Pin.Clicked += Pop;
                 map.CustomPins.Add(newPin);
             }
         }
 
-        private void Pop(object sender, EventArgs e)
+        internal static void OnDataRefreshed()
         {
-            
+            LoadPins();
         }
     }
 }

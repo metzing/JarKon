@@ -22,16 +22,8 @@ namespace JarKon.Service
     {
         public string username { get; set; }
         public string password { get; set; }
-        public ClientType clientType { get; set; }
+        public string clientType { get; set; }
         public string deviceType { get; set; }
         public string deviceId { get; set; }
-    }
-    public enum ClientType
-    {
-        WEB,
-        ANDROID,
-        IOS
-    }
-
-    
+    }    
 }

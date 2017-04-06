@@ -1,7 +1,11 @@
 ﻿using JarKon.Model;
+using JarKon.Service;
+using Plugin.Settings;
+using Plugin.Settings.Abstractions;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Xamarin.Forms;
 
 namespace JarKon.Core
 {
@@ -13,118 +17,66 @@ namespace JarKon.Core
 
         public Provider()
         {
-            Vehicles = new List<Vehicle>{
-                new Vehicle
-                {
-                    vehicleId = 0,
-                    plateNumber = "ASD-123",
-                    make = "make",
-                    type = "type"
-                },
-                new Vehicle
-                {
-                    vehicleId = 1,
-                    plateNumber = "ASD-234",
-                    make = "make",
-                    type = "type"
-                },
-                new Vehicle
-                {
-                    vehicleId = 2,
-                    plateNumber = "ASD-345",
-                    make = "make",
-                    type = "type"
-                },
-                new Vehicle
-                {
-                    vehicleId = 3,
-                    plateNumber = "ASD-456",
-                    make = "make",
-                    type = "type"
-                },
-                new Vehicle
-                {
-                    vehicleId = 4,
-                    plateNumber = "ASD-567",
-                    make = "make",
-                    type = "type"
-                }
+            Login();
 
-            };
-            VehicleStates = new List<VehicleState>
+
+            Vehicles = new List<Vehicle>();
+            VehicleStates = new List<VehicleState>();
+        }
+
+        private async void Login()
+        {
+            try
             {
-                new VehicleState
+                VehicleService service = new VehicleService();
+                LoginResponse response;
+                if (Settings.LoginToken == "")
                 {
-                    vehicleId = 0,
-                    position = new Position
+                    //Log in using creditentials
+                    //TODO input fields for this
+                    response = await service.Login(new LoginRequest
                     {
-                        lat = 47.472999f,
-                        lng = 19.052566f
-                    },
-                    speed = 69,
-                    ignition = true,
-                    extBattVolt = 1,
-                    intBattVolt = 2,
-                    driver = "Squirtle"
-                },
-
-                new VehicleState
-                {
-                    vehicleId = 1,
-                    position = new Position
-                    {
-                        lat = 47.408770f,
-                        lng = 19.017055f
-                    },
-                    speed = 420,
-                    ignition = false,
-                    intBattVolt = 3,
-                    extBattVolt = 4,
-                    driver = "Pikachu"
-                },
-                new VehicleState
-                {
-                    vehicleId = 2,
-                    position = new Position
-                    {
-                        lat = 47.466183f,
-                        lng = 19.007558f
-                    },
-                    speed = 420,
-                    ignition = false,
-                    intBattVolt = 3,
-                    extBattVolt = 4,
-                    driver = "Mew"
-                },
-                new VehicleState
-                {
-                    vehicleId = 3,
-                    position = new Position
-                    {
-                        lat = 47.541071f,
-                        lng = 19.043243f
-                    },
-                    speed = 420,
-                    ignition = false,
-                    intBattVolt = 3,
-                    extBattVolt = 4,
-                    driver = "Mewtwo"
-                },
-                new VehicleState
-                {
-                    vehicleId = 4,
-                    position = new Position
-                    {
-                        lat = 46.032752f,
-                        lng = 18.155835f
-                    },
-                    speed = 420,
-                    ignition = false,
-                    intBattVolt = 3,
-                    extBattVolt = 4,
-                    driver = "Charmander"
+                        username = "mobilTest",
+                        password = "MobilTest123",
+                        clientType = (Device.OS == TargetPlatform.iOS ? "IOS" : "ANDROID"),
+                        deviceType = "",
+                        deviceId = "test"
+                    });
                 }
-            };
+                else
+                {
+                    response = await service.LoginWithToken(new RenewLoginRequest
+                    {
+                        token = Settings.LoginToken,
+
+                    });
+                }
+                Settings.LoginToken = response.token;
+            }
+            catch (Exception e)
+            {
+                (App.Current as App).DisplayException(e);
+            }
+        }
+    }
+
+    public static class Settings
+    {
+        private static ISettings AppSettings
+        {
+            get
+            {
+                return CrossSettings.Current;
+            }
+        }
+
+        private const string loginTokenKey = "login_token";
+        private static readonly string loginTokenDefault = "";
+
+        public static string LoginToken
+        {
+            get { return AppSettings.GetValueOrDefault(loginTokenKey, loginTokenDefault); }
+            set { AppSettings.AddOrUpdateValue(loginTokenKey, value); }
         }
     }
 }

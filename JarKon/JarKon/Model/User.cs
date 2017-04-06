@@ -38,13 +38,13 @@ namespace JarKon.Model
     public class DefaultLocation
     {
         public string address { get; set; }
-        public Position[] position { get; set; }
+        public Position position { get; set; }
         public int zoom { get; set; }
     }
 
     public class VehicleViewSettings
     {
         public int vehicleId { get; set; }
-        public VehicleDataType[] cellSet { get; set; }
+        public VehicleDataType?[] cellSet { get; set; }
     }
 }

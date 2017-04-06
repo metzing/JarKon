@@ -14,7 +14,8 @@ namespace JarKon.Service
     /// </summary>
     public class VehicleService
     {
-        private Uri BaseURL = new Uri("http://jarkon.hu/api");
+        private Uri BaseURL = new Uri("http://jarkon.hu/");
+        private string APIKey = "rdc4YE=sZRH&^G+D4b73cqA2Q-qC*fzJ4SwB2C&=zB#CC@Aa%w3_K2zW?ysU@bPUQxW^P^?3_4fW38TV^5texx@e4XGNBUkwwt^n7Rk-mgxDuM3R4?%L^dfYy8FS=BDm";
 
         /// <summary>
         /// Base method for HTTP GET requests
@@ -26,7 +27,9 @@ namespace JarKon.Service
         {
             using (var client = new HttpClient())
             {
-                client.DefaultRequestHeaders.Add("APIKey", "rdc4YE=sZRH&^G+D4b73cqA2QqC*fzJ4SwB2C&=zB#CC@Aa%w3_K2zW?ysU@bPUQxW^P^?3_4fW38TV^5texx@e4XGNBUkwwt^^n7RkmgxDuM3R4 ?%L^dfYy8FS=BDm");
+                client.DefaultRequestHeaders.Add("APIKey", APIKey);
+                client.DefaultRequestHeaders.Add("Token", Core.Settings.LoginToken);
+
                 var response = await client.GetAsync(url);
                 var json = await response.Content.ReadAsStringAsync();
 
@@ -46,7 +49,7 @@ namespace JarKon.Service
         {
             using (var client = new HttpClient())
             {
-                client.DefaultRequestHeaders.Add("APIKey", "rdc4YE=sZRH&^G+D4b73cqA2QqC*fzJ4SwB2C&=zB#CC@Aa%w3_K2zW?ysU@bPUQxW^P^?3_4fW38TV^5texx@e4XGNBUkwwt^^n7RkmgxDuM3R4 ?%L^dfYy8FS=BDm");
+                client.DefaultRequestHeaders.Add("APIKey", APIKey);
 
                 var json = JsonConvert.SerializeObject(data);
                 var httpContent = new StringContent(json);
@@ -57,6 +60,7 @@ namespace JarKon.Service
                 CheckError(response);
 
                 return JsonConvert.DeserializeObject<LoginResponse>(response);
+
             }
         }
 
@@ -70,7 +74,7 @@ namespace JarKon.Service
         {
             using (var client = new HttpClient())
             {
-                client.DefaultRequestHeaders.Add("APIKey", "rdc4YE=sZRH&^G+D4b73cqA2QqC*fzJ4SwB2C&=zB#CC@Aa%w3_K2zW?ysU@bPUQxW^P^?3_4fW38TV^5texx@e4XGNBUkwwt^^n7RkmgxDuM3R4 ?%L^dfYy8FS=BDm");
+                client.DefaultRequestHeaders.Add("APIKey", APIKey);
 
                 var json = JsonConvert.SerializeObject(data);
                 var httpContent = new StringContent(json);
@@ -109,7 +113,7 @@ namespace JarKon.Service
         /// <param name="se">Exception thrown</param>
         private void HandleException(ServiceException se)
         {
-            Xamarin.Forms.Application.Current.MainPage.DisplayAlert($"Hiba: {se.Name}", se.Message, "OK");
+            Xamarin.Forms.Application.Current.MainPage.DisplayAlert($"Service exception: {se.Name}", se.Message, "OK");
         }
         
         /// <summary>
@@ -121,7 +125,7 @@ namespace JarKon.Service
             PingResponse response = null;
             try
             {
-                response = await GetAsync<PingResponse>(new Uri(BaseURL, "/ping"));
+                response = await GetAsync<PingResponse>(new Uri(BaseURL, "api/ping/"));
             }
             catch(ServiceException se)
             {
@@ -140,7 +144,7 @@ namespace JarKon.Service
             LoginResponse response = null;
             try
             {
-                response = await PostAsync(new Uri(BaseURL, "/users/login"), request);
+                response = await PostAsync(new Uri(BaseURL, "api/users/login/"), request);
             }
             catch(ServiceException se)
             {
@@ -159,7 +163,7 @@ namespace JarKon.Service
             LoginResponse response = null;
             try
             {
-                response = await PutAsync(new Uri(BaseURL, "/users/login"), request);
+                response = await PutAsync(new Uri(BaseURL, "api/users/login/"), request);
             }
             catch (ServiceException se)
             {
@@ -176,7 +180,7 @@ namespace JarKon.Service
             VehicleResponse result = null;
             try
             {
-                result = await GetAsync<VehicleResponse>(new Uri(BaseURL, $"/vehicles?userId={request.userId}"));
+                result = await GetAsync<VehicleResponse>(new Uri(BaseURL, $"api/vehicles?userId={request.userId}/"));
             }
             catch (ServiceException se)
             {
@@ -195,7 +199,7 @@ namespace JarKon.Service
             VehicleStateResponse result = null;
             try
             {
-                result = await GetAsync<VehicleStateResponse>(new Uri(BaseURL, $"/vehicles/states?vehicleId={request.vehicleId}"));
+                result = await GetAsync<VehicleStateResponse>(new Uri(BaseURL, $"api/vehicles/states?vehicleId={request.vehicleId}/"));
             }
             catch (ServiceException se)
             {
@@ -213,14 +217,14 @@ namespace JarKon.Service
             VehicleStateResponse result = null;
             try
             {
-                result = await GetAsync<VehicleStateResponse>(new Uri(BaseURL, $"/states?userId={request.userId}"));
+                result = await GetAsync<VehicleStateResponse>(new Uri(BaseURL, $"api/states?userId={request.userId}/"));
             }
             catch (ServiceException se)
             {
                 HandleException(se);
             }
             return result;
-        }              
+        }
     }
 
     /// <summary>

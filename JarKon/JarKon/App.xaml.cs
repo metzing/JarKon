@@ -11,7 +11,6 @@ namespace JarKon
 {
     public partial class App : Application
     {
-        public Provider provider { get; private set; }
         public delegate void DataRefreshedDelegate();
         public event DataRefreshedDelegate DataRefreshed;
 

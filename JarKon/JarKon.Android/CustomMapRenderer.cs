@@ -63,7 +63,7 @@ namespace JarKon.Droid
 
         private void OnInfoWindowClick(object sender, GoogleMap.InfoWindowClickEventArgs e)
         {
-
+            //TODO swap between collapsed and uncollapsed
         }
 
         public void OnMapReady(GoogleMap googleMap)

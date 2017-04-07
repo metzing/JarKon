@@ -23,9 +23,10 @@ namespace JarKon.ViewModel
             {
                 CustomPin newPin = new CustomPin();
                 VehicleState state = Provider.Instance.VehicleStates.Find(s => s.vehicleId == vehicle.vehicleId);
+                newPin.Vehicle = vehicle;
                 newPin.Pin.Position = new Xamarin.Forms.Maps.Position(state.position.lat, state.position.lng);
                 newPin.Pin.Label = vehicle.plateNumber;
-                map.CustomPins.Add(newPin);
+                map.Pins.Add(newPin);
             }
         }
 

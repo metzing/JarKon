@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JarKon.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -29,18 +30,19 @@ namespace JarKon.View
 
     public class CustomMap : Map
     {
-        public List<CustomPin> CustomPins { get; set; }
+        public new List<CustomPin> Pins { get; set; }
 
         public CustomMap()
         {
-            CustomPins = new List<CustomPin>();
+            Pins = new List<CustomPin>();
         }
     }
 
     public class CustomPin
     {
         public Pin Pin { get; set; }
-        public bool isSelected;
+        public Vehicle Vehicle { get; set; }
+        public int Id { get { return Vehicle.vehicleId; } }
 
         public CustomPin()
         {

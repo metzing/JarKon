@@ -14,7 +14,7 @@
         public int time { get; set; }
         public Position position { get; set; }
         public string address { get; set; }
-        public int speed { get; set; }
+        public int? speed { get; set; }
         public object rpm { get; set; }
         public float mileageState { get; set; }
         public bool ignition { get; set; }

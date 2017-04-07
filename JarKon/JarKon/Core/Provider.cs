@@ -12,44 +12,51 @@ namespace JarKon.Core
 {
     public class Provider
     {
-        private List<Vehicle> vehicles;
+        /// <summary>
+        /// List of the tracked Vehicles
+        /// </summary>
+        public List<Vehicle> Vehicles { get; private set; }
 
-        public List<Vehicle> Vehicles
+        /// <summary>
+        /// List of the tracked Vehicles' states
+        /// </summary>
+        public List<VehicleState> VehicleStates { get; private set; }
+
+        /// <summary>
+        /// The current (logged in) user
+        /// </summary>
+        public User CurrentUser { get; private set; }
+
+        /// <summary>
+        /// Should be called from App.OnStart
+        /// </summary>
+        /// <returns></returns>
+        public async Task OnStartAsync()
         {
-            get { return vehicles; }
-            set
-            {
-                vehicles = value;
-                (App.Current as App).OnDataChanged();
-            }
+            await TestLogin();
+            RefreshVehicles();
         }
-
-        private List<VehicleState> vehicleStates;
-
-        public List<VehicleState> VehicleStates
-        {
-            get { return vehicleStates; }
-            set
-            {
-                vehicleStates = value;
-                (App.Current as App).OnDataChanged();
-            }
-        }
-
-        public User CurrentUser { get; set; }
 
         public Provider()
         {
-            vehicles = new List<Vehicle>();
-            vehicleStates = new List<VehicleState>();
+            Vehicles = new List<Vehicle>();
+            VehicleStates = new List<VehicleState>();
         }
 
-        public async void LoadFromCloud()
+        /// <summary>
+        /// Refreshes the data displayed from the server
+        /// </summary>
+        public async void RefreshVehicles()
         {
             Vehicles = await GetVehiclesAsync();
             VehicleStates = await GetVehicleStatesAsync();
+            (App.Current as App).OnDataChanged();
         }
 
+        /// <summary>
+        /// Gets the states of the tracked vehicles from the server
+        /// </summary>
+        /// <returns>List of the states of the tracked vehicles</returns>
         private async Task<List<VehicleState>> GetVehicleStatesAsync()
         {
 
@@ -66,6 +73,10 @@ namespace JarKon.Core
             return vehicleStates;
         }
 
+        /// <summary>
+        /// Gets the tracked vehicles from the server
+        /// </summary>
+        /// <returns>List of the tracked vehicles</returns>
         private async Task<List<Vehicle>> GetVehiclesAsync()
         {
             List<Vehicle> vehicles = new List<Vehicle>();
@@ -81,7 +92,11 @@ namespace JarKon.Core
             return vehicles;
         }
 
-        public async Task Login()
+        /// <summary>
+        /// Logs in using the test data or token
+        /// </summary>
+        /// <returns></returns>
+        public async Task TestLogin()
         {
             try
             {
@@ -114,8 +129,6 @@ namespace JarKon.Core
                 }
                 Settings.LoginToken = response.token;
                 CurrentUser = response.user;
-
-                LoadFromCloud();
             }
             catch (Exception e)
             {
@@ -124,6 +137,9 @@ namespace JarKon.Core
         }
     }
 
+    /// <summary>
+    /// Class for storing settings of simple type
+    /// </summary>
     public static class Settings
     {
         private static ISettings AppSettings
@@ -137,6 +153,9 @@ namespace JarKon.Core
         private const string loginTokenKey = "login_token";
         private static readonly string loginTokenDefault = "";
 
+        /// <summary>
+        /// Token for authentication for the server
+        /// </summary>
         public static string LoginToken
         {
             get { return AppSettings.GetValueOrDefault(loginTokenKey, loginTokenDefault); }

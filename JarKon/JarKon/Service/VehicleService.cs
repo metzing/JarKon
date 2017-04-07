@@ -180,7 +180,7 @@ namespace JarKon.Service
             VehicleResponse result = null;
             try
             {
-                result = await GetAsync<VehicleResponse>(new Uri(BaseURL, $"api/vehicles?userId={request.userId}/"));
+                result = await GetAsync<VehicleResponse>(new Uri(BaseURL, $"api/vehicles?userId={request.userId}"));
             }
             catch (ServiceException se)
             {
@@ -199,7 +199,7 @@ namespace JarKon.Service
             VehicleStateResponse result = null;
             try
             {
-                result = await GetAsync<VehicleStateResponse>(new Uri(BaseURL, $"api/vehicles/states?vehicleId={request.vehicleId}/"));
+                result = await GetAsync<VehicleStateResponse>(new Uri(BaseURL, $"api/vehicles/states?vehicleId={request.vehicleId}"));
             }
             catch (ServiceException se)
             {
@@ -217,7 +217,7 @@ namespace JarKon.Service
             VehicleStateResponse result = null;
             try
             {
-                result = await GetAsync<VehicleStateResponse>(new Uri(BaseURL, $"api/states?userId={request.userId}/"));
+                result = await GetAsync<VehicleStateResponse>(new Uri(BaseURL, $"api/states?userId={request.userId}"));
             }
             catch (ServiceException se)
             {

@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace JarKon
@@ -26,9 +26,9 @@ namespace JarKon
         {
             // Handle when your app starts
             provider = new Provider();
-            DataRefreshed += MapsPageViewModel.OnDataRefreshed;
+            provider.OnStartAsync();
 
-            provider.Login();
+            DataRefreshed += MapsPageViewModel.OnDataRefreshed;
         }
 
         protected override void OnSleep()

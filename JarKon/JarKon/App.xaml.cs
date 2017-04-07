@@ -25,8 +25,7 @@ namespace JarKon
         protected override void OnStart()
         {
             // Handle when your app starts
-            provider = new Provider();
-            provider.OnStartAsync();
+            Provider.Instance.OnStartAsync();
 
             DataRefreshed += MapsPageViewModel.OnDataRefreshed;
         }

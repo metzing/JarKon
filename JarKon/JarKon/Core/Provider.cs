@@ -12,6 +12,18 @@ namespace JarKon.Core
 {
     public class Provider
     {
+        private static Provider instance;
+        /// <summary>
+        /// Singleton
+        /// </summary>
+        public static Provider Instance
+        {
+            get
+            {
+                return instance ?? (instance = new Provider());
+            }
+        }
+
         /// <summary>
         /// List of the tracked Vehicles
         /// </summary>
@@ -37,7 +49,7 @@ namespace JarKon.Core
             RefreshVehicles();
         }
 
-        public Provider()
+        private Provider()
         {
             Vehicles = new List<Vehicle>();
             VehicleStates = new List<VehicleState>();

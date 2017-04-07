@@ -10,6 +10,9 @@ using System;
 using Android.Gms.Maps.Model;
 using Android.Views;
 using System.ComponentModel;
+using Android.Widget;
+using JarKon.Model;
+using JarKon.Core;
 
 [assembly: ExportRenderer(typeof(CustomMap), typeof(CustomMapRenderer))]
 namespace JarKon.Droid
@@ -33,7 +36,17 @@ namespace JarKon.Droid
                     throw new Exception("Custom pin not found");
                 }
 
-                //TODO inflate
+                //TODO inflate real view instead
+                view = inflater.Inflate(Resource.Layout.TempMapLayout, null);
+
+                var textView = view.FindViewById<TextView>(Resource.Id.temp_map_textview);
+
+                Vehicle vehicle = Provider.Instance.Vehicles.Find(v => v.plateNumber == marker.Title);
+
+                if (textView != null)
+                    textView.Text = Provider.Instance.VehicleStates.Find(vs => vs.vehicleId == vehicle.vehicleId).driver;
+
+                return view;
             }
             return null;
         }
@@ -50,7 +63,7 @@ namespace JarKon.Droid
 
         private void OnInfoWindowClick(object sender, GoogleMap.InfoWindowClickEventArgs e)
         {
-            throw new NotImplementedException();
+
         }
 
         public void OnMapReady(GoogleMap googleMap)

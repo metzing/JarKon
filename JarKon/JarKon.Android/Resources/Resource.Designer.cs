@@ -2921,6 +2921,9 @@ namespace JarKon.Droid
 			// aapt resource value: 0x7f0a0019
 			public const int tabMode = 2131361817;
 			
+			// aapt resource value: 0x7f0a00a4
+			public const int temp_map_textview = 2131361956;
+			
 			// aapt resource value: 0x7f0a000f
 			public const int terrain = 2131361807;
 			
@@ -2942,8 +2945,8 @@ namespace JarKon.Droid
 			// aapt resource value: 0x7f0a0053
 			public const int title_template = 2131361875;
 			
-			// aapt resource value: 0x7f0a00a4
-			public const int toolbar = 2131361956;
+			// aapt resource value: 0x7f0a00a5
+			public const int toolbar = 2131361957;
 			
 			// aapt resource value: 0x7f0a003d
 			public const int top = 2131361853;
@@ -3222,7 +3225,10 @@ namespace JarKon.Droid
 			public const int Tabbar = 2130903095;
 			
 			// aapt resource value: 0x7f030038
-			public const int Toolbar = 2130903096;
+			public const int TempMapLayout = 2130903096;
+			
+			// aapt resource value: 0x7f030039
+			public const int Toolbar = 2130903097;
 			
 			static Layout()
 			{

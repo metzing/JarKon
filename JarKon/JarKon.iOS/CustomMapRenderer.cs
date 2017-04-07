@@ -34,7 +34,7 @@ namespace JarKon.iOS
             {
                 var formsMap = (CustomMap)e.NewElement;
                 var nativeMap = Control as MKMapView;
-                customPins = formsMap.CustomPins;
+                customPins = formsMap.Pins;
 
                 nativeMap.GetViewForAnnotation = GetViewForAnnotation;
                 nativeMap.CalloutAccessoryControlTapped += OnCalloutAccessoryControlTapped;
@@ -56,7 +56,8 @@ namespace JarKon.iOS
             var customPin = GetCustomPin(anno);
             if(customPin == null)
             {
-                throw new Exception("Custom pin not found");
+                //throw new Exception("Custom pin not found");
+                return null;
             }
 
             annotationView = mapView.DequeueReusableAnnotation(customPin.Pin.Label);

@@ -86,6 +86,7 @@ namespace JarKon.Droid
             {
                 var formsMap = (CustomMap)e.NewElement;
                 ((MapView)Control).GetMapAsync(this);
+                customPins = formsMap.Pins;
             }
         }
 
@@ -111,7 +112,25 @@ namespace JarKon.Droid
 
         private BitmapDescriptor GetIcon(CustomPin pin)
         {
-            return BitmapDescriptorFactory.FromAsset("vehicle_bubble_13_green.png");
+            string iconName = "vehicle_bubble_13_";
+
+            var vehicleState = Provider.Instance.VehicleStates.Find(vs => vs.vehicleId == pin.Vehicle.vehicleId);
+
+            if (!vehicleState.ignition)
+            {
+                iconName += "blue";
+            }
+            else if (vehicleState.speed < 5)
+            {
+                iconName += "orange";
+            }
+            else
+            {
+                iconName += "green";
+            }
+
+            iconName += ".png";
+            return BitmapDescriptorFactory.FromAsset(iconName);
         }
     }
 }

@@ -34,6 +34,23 @@ namespace JarKon.ViewModel
         {
             LoadPins();
         }
+
+        public static void OnUserLoaded()
+        {
+            var pos = Provider.Instance.CurrentUser.settings.generalViewSettings.defaultLocation.position;
+            mapsPage.Map.MoveToRegion
+            (
+                MapSpan.FromCenterAndRadius
+                (
+                    new Xamarin.Forms.Maps.Position
+                    (
+                        pos.lat,
+                        pos.lng
+                    ),
+                    Distance.FromKilometers(Provider.Instance.CurrentUser.settings.generalViewSettings.defaultLocation.zoom)
+                )
+            );
+        }
     }
 }
 

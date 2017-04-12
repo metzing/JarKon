@@ -21,7 +21,6 @@ namespace JarKon.Droid
     {
         GoogleMap map;
         List<CustomPin> customPins;
-        bool isDrawn;
 
         public Android.Views.View GetInfoContents(Marker marker)
         {
@@ -94,7 +93,7 @@ namespace JarKon.Droid
         {
             base.OnElementPropertyChanged(sender, e);
 
-            if (e.PropertyName.Equals("VisibleRegion") && !isDrawn)
+            if (e.PropertyName.Equals("VisibleRegion"))
             {
                 map.Clear();
 

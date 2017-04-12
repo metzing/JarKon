@@ -38,6 +38,10 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Model\Vehicle.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\CardsViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)View\ParkingPage.xaml.cs">
+      <DependentUpon>ParkingPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)View\MainPage.xaml">
@@ -68,9 +72,12 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="$(MSBuildThisFileDirectory)View\" />
+    <None Include="$(MSBuildThisFileDirectory)Service\API_dokumentacio_v1_1_0.pdf" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="$(MSBuildThisFileDirectory)Service\API_dokumentacio_v1_1_0.pdf" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)View\ParkingPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>

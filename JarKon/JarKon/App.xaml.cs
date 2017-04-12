@@ -11,8 +11,9 @@ namespace JarKon
 {
     public partial class App : Application
     {
-        public delegate void DataRefreshedDelegate();
-        public event DataRefreshedDelegate DataRefreshed;
+        public delegate void EventDelegate();
+        public event EventDelegate DataChanged;
+        public event EventDelegate UserLoaded;
 
         public App()
         {
@@ -26,7 +27,8 @@ namespace JarKon
             // Handle when your app starts
             Provider.Instance.OnStartAsync();
 
-            DataRefreshed += MapsPageViewModel.OnDataRefreshed;
+            DataChanged += MapsPageViewModel.OnDataRefreshed;
+            UserLoaded += MapsPageViewModel.OnUserLoaded;
         }
 
         protected override void OnSleep()
@@ -39,9 +41,14 @@ namespace JarKon
             // Handle when your app resumes
         }
 
-        internal void OnDataChanged()
+        public void OnDataChanged()
         {
-            DataRefreshed();
+            DataChanged();
+        }
+
+        public void OnUserLoaded()
+        {
+            UserLoaded();
         }
 
         public void DisplayException(Exception e)

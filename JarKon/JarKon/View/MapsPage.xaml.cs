@@ -1,4 +1,5 @@
-﻿using JarKon.Model;
+﻿using JarKon.Core;
+using JarKon.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;

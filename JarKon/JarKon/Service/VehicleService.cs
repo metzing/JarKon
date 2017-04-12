@@ -225,6 +225,30 @@ namespace JarKon.Service
             }
             return result;
         }
+
+        //Not implemented as in not implemented on the backend...
+        public async Task<ParkingZonesResponse> GetParkingZones()
+        {
+            throw new NotImplementedException();
+        }
+
+        //Not implemented as in not implemented on the backend...
+        public async Task<ParkingResponse> StartParking()
+        {
+            throw new NotImplementedException();
+        }
+
+        //Not implemented as in not implemented on the backend...
+        public async Task<ParkingResponse> StopParking()
+        {
+            throw new NotImplementedException();
+        }
+
+        //Not implemented as in not implemented on the backend...
+        public async Task<ParkingResponse> GetParkingState()
+        {
+            throw new NotImplementedException();
+        }
     }
 
     /// <summary>

@@ -85,7 +85,6 @@ namespace JarKon.Droid
             if (e.NewElement != null)
             {
                 var formsMap = (CustomMap)e.NewElement;
-                customPins = formsMap.CustomPins;
                 ((MapView)Control).GetMapAsync(this);
             }
         }

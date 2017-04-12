@@ -44,4 +44,14 @@ namespace JarKon.Service
     {
         public VehicleState[] states { get; set; }
     }
+
+    public class ParkingZonesResponse : Response
+    {
+        public Zone[] zones { get; set; }
+    }
+
+    public class ParkingResponse : Response
+    {
+        public Parking parking { get; set; }
+    }
 }

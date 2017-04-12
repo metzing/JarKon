@@ -25,5 +25,10 @@ namespace JarKon.Service
         public string clientType { get; set; }
         public string deviceType { get; set; }
         public string deviceId { get; set; }
-    }    
+    }
+
+    public class StartParkingRequest
+    {
+        public int zoneCode { get; set; }
+    }
 }

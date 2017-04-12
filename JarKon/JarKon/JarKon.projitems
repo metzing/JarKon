@@ -14,6 +14,7 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Core\FileManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Provider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\Parking.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\User.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Service\Requests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Service\Responses.cs" />

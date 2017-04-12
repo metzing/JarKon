@@ -35,6 +35,7 @@ namespace JarKon.Droid
                     throw new Exception("Custom pin not found");
                 }
 
+
                 //TODO inflate real view instead
                 view = inflater.Inflate(Resource.Layout.TempMapLayout, null);
 
@@ -50,7 +51,7 @@ namespace JarKon.Droid
             return null;
         }
 
-        private object GetCustomPin(Marker marker)
+        private CustomPin GetCustomPin(Marker marker)
         {
             return customPins.Find(p => marker.Title == p.Pin.Label);
         }
@@ -97,7 +98,7 @@ namespace JarKon.Droid
             {
                 map.Clear();
 
-                foreach (var pin in customPins)
+                foreach (var pin in customPins.ToArray())
                 {
                     var marker = new MarkerOptions();
                     marker.SetPosition(new LatLng(pin.Pin.Position.Latitude, pin.Pin.Position.Longitude));

@@ -18,6 +18,7 @@ namespace JarKon.ViewModel
         public static void LoadPins()
         {
             CustomMap map = mapsPage.Map;
+            map.Pins.Clear();
 
             foreach (var vehicle in Provider.Instance.Vehicles)
             {

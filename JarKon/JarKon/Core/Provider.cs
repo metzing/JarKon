@@ -34,10 +34,23 @@ namespace JarKon.Core
         /// </summary>
         public List<VehicleState> VehicleStates { get; private set; }
 
+        private User currentUser;
         /// <summary>
         /// The current (logged in) user
         /// </summary>
-        public User CurrentUser { get; private set; }
+        public User CurrentUser
+        {
+            get
+            {
+                return currentUser;
+            }
+
+            private set
+            {
+                currentUser = value;
+                if (value != null) (App.Current as App).OnUserLoaded();
+            }
+        }
 
         /// <summary>
         /// Should be called from App.OnStart

@@ -13,11 +13,9 @@ namespace JarKon.ViewModel
 {
     public static class MapsPageViewModel
     {
-        private static MapsPage mapsPage = ((MainPage)App.Current.MainPage).MapsPage;
-
+        private static CustomMap map { get { return (App.Current as App).MapsPage.Map; } }
         public static void LoadPins()
         {
-            CustomMap map = mapsPage.Map;
             map.Pins.Clear();
 
             foreach (var vehicle in Provider.Instance.Vehicles)
@@ -39,7 +37,7 @@ namespace JarKon.ViewModel
         public static void OnUserLoaded()
         {
             var pos = Provider.Instance.CurrentUser.settings.generalViewSettings.defaultLocation.position;
-            mapsPage.Map.MoveToRegion
+            (App.Current as App).MapsPage.Map.MoveToRegion
             (
                 MapSpan.FromCenterAndRadius
                 (

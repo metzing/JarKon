@@ -85,7 +85,7 @@ namespace JarKon.Droid
             if (e.NewElement != null)
             {
                 var formsMap = (CustomMap)e.NewElement;
-                ((MapView)Control).GetMapAsync(this);
+                Control.GetMapAsync(this);
                 customPins = formsMap.Pins;
             }
         }
@@ -93,6 +93,8 @@ namespace JarKon.Droid
         protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             base.OnElementPropertyChanged(sender, e);
+
+            if (map == null) return;
 
             if (e.PropertyName.Equals("VisibleRegion"))
             {

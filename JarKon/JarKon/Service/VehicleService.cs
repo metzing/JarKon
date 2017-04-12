@@ -113,7 +113,7 @@ namespace JarKon.Service
         /// <param name="se">Exception thrown</param>
         private void HandleException(ServiceException se)
         {
-            Xamarin.Forms.Application.Current.MainPage.DisplayAlert($"Service exception: {se.Name}", se.Message, "OK");
+            (App.Current as App).MainPage.DisplayAlert($"Service exception: {se.Name}", se.Message, "OK");
         }
         
         /// <summary>

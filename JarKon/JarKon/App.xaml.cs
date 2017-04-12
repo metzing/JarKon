@@ -1,4 +1,5 @@
 ﻿using JarKon.Core;
+using JarKon.View;
 using JarKon.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -15,11 +16,17 @@ namespace JarKon
         public event EventDelegate DataChanged;
         public event EventDelegate UserLoaded;
 
+        public MapsPage MapsPage { get; set; }
+
         public App()
         {
             InitializeComponent();
 
-            MainPage = new JarKon.View.MainPage();
+            MainPage = new NavigationPage(new JarKon.View.MainPage());
+            MainPage.ToolbarItems.Add(new ToolbarItem {
+                Order = ToolbarItemOrder.Secondary,
+                Text = "(Doesn't do shit)"
+            });
         }
 
         protected override void OnStart()

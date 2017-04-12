@@ -72,6 +72,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)logo.png" />
     <None Include="$(MSBuildThisFileDirectory)Service\API_dokumentacio_v1_1_0.pdf" />
   </ItemGroup>
   <ItemGroup>

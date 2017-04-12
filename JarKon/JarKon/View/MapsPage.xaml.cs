@@ -18,6 +18,7 @@ namespace JarKon.View
         public MapsPage()
         {
             InitializeComponent();
+            (App.Current as App).MapsPage = this;
         }
 
         public CustomMap Map

@@ -45,8 +45,17 @@ namespace JarKon.Core
         /// <returns></returns>
         public async Task OnStartAsync()
         {
-            await TestLogin();
-            RefreshVehicles();
+            TestLogin();
+
+            //Create a timer that calls the RefreshVehicles method every ten seconds
+            var timer = new System.Threading.Timer(
+                (e) =>
+                {
+                    RefreshVehicles();
+                },
+                null,
+                2000,
+                10000);
         }
 
         private Provider()
@@ -60,6 +69,8 @@ namespace JarKon.Core
         /// </summary>
         public async void RefreshVehicles()
         {
+            if (CurrentUser == null) return;
+
             Vehicles = await GetVehiclesAsync();
             VehicleStates = await GetVehicleStatesAsync();
             (App.Current as App).OnDataChanged();
@@ -136,7 +147,6 @@ namespace JarKon.Core
                     response = await service.LoginWithToken(new RenewLoginRequest
                     {
                         token = Settings.LoginToken,
-
                     });
                 }
                 Settings.LoginToken = response.token;
@@ -144,6 +154,7 @@ namespace JarKon.Core
             }
             catch (Exception e)
             {
+                Settings.LoginToken = "";
                 (App.Current as App).DisplayException(e);
             }
         }

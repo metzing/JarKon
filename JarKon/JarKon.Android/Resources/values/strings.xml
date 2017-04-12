@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">jarkon</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="my_text"> <u>Cím megjelenítése</u></string>
+</resources>

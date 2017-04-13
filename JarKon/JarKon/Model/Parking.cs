@@ -16,5 +16,10 @@ namespace JarKon.Model
         public string zoneName { get; set; }
         public double zoneTarif { get; set; }
         public bool isFixTicketZone { get; set; }
+
+        public override string ToString()
+        {
+            return zoneCode + " - " + zoneName;
+        }
     }
 }

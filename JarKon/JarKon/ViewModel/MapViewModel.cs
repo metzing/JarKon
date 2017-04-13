@@ -13,19 +13,19 @@ namespace JarKon.ViewModel
 {
     public static class MapViewModel
     {
-        private static CustomMap map { get { return (App.Current as App).MapsPage.Map; } }
+        private static CustomMap Map { get { return Provider.Instance.MapsPage.Map; } }
         public static void LoadPins()
         {
-            map.Pins.Clear();
+            Map.Pins.Clear();
 
-            foreach (var vehicle in Provider.Instance.Vehicles)
+            foreach (var vehicle in Provider.Instance.Vehicles.ToArray())
             {
                 CustomPin newPin = new CustomPin();
                 VehicleState state = Provider.Instance.VehicleStates.Find(s => s.vehicleId == vehicle.vehicleId);
                 newPin.Vehicle = vehicle;
                 newPin.Pin.Position = new Xamarin.Forms.Maps.Position(state.position.lat, state.position.lng);
                 newPin.Pin.Label = vehicle.plateNumber;
-                map.Pins.Add(newPin);
+                Map.Pins.Add(newPin);
             }
         }
 
@@ -34,10 +34,10 @@ namespace JarKon.ViewModel
             LoadPins();
         }
 
-        public static void OnUserLoaded()
+        public static void OnUserLoggedIn()
         {
             var pos = Provider.Instance.CurrentUser.settings.generalViewSettings.defaultLocation.position;
-            (App.Current as App).MapsPage.Map.MoveToRegion
+            Map.MoveToRegion
             (
                 MapSpan.FromCenterAndRadius
                 (

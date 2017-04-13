@@ -14,13 +14,5 @@ namespace JarKon.View
         {
             InitializeComponent();
         }
-
-        public MapsPage MapsPage
-        {
-            get
-            {
-                return mapsPage;
-            }
-        }
     }
 }

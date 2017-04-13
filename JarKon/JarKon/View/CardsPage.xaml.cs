@@ -5,8 +5,7 @@ using Xamarin.Forms.Xaml;
 
 using Jarkon.ViewModel;
 using Jarkon;
-
-
+using JarKon.Core;
 
 namespace JarKon.View
 {
@@ -24,6 +23,8 @@ namespace JarKon.View
         public CardsPage()
         {
             InitializeComponent();
+            Provider.Instance.CardsPage = this;
+
             MainOne.DataSource = GetSampleData();
             MainOne.DataBind();
 
@@ -42,23 +43,23 @@ namespace JarKon.View
         {
             var vResult = new List<AccordionSource>();
 
-
-            #region StackLayout
+            
             for (int i = 0; i < 16; i++)
             {
+                #region StackLayout
                 var vViewLayout = new StackLayout()
                 {
-                    Children = {
-                    new Label { Text = "Km óra állás: 408875 KM", TextColor = Color.Black },
-                    new Label { Text = "Külső akku. fesz: 13V",TextColor = Color.Black },
-                    new Label { Text = "Belső akku. fesz: 4V",TextColor = Color.Black }
-                }
+                    Children =
+                    {
+                        new Label { Text = "Km óra állás: 408875 KM", TextColor = Color.Black },
+                        new Label { Text = "Külső akku. fesz: 13V",TextColor = Color.Black },
+                        new Label { Text = "Belső akku. fesz: 4V",TextColor = Color.Black }
+                    }
                 };
                 #endregion
 
 
                 var vSecond = new AccordionSource
-                    ()
                 {
                     HeaderImageSource = "Icon.png",
                     HeaderTextColor = Color.White,

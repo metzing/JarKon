@@ -13,7 +13,7 @@
 
             <Style x:Key="InternalViewStyle" TargetType="ContentView">
                 <Setter Property="BackgroundColor"
-            Value="{StaticResource BackgroundColor}"/>
+                        Value="{StaticResource BackgroundColor}"/>
                 <Setter Property="VerticalOptions" Value="Fill"/>
                 <Setter Property="Padding" Value="10,10,10,10"></Setter>
             </Style>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JarKon.Core;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,7 @@ namespace JarKon.View
 		public ParkingPage ()
 		{
 			InitializeComponent ();
+            Provider.Instance.ParkingPage = this;
 		}
 	}
 }

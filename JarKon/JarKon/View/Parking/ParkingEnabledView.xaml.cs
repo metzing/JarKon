@@ -9,12 +9,13 @@ using Xamarin.Forms.Xaml;
 
 namespace JarKon.View.Parking
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class ParkingEnabledView : ContentView
-	{
-		public ParkingEnabledView ()
-		{
-			InitializeComponent ();
-		}
-	}
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class ParkingEnabledView : ContentView
+    {
+        public ContentView BottomContent { get { return bottomContent; } }
+        public ParkingEnabledView()
+        {
+            InitializeComponent();
+        }
+    }
 }

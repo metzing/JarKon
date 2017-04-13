@@ -5,7 +5,7 @@
     <ContentView.Content>
         <RelativeLayout HorizontalOptions="FillAndExpand"
                         VerticalOptions="FillAndExpand">
-            <ContentView BackgroundColor="Gray"
+            <ContentView BackgroundColor="#eeeeee"
                          RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0}"
                          RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
                          RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.5}">
@@ -13,7 +13,8 @@
                              HorizontalOptions="Center">
                     <Image HorizontalOptions="Center" 
                            Source="Icon.png"/>
-                    <Label HorizontalOptions="Center" 
+                    <Label HorizontalOptions="Center"
+                           TextColor="#8aba18"
                            Text="Az Ön rendszáma:"
                            FontSize="15"/>
                     <Label x:Name="PlateNumberLabel" 
@@ -23,8 +24,8 @@
                            FontSize="25"/>
                 </StackLayout>
             </ContentView>
-            <ContentView x:Name="BottomContent"
-                         BackgroundColor="Red"
+            <ContentView x:Name="bottomContent"
+                         BackgroundColor="White"
                          RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.5}"
                          RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
                          RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.5}"/>

@@ -3,7 +3,4 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:parkingView="clr-namespace:JarKon.View.Parking"
              x:Class="JarKon.View.ParkingPage">
-    
-    <parkingView:ParkingEnabledView/>
-
 </ContentPage>

@@ -1,5 +1,6 @@
 ﻿using JarKon.Model;
 using JarKon.Service;
+using JarKon.View;
 using Plugin.Settings;
 using Plugin.Settings.Abstractions;
 using System;
@@ -24,6 +25,10 @@ namespace JarKon.Core
             }
         }
 
+        public MapsPage MapsPage { get; set; }
+        public CardsPage CardsPage { get; set; }
+        public ParkingPage ParkingPage { get; set; }
+
         /// <summary>
         /// List of the tracked Vehicles
         /// </summary>
@@ -33,6 +38,8 @@ namespace JarKon.Core
         /// List of the tracked Vehicles' states
         /// </summary>
         public List<VehicleState> VehicleStates { get; private set; }
+
+        public List<Zone> ParkingZones { get; private set; }
 
         private User currentUser;
         /// <summary>
@@ -75,6 +82,7 @@ namespace JarKon.Core
         {
             Vehicles = new List<Vehicle>();
             VehicleStates = new List<VehicleState>();
+            ParkingZones = new List<Zone>();
         }
 
         /// <summary>
@@ -128,6 +136,8 @@ namespace JarKon.Core
             return vehicles;
         }
 
+        
+
         /// <summary>
         /// Logs in using the test data or token
         /// </summary>
@@ -172,6 +182,8 @@ namespace JarKon.Core
             }
         }
     }
+
+
 
     /// <summary>
     /// Class for storing settings of simple type

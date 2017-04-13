@@ -16,16 +16,17 @@ namespace JarKon
         public event EventDelegate DataChanged;
         public event EventDelegate UserLoaded;
 
-        public MapsPage MapsPage { get; set; }
+        
 
         public App()
         {
             InitializeComponent();
 
             MainPage = new NavigationPage(new JarKon.View.MainPage());
+
             MainPage.ToolbarItems.Add(new ToolbarItem {
                 Order = ToolbarItemOrder.Secondary,
-                Text = "(Doesn't do shit)"
+                Text = "Menu Item 1"
             });
         }
 
@@ -35,7 +36,8 @@ namespace JarKon
             Provider.Instance.OnStartAsync();
 
             DataChanged += MapViewModel.OnDataRefreshed;
-            UserLoaded += MapViewModel.OnUserLoaded;
+            UserLoaded += MapViewModel.OnUserLoggedIn;
+            UserLoaded += ParkingViewModel.OnUserLoggedIn;
         }
 
         protected override void OnSleep()
@@ -61,6 +63,11 @@ namespace JarKon
         public void DisplayException(Exception e)
         {
             Current.MainPage.DisplayAlert("Exception:", e.Message, "OK");
+        }
+
+        public static void DisplayAlert(string title, string message, string cancel)
+        {
+            Current.MainPage.DisplayAlert(title, message, cancel);
         }
     }
 }

@@ -1,15 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:JarKon.View"
-             x:Class="JarKon.View.MainPage">
-
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:local="clr-namespace:JarKon.View"
+            x:Class="JarKon.View.MainPage"
+            BarBackgroundColor="White"
+            BarTextColor="Gray">
+    
+    <local:MapsPage Title="Map"
+                    x:Name="mapsPage"/>
+    
     <local:CardsPage Title="Cards"
                      x:Name="cardsPage"/>
 
-    <local:MapsPage Title="Map"
-                    x:Name="mapsPage"/>
-
     <local:ParkingPage Title="Parking"
-                  x:Name="parkingPage"/>
+                       x:Name="parkingPage"/>
 </TabbedPage>

@@ -11,6 +11,6 @@
 	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 	<application android:label="JarKon.Android">
-		<meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyD4KL_3qhNdbfHp8qmNw9Gtmt6baNp4ycs" />
+		<meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyBOQV2SGnNpFXqkKyvyuvlODgwKYmY04AM" />
 	</application>
 </manifest>

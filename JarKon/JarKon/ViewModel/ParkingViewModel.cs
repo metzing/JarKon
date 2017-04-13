@@ -12,7 +12,7 @@ using JarKon.View.Parking;
 
 namespace JarKon.ViewModel
 {
-    public class ParkingViewModel
+    public static class ParkingViewModel
     {
         private static List<Zone> MockZones = new List<Zone>
         {
@@ -48,13 +48,6 @@ namespace JarKon.ViewModel
             }
         };
 
-        private static ZonesPopup zonePicker = null;
-
-        public static ZonesPopup ZonePicker
-        {
-            get { return zonePicker ?? (zonePicker = new ZonesPopup()); }
-        }
-
         private static Zone selectedZone;
 
         public static Zone SelectedZone
@@ -69,12 +62,7 @@ namespace JarKon.ViewModel
 
         private static Button SelectZoneButton;
 
-        private static void OnSelectedZoneChanged()
-        {
-            if (selectedZone == null) return;
 
-            SelectZoneButton.Text = "Zóna:" + selectedZone.zoneCode;
-        }
 
         public static void OnUserLoggedIn()
         {
@@ -97,6 +85,13 @@ namespace JarKon.ViewModel
             }
         }
 
+        private static void OnSelectedZoneChanged()
+        {
+            if (selectedZone == null) return;
+
+            SelectZoneButton.Text = "Zóna:" + selectedZone.zoneCode;
+        }
+
         private static Xamarin.Forms.View BuildParkingStoppedView()
         {
             var view = new ParkingEnabledView();
@@ -114,7 +109,6 @@ namespace JarKon.ViewModel
                 TextColor = Color.White,
                 Text = "Válasszon parkolási zónát...",
                 Command = new DisplayZoneOptionsCommand(),
-                CommandParameter = ZonePicker,
                 WidthRequest = 300
             });
 

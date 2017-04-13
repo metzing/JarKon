@@ -262,3 +262,6 @@ __pycache__/
 
 # Image files
 design/
+
+#Android manifest
+JarKon/JarKon.Android/Properties/AndroidManifest.xml

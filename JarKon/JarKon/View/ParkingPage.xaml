@@ -4,6 +4,6 @@
              xmlns:parkingView="clr-namespace:JarKon.View.Parking"
              x:Class="JarKon.View.ParkingPage">
     
-    <parkingView:ParkingDisabledView/>
+    <parkingView:ParkingEnabledView/>
 
 </ContentPage>

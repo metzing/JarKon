@@ -19,8 +19,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Service\Requests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Service\Responses.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Service\VehicleService.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\MapsPageViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\MapViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\Accordion.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\ParkingViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)View\Card.xaml.cs">
       <DependentUpon>Card.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -44,6 +45,10 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)View\Parking\ParkingDisabledView.xaml.cs">
       <DependentUpon>ParkingDisabledView.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)View\Parking\ParkingEnabledView.xaml.cs">
+      <DependentUpon>ParkingEnabledView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -87,6 +92,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)View\Parking\ParkingDisabledView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)View\Parking\ParkingEnabledView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

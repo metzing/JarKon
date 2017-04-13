@@ -11,7 +11,7 @@ using Xamarin.Forms.Maps;
 
 namespace JarKon.ViewModel
 {
-    public static class MapsPageViewModel
+    public static class MapViewModel
     {
         private static CustomMap map { get { return (App.Current as App).MapsPage.Map; } }
         public static void LoadPins()

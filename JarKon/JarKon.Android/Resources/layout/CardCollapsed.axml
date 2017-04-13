@@ -15,7 +15,6 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:id="@+id/relativeLayout2">
-          
             <RelativeLayout
                 android:id="@+id/relativeLayout3"
                 android:layout_width="match_parent"
@@ -260,7 +259,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/linearLayoutBoxContainer2"
-                android:src="@drawable/Icon" />
+                android:src="@drawable/expand_arrow" />
         </RelativeLayout>
     </RelativeLayout>
 </RelativeLayout>

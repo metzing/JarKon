@@ -35,9 +35,12 @@ namespace JarKon
             // Handle when your app starts
             Provider.Instance.OnStartAsync();
 
-            DataChanged += MapViewModel.OnDataRefreshed;
+            
             UserLoaded += MapViewModel.OnUserLoggedIn;
             UserLoaded += ParkingViewModel.OnUserLoggedIn;
+            DataChanged += MapViewModel.OnDataRefreshed;
+            DataChanged += CardsPage.OnDataRefreshed;
+
         }
 
         protected override void OnSleep()

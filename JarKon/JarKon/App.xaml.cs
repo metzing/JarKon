@@ -35,7 +35,9 @@ namespace JarKon
             Provider.Instance.OnStartAsync();
 
             DataChanged += MapViewModel.OnDataRefreshed;
+            DataChanged += CardsPage.OnDataRefreshed;
             UserLoaded += MapViewModel.OnUserLoaded;
+
         }
 
         protected override void OnSleep()

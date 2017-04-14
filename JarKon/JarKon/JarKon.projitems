@@ -20,7 +20,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Service\Responses.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Service\VehicleService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\MapViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\Accordion.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\ParkingViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)View\Card.xaml.cs">
       <DependentUpon>Card.xaml</DependentUpon>

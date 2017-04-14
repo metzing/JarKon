@@ -3,15 +3,247 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
+using JarKon.Core;
+using JarKon.ViewModel;
+
+
+using JarKon.View;
+using JarKon;
+
+
 
 namespace JarKon.ViewModel
+
 {
     class CardsViewModel
     {
-        public static ObservableCollection<VehicleState> Vehicles = GetDummyData();
+        int VEHICLE_DATA_TYPES_NUM = 6;
+        int EXPANDED_DATA_TYPES_NUM = 4;
+
+        
+
+        private static Accordion  CPAccordion { get { return Provider.Instance.CardsPage.Accordion; } }
+
+        public static void LoadVehicles()
+        {
+            CPAccordion.mDataSource.Clear();
+            CPAccordion.mDataSource = GetSampleData();
+        }
+
+        internal static void OnDataRefreshed()
+        {
+            LoadVehicles();
+        }
 
 
-        public static ObservableCollection<VehicleState> GetDummyData()
+        public static List<AccordionSource> GetSampleData()
+        {
+            var vResult = new List<AccordionSource>();
+
+            User currentUser = Provider.Instance.CurrentUser;
+            List<Vehicle> vehicles = Provider.Instance.Vehicles;
+
+            int VEHICLE_DATA_TYPES_NUM = 6;
+            int EXPANDED_DATA_TYPES_NUM = 4;
+
+
+
+            CardText[] cardTextList = new CardText[VEHICLE_DATA_TYPES_NUM];
+            CardText[] expandTextList = new CardText[EXPANDED_DATA_TYPES_NUM];
+
+            foreach (Vehicle vehicle in vehicles)
+            {
+                VehicleState vehicleState = Provider.Instance.VehicleStates.Find(vs => vs.vehicleId == vehicle.vehicleId);
+
+                VehicleDataType?[] vehicleDataTypes = new VehicleDataType?[VEHICLE_DATA_TYPES_NUM];
+
+                VehicleViewSettings[] settings = currentUser.settings.vehicleViewSettings;
+                foreach (VehicleViewSettings vhSettings in settings)
+                {
+                    if (vhSettings.vehicleId == vehicle.vehicleId)
+                    {
+                        vehicleDataTypes = vhSettings.cellSet;
+                    }
+                }
+
+                for (int i = 0; i < VEHICLE_DATA_TYPES_NUM; i++)
+                {
+
+                    CardText cardText = new CardText();
+
+                    try
+                    {
+                        cardText = GetCardTextByType(vehicleDataTypes[i], vehicle, vehicleState);
+                    }
+                    catch (NullReferenceException e)
+                    {
+                        NullReferenceException error = e;
+                        cardText.top = "";
+                        cardText.bottom = "";
+                    }
+
+                    cardTextList[i] = cardText;
+                }
+                
+
+                for(int i = 0; i < EXPANDED_DATA_TYPES_NUM; i++)
+                {
+                    CardText cardText = new CardText();
+                    cardText.top = i.ToString()+".";
+                    cardText.bottom = "Szöveg";
+
+                    expandTextList[i] = cardText;
+
+                }
+
+               
+
+                var vSecond = new AccordionSource ()
+                {
+                    HeaderImageSource = "Icon.png",
+                    // = Color.White,
+                   // HeaderBackGroundColor = Color.Black,
+                   // ContentItems = vViewLayout,
+                    CardTextArray = cardTextList,
+                    ExpandedTextArray = expandTextList
+
+
+                };
+
+                vResult.Add(vSecond);
+
+            }
+            return vResult;
+        }
+
+
+        public static CardText GetCardTextByType(VehicleDataType? dataType, Vehicle vehicle, VehicleState vehicleState)
+        {
+            CardText cardText = new CardText();
+
+
+            switch (dataType)
+            {
+                case VehicleDataType.PLATE_NUMBER:
+                    cardText.top = "Plate:";
+                    cardText.bottom = vehicle.plateNumber;
+                    break;
+
+                case VehicleDataType.VEHICLE_TYPE:
+                    cardText.top = "Type:";
+                    cardText.bottom = vehicle.type;
+                    break;
+
+                case VehicleDataType.TIME:
+                    cardText.top = "Time:";
+                    cardText.bottom = vehicleState.time.ToString();  ///TODO epoch time vagy mi gyün?
+                    break;
+
+                case VehicleDataType.ADDRESS:
+                    cardText.top = "Address:";
+                    cardText.bottom = vehicleState.address;
+                    break;
+
+                case VehicleDataType.BUSINESS_TRIP:
+                    cardText.top = "Businness trip:";
+                    if (vehicleState.businessTrip)
+                    {
+                        cardText.bottom = "True";
+                    }
+                    else
+                    {
+                        cardText.bottom = "False";
+                    }
+                    break;
+
+                case VehicleDataType.MAKE:
+                    cardText.top = "Make:";
+                    cardText.bottom = vehicle.make;
+                    break;
+
+                case VehicleDataType.LAT:
+                    cardText.top = "Lat:";
+                    cardText.bottom = vehicleState.position.lat.ToString();
+                    break;
+
+                case VehicleDataType.LNG:
+                    cardText.top = "Lon:";
+                    cardText.bottom = vehicleState.position.lng.ToString();
+                    break;
+
+                case VehicleDataType.SPEED:
+                    cardText.top = "Speed:";
+                    cardText.bottom = vehicleState.speed.ToString(); // TODO
+                    break;
+
+                case VehicleDataType.RPM:
+                    cardText.top = "RPM:";
+                    cardText.bottom = vehicleState.rpm.ToString();
+                    break;
+
+                case VehicleDataType.IGNITION:
+                    cardText.top = "Ignition:";
+                    cardText.bottom = vehicleState.ignition.ToString();
+                    break;
+
+                case VehicleDataType.MILEAGE_STATE:
+                    cardText.top = "Mileage State:";
+                    cardText.bottom = vehicleState.mileageState.ToString();
+                    break;
+
+
+                case VehicleDataType.SIGNAL:
+                    cardText.top = "Signal:";
+                    cardText.bottom = vehicleState.signal.ToString();
+                    break;
+
+                case VehicleDataType.EXT_BATT_VOLT:
+                    cardText.top = "Ext. battery:";
+                    cardText.bottom = vehicleState.extBattVolt.ToString();
+                    break;
+
+                case VehicleDataType.INT_BATT_VOLT:
+                    cardText.top = "Int. bat volt:";
+                    cardText.bottom = vehicleState.intBattVolt.ToString();
+                    break;
+
+                case VehicleDataType.FUEL_1:
+                    cardText.top = "Fuel_1:";
+                    cardText.bottom = vehicleState.fuel1.ToString();
+                    break;
+
+                case VehicleDataType.FUEL_2:
+                    cardText.top = "Fuel_2:";
+                    cardText.bottom = vehicleState.fuel2.ToString();
+                    break;
+
+                case VehicleDataType.SUM_BURNED_FUEL:
+                    cardText.top = "Sum burned fuel:";
+                    cardText.bottom = vehicleState.sumBurnedFuel.ToString();
+                    break;
+
+                case VehicleDataType.AXLE_NUM_SET:
+                    cardText.top = "Axle:";
+                    cardText.bottom = vehicleState.axleNumSet.ToString();
+                    break;
+
+                case VehicleDataType.DRIVER:
+                    cardText.top = "Driver:";
+                    cardText.bottom = vehicleState.driver.ToString();
+                    break;
+
+                default:
+                    break;
+
+            }
+
+            return cardText;
+
+        }
+    }
+
+
+   /* public static ObservableCollection<VehicleState> GetDummyData()
         {
             ObservableCollection<VehicleState> retu = new ObservableCollection<VehicleState> {(
 
@@ -81,5 +313,5 @@ namespace JarKon.ViewModel
             return retu;
         }
 
-    }
+    }*/
 }

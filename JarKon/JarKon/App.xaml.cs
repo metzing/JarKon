@@ -39,7 +39,7 @@ namespace JarKon
             UserLoaded += MapViewModel.OnUserLoggedIn;
             UserLoaded += ParkingViewModel.OnUserLoggedIn;
             DataChanged += MapViewModel.OnDataRefreshed;
-            DataChanged += CardsPage.OnDataRefreshed;
+            DataChanged += CardsViewModel.OnDataRefreshed;
 
         }
 

@@ -1,5 +1,4 @@
-﻿using Jarkon.ViewModel;
-using JarKon.Core;
+﻿using JarKon.Core;
 using JarKon.Model;
 using JarKon.View;
 using System;

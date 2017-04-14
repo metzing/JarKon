@@ -97,6 +97,7 @@ namespace JarKon.Droid
                        cardText  = GetCardTextByType(vehicleDataTypes[i], vehicle, vehicleState);
                     }catch(NullReferenceException e)
                     {
+                        NullReferenceException error = e; 
                         cardText.top = "";
                         cardText.bottom = "";
                     }

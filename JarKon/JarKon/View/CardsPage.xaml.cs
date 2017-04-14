@@ -1,25 +1,15 @@
-﻿using System;
+﻿using JarKon.Core;
+using System;
 using System.Collections.Generic;
+
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-
-using Jarkon.ViewModel;
-using Jarkon;
-using JarKon.Model;
-using JarKon.Core;
 
 namespace JarKon.View
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class CardsPage : ContentPage
     {
-        public class SimpleObject
-        {
-            public string TextValue
-            { get; set; }
-            public string DataValue
-            { get; set; }
-        }
 
         public CardsPage()
         {
@@ -27,214 +17,434 @@ namespace JarKon.View
             Provider.Instance.CardsPage = this;
         }
 
-        void OnListItemClicked(object o, ItemTappedEventArgs e)
+        public Accordion Accordion
         {
-
-            var vListItem = e.Item as SimpleObject;
-            var vMessage = "You Clicked on " + vListItem.TextValue + " With Value " + vListItem.DataValue;
-            DisplayAlert("Message", vMessage, "Ok");
-
-        }
-
-        public List<AccordionSource> GetSampleData()
-        {
-            var vResult = new List<AccordionSource>();
-
-            User currentUser = Provider.Instance.CurrentUser;
-            List<Vehicle> vehicles = Provider.Instance.Vehicles;
-            int VEHICLE_DATA_TYPES_NUM = 6;
-            CardText[] cardTextList = new CardText[VEHICLE_DATA_TYPES_NUM];
-        
-            foreach (Vehicle vehicle in vehicles)
+            get
             {
-                VehicleState vehicleState = Provider.Instance.VehicleStates.Find(vs => vs.vehicleId == vehicle.vehicleId);
-               
-                VehicleDataType?[] vehicleDataTypes = new VehicleDataType?[VEHICLE_DATA_TYPES_NUM];
-                
-                VehicleViewSettings[] settings = currentUser.settings.vehicleViewSettings;
-                foreach (VehicleViewSettings vhSettings in settings)
-                {
-                    if (vhSettings.vehicleId == vehicle.vehicleId)
-                    {
-                        vehicleDataTypes = vhSettings.cellSet;
-                    }
-                }
-
-                for (int i = 0; i < VEHICLE_DATA_TYPES_NUM; i++)
-                {
-
-                    CardText cardText = new CardText();
-
-                    try
-                    {
-                        cardText = GetCardTextByType(vehicleDataTypes[i], vehicle, vehicleState);
-                    }
-                    catch (NullReferenceException e)
-                    {
-                        cardText.top = "";
-                        cardText.bottom = "";
-                    }
-
-                    cardTextList[i] =  cardText;
-                }
-
-               #region StackLayout
-               var vViewLayout = new StackLayout()
-               {
-                   Children = {
-                    new Label { Text = "Km óra állás: 408875 KM", TextColor = Color.Black },
-                    new Label { Text = "Külső akku. fesz: 13V",TextColor = Color.Black },
-                    new Label { Text = "Belső akku. fesz: 4V",TextColor = Color.Black }
-                   }
-               };
-               #endregion
-
-                var vSecond = new AccordionSource
-                        ()
-                    {
-                        HeaderImageSource = "Icon.png",
-                        HeaderTextColor = Color.White,
-                        HeaderBackGroundColor = Color.Black,
-                        ContentItems = vViewLayout,
-                        CardTextArray = cardTextList,
-                       
-
-                    };
-
-                   vResult.Add(vSecond);
-                
+                return MainOne;
             }
-            return vResult;
+        }
+    }
+
+    public class Accordion : ContentView
+    {
+        #region Private Variables
+        bool mFirstExpaned = false;
+        StackLayout mMainLayout;
+        #endregion
+
+
+        public List<AccordionSource> mDataSource { get; set; }
+
+
+        public Accordion()
+        {
+            var mMainLayout = new StackLayout();
+            Content = mMainLayout;
+            mDataSource = new List<AccordionSource>();
+           // DataBind();
         }
 
-        internal static void OnDataRefreshed()
+        public Accordion(List<AccordionSource> aSource)
         {
-           /* CardsPage.MainOne.DataSource = GetSampleData();
-            MainOne.DataBind();*/
+            var mMainLayout = new StackLayout();
+            Content = mMainLayout;
+            mDataSource = aSource;
+           // DataBind();
         }
 
-        private CardText GetCardTextByType(VehicleDataType? dataType, Vehicle vehicle, VehicleState vehicleState)
+
+        public bool FirstExpaned
         {
-            CardText cardText = new CardText();
+            get { return mFirstExpaned; }
+            set { mFirstExpaned = value; }
+        }
+
+        public void DataBind()
+        {
+              var vMainLayout = new StackLayout();
+              vMainLayout.HeightRequest = 0;
+              if (mDataSource != null)
+              {
+                  foreach (var vSingleItem in mDataSource)
+                  {
+                      vMainLayout.HeightRequest += 300;
+                      var vHeaderViewLayout = new StackLayout()
+                      {
+                          Orientation = StackOrientation.Horizontal,
+                          BackgroundColor = Color.White,
+
+                          Children = {
+                              new AccordionImage
+                              {
+                                  Source = vSingleItem.HeaderImageSource,
+                                  VerticalOptions = LayoutOptions.StartAndExpand
+                              },
+                              new StackLayout
+                              {
+                                  Orientation = StackOrientation.Vertical,
+                                  VerticalOptions = LayoutOptions.EndAndExpand,
+
+                                         Children = {
+                                            new Label { Text = "DEMO-2",
+                                                TextColor = Color.Black,
+                                                FontSize = 24,
+                                                FontAttributes = FontAttributes.Bold,
+                                                HorizontalOptions = LayoutOptions.EndAndExpand,
+
+                                            },
+
+                                            new Label { Text = "2015.04.08 10:46",
+                                                TextColor = Color.Black,
+                                                HorizontalOptions = LayoutOptions.EndAndExpand,
+
+                                            },
+                                            new Label { Text = "Cím megjelenítése",
+                                                TextColor = Color.Black,
+                                                HorizontalOptions = LayoutOptions.EndAndExpand,
+
+                                            }
+                                        }
+
+                               }
 
 
-            switch (dataType)
+                           }
+
+                      };//end header
+
+
+
+                      var item = new StackLayout
+                      {
+                          Orientation = StackOrientation.Horizontal,
+                          VerticalOptions = LayoutOptions.FillAndExpand,
+                          HorizontalOptions = LayoutOptions.FillAndExpand,
+                          BackgroundColor = Color.White,
+                          Children =
+                                {
+
+
+                                    new AccordionCardView(vSingleItem.CardTextArray[0].top,vSingleItem.CardTextArray[0].bottom),
+                                    new AccordionCardView(vSingleItem.CardTextArray[1].top,vSingleItem.CardTextArray[1].bottom),
+                                    new AccordionCardView(vSingleItem.CardTextArray[2].top,vSingleItem.CardTextArray[2].bottom),
+                                }
+
+
+                      };
+
+                      var item2 = new StackLayout
+                      {
+                          Orientation = StackOrientation.Horizontal,
+                          VerticalOptions = LayoutOptions.FillAndExpand,
+                          HorizontalOptions = LayoutOptions.FillAndExpand,
+                          BackgroundColor = Color.White,
+                          Children =
+                                {
+
+                                    new AccordionCardView(vSingleItem.CardTextArray[3].top,vSingleItem.CardTextArray[3].bottom),
+                                    new AccordionCardView(vSingleItem.CardTextArray[4].top,vSingleItem.CardTextArray[4].bottom),
+                                    new AccordionCardView(vSingleItem.CardTextArray[5].top,vSingleItem.CardTextArray[5].bottom),
+                                }
+
+
+                      };
+
+                      var vHeaderButton = new AccordionButton();
+
+                      var expanded = new ExpandedView(vSingleItem.ExpandedTextArray);
+
+                      var vAccordionContent = new ContentView()
+                      {
+                          Content = expanded,
+                          IsVisible = false
+                      };
+
+
+                      vHeaderButton.AssosiatedContent = vAccordionContent;
+
+
+                      StackLayout content = new StackLayout
+                      {
+                          Orientation = StackOrientation.Vertical,
+                          VerticalOptions = LayoutOptions.FillAndExpand,
+                          HorizontalOptions = LayoutOptions.FillAndExpand,
+                          BackgroundColor = Color.White,
+                          Padding = 5,
+                          Children =
+                                {
+                                    vHeaderViewLayout,
+                                    item,
+                                    item2,
+                                    vHeaderButton,
+                                    vAccordionContent
+                                }
+                      };
+
+                      StackLayout frameGap = new StackLayout()
+                      {
+                          Orientation = StackOrientation.Vertical,
+                          VerticalOptions = LayoutOptions.FillAndExpand,
+                          HorizontalOptions = LayoutOptions.FillAndExpand,
+                          BackgroundColor = Color.FromHex("dedede"),
+                          Padding = 1,
+                          Children =
+                                {
+                                    content
+                                }
+
+                      };
+
+                      StackLayout frame = new StackLayout()
+                      {
+                          Orientation = StackOrientation.Vertical,
+                          VerticalOptions = LayoutOptions.FillAndExpand,
+                          HorizontalOptions = LayoutOptions.FillAndExpand,
+                          BackgroundColor = Color.Gray,
+                          Children =
+                                {
+                                    frameGap
+                                }
+
+                      };
+
+
+                      vMainLayout.Children.Add(frame);
+
+
+                  }//end foreach
+              }//end if
+
+              mMainLayout = vMainLayout;
+              Content = mMainLayout;
+          }//end databind
+
+
+
+         void OnAccordionButtonClicked(object sender, EventArgs args)
+         {
+
+             var vSenderButton = (AccordionButton)sender;
+
+             if (vSenderButton.Expand)
+             {
+                 vSenderButton.Expand = false;
+                 vSenderButton.AssosiatedContent.IsVisible = false;
+
+             }
+             else
+             {
+                 vSenderButton.Expand = true;
+                 vSenderButton.AssosiatedContent.IsVisible = true;
+             }
+
+         }
+    }
+
+    
+
+        public class AccordionButton : StackLayout
+        {
+            #region Private Variables
+            bool mExpand = false;
+            #endregion
+
+            #region Properties
+            public bool Expand
             {
-                case VehicleDataType.PLATE_NUMBER:
-                    cardText.top = "Plate:";
-                    cardText.bottom = vehicle.plateNumber;
-                    break;
+                get { return mExpand; }
+                set { mExpand = value; }
+            }
+            public ContentView AssosiatedContent
+            { get; set; }
+            public Image ArrowImage
+            { get; set; }
+            #endregion
 
-                case VehicleDataType.VEHICLE_TYPE:
-                    cardText.top = "Type:";
-                    cardText.bottom = vehicle.type;
-                    break;
 
-                case VehicleDataType.TIME:
-                    cardText.top = "Time:";
-                    cardText.bottom = vehicleState.time.ToString();  ///TODO epoch time vagy mi gyün?
-                    break;
+            public AccordionButton()
+            {
+                Orientation = StackOrientation.Vertical;
+                BackgroundColor = Color.White;
+                HorizontalOptions = LayoutOptions.FillAndExpand;
+                VerticalOptions = LayoutOptions.CenterAndExpand;
+                Children.Add(ArrowImage = new Image
+                {
+                    HeightRequest = 25,
+                    WidthRequest = 25,
+                    Source = "expand_arrow.png",
+                });
 
-                case VehicleDataType.ADDRESS:
-                    cardText.top = "Address:";
-                    cardText.bottom = vehicleState.address;
-                    break;
+                var tapGestureRecognizer = new TapGestureRecognizer();
+                tapGestureRecognizer.Tapped += (s, e) =>
+                {
+                    var vSenderButton = (AccordionButton)s;
 
-                case VehicleDataType.BUSINESS_TRIP:
-                    cardText.top = "Businness trip:";
-                    if (vehicleState.businessTrip)
+                    if (vSenderButton.Expand)
                     {
-                        cardText.bottom = "True";
+                        vSenderButton.Expand = false;
+                        vSenderButton.AssosiatedContent.IsVisible = false;
+                        ArrowImage.Source = "expand_arrow.png";
+
                     }
                     else
                     {
-                        cardText.bottom = "False";
+                        vSenderButton.Expand = true;
+                        vSenderButton.AssosiatedContent.IsVisible = true;
+                        ArrowImage.Source = "collapse_arrow.png";
                     }
-                    break;
 
-                case VehicleDataType.MAKE:
-                    cardText.top = "Make:";
-                    cardText.bottom = vehicle.make;
-                    break;
-
-                case VehicleDataType.LAT:
-                    cardText.top = "Lat:";
-                    cardText.bottom = vehicleState.position.lat.ToString();
-                    break;
-
-                case VehicleDataType.LNG:
-                    cardText.top = "Lon:";
-                    cardText.bottom = vehicleState.position.lng.ToString();
-                    break;
-
-                case VehicleDataType.SPEED:
-                    cardText.top = "Speed:";
-                    cardText.bottom = vehicleState.speed.ToString(); // TODO
-                    break;
-
-                case VehicleDataType.RPM:
-                    cardText.top = "RPM:";
-                    cardText.bottom = vehicleState.rpm.ToString();
-                    break;
-
-                case VehicleDataType.IGNITION:
-                    cardText.top = "Ignition:";
-                    cardText.bottom = vehicleState.ignition.ToString();
-                    break;
-
-                case VehicleDataType.MILEAGE_STATE:
-                    cardText.top = "Mileage State:";
-                    cardText.bottom = vehicleState.mileageState.ToString();
-                    break;
-
-
-                case VehicleDataType.SIGNAL:
-                    cardText.top = "Signal:";
-                    cardText.bottom = vehicleState.signal.ToString();
-                    break;
-
-                case VehicleDataType.EXT_BATT_VOLT:
-                    cardText.top = "Ext. battery:";
-                    cardText.bottom = vehicleState.extBattVolt.ToString();
-                    break;
-
-                case VehicleDataType.INT_BATT_VOLT:
-                    cardText.top = "Int. bat volt:";
-                    cardText.bottom = vehicleState.intBattVolt.ToString();
-                    break;
-
-                case VehicleDataType.FUEL_1:
-                    cardText.top = "Fuel_1:";
-                    cardText.bottom = vehicleState.fuel1.ToString();
-                    break;
-
-                case VehicleDataType.FUEL_2:
-                    cardText.top = "Fuel_2:";
-                    cardText.bottom = vehicleState.fuel2.ToString();
-                    break;
-
-                case VehicleDataType.SUM_BURNED_FUEL:
-                    cardText.top = "Sum burned fuel:";
-                    cardText.bottom = vehicleState.sumBurnedFuel.ToString();
-                    break;
-
-                case VehicleDataType.AXLE_NUM_SET:
-                    cardText.top = "Axle:";
-                    cardText.bottom = vehicleState.axleNumSet.ToString();
-                    break;
-
-                case VehicleDataType.DRIVER:
-                    cardText.top = "Driver:";
-                    cardText.bottom = vehicleState.driver.ToString();
-                    break;
-
-                default:
-                    break;
+                };
+                GestureRecognizers.Add(tapGestureRecognizer);
 
             }
 
-            return cardText;
+        }
+
+
+        public class AccordionImage : Image
+        {
+            public AccordionImage()
+            {
+                HorizontalOptions = LayoutOptions.StartAndExpand;
+
+            }
 
         }
+
+
+        public class AccordionCardView : StackLayout
+        {
+
+            public AccordionCardView(string textTop, string textBottom)
+            {
+                Label labelTop = new Label
+                {
+                    Text = textTop,
+                    TextColor = Color.Black,
+                    HorizontalOptions = LayoutOptions.StartAndExpand
+
+                };
+
+
+                Label labelBottom = new Label
+                {
+                    Text = textBottom,
+                    TextColor = Color.Black,
+                    FontAttributes = FontAttributes.Bold,
+                    HorizontalOptions = LayoutOptions.EndAndExpand,
+
+                };
+
+                Orientation = StackOrientation.Vertical;
+                VerticalOptions = LayoutOptions.FillAndExpand;
+                HorizontalOptions = LayoutOptions.FillAndExpand;
+                BackgroundColor = Color.FromHex("f4f4f3");
+                Padding = 5;
+                Children.Add(labelTop);
+                Children.Add(labelBottom);
+
+            }
+        }
+
+        public class AccordionCardLabelTop : Label
+        {
+
+            public AccordionCardLabelTop(string textTop)
+            {
+
+                Text = textTop;
+                TextColor = Color.Black;
+                HorizontalOptions = LayoutOptions.StartAndExpand;
+            }
+        }
+
+        public class AccordationCardLabelBottom : Label
+        {
+            public AccordationCardLabelBottom(string textBottom)
+            {
+                Text = textBottom;
+                TextColor = Color.Black;
+                FontAttributes = FontAttributes.Bold;
+                HorizontalOptions = LayoutOptions.EndAndExpand;
+
+            }
+        }
+
+
+        public class AccordionTopRightView : StackLayout
+        {
+            public Label label1;
+            public Label label2;
+            public Label label3;
+
+            public AccordionTopRightView()
+            {
+                HorizontalOptions = LayoutOptions.EndAndExpand;
+
+            }
+
+        }
+
+        public class ExpandedView : StackLayout
+        {
+
+            public ExpandedView(CardText[] cardtexts)
+            {
+                for (int i = 0; i < cardtexts.Length; i++)
+                {
+
+                    StackLayout stack = new StackLayout
+                    {
+                        Orientation = StackOrientation.Horizontal,
+                        VerticalOptions = LayoutOptions.FillAndExpand,
+                        HorizontalOptions = LayoutOptions.FillAndExpand,
+                        BackgroundColor = Color.White
+                    };
+
+                    Label labelTop = new Label
+                    {
+                        Text = cardtexts[i].top,
+                        TextColor = Color.Black,
+                        HorizontalOptions = LayoutOptions.StartAndExpand
+
+                    };
+
+
+                    Label labelBottom = new Label
+                    {
+                        Text = cardtexts[i].bottom,
+                        TextColor = Color.Black,
+                        FontAttributes = FontAttributes.Bold,
+                        HorizontalOptions = LayoutOptions.EndAndExpand,
+
+                    };
+
+                    stack.Children.Add(labelTop);
+                    stack.Children.Add(labelBottom);
+                    Children.Add(stack);
+
+                }
+            }
+        }
+
+
+        public class CardText
+        {
+            public string top { get; set; }
+            public string bottom { get; set; }
+        }
+
+        public class AccordionSource
+        {
+            public string HeaderImageSource { get; set; }
+            //public Color HeaderTextColor { get; set; }
+            // public Color HeaderBackGroundColor { get; set; }
+            // public Xamarin.Forms.View ContentItems { get; set; }
+            public CardText[] CardTextArray { get; set; }
+            public CardText[] ExpandedTextArray { get; set; }
+
+        }
+
+
     }
-}

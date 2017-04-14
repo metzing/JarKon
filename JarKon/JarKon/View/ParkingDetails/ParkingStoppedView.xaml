@@ -18,7 +18,7 @@
             <Button Style="{StaticResource ConfirmButton}"
                     HorizontalOptions="Center"
                     Text="Start"
-                    Command="{Binding StartParkingCommand}"
+                    Command="{Binding ShowZoneDetailsCommand}"
                     WidthRequest="300"/>
             <Button Style="{StaticResource CancelButton}"
                     HorizontalOptions="Center"

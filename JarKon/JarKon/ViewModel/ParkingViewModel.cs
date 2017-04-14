@@ -70,12 +70,14 @@ namespace JarKon.ViewModel
         }
 
         public RelayCommand DisplayZoneOptionsCommand { get; private set; }
+        public RelayCommand ShowZoneDetailsCommand { get; private set; }
         public RelayCommand StopParkingCommand { get; private set; }
         public RelayCommand StartParkingCommand { get; private set; }
 
         ParkingViewModel()
         {
             DisplayZoneOptionsCommand = new RelayCommand(() => { Provider.Instance.ParkingPage.Navigation.PushPopupAsync(new ZonesPopup()); });
+            ShowZoneDetailsCommand = new RelayCommand(() => { Provider.Instance.ParkingPage.Navigation.PushPopupAsync(new ZoneDetailsPopup()); });
             StopParkingCommand = new RelayCommand(StopParking);
             StartParkingCommand = new RelayCommand(StartParking);
         }
@@ -88,7 +90,7 @@ namespace JarKon.ViewModel
                 return;
             }
 
-            Provider.Instance.ParkingPage.Content = BuildParkingInProgressView();
+            (Provider.Instance.ParkingPage.Content as ParkingEnabledView).BottomContent.Content = new ParkingInProgressView();
         }
 
         private void StopParking()
@@ -109,7 +111,7 @@ namespace JarKon.ViewModel
                 //User has permission for the feature, enable it
                 if (ParkingViewModel.Instance.IsParkingInProgress())
                 {
-                    desiredContent.BottomContent.Content = BuildParkingInProgressView();
+                    desiredContent.BottomContent.Content = new ParkingInProgressView();
                 }
                 else
                 {
@@ -117,51 +119,6 @@ namespace JarKon.ViewModel
                 }
                 Provider.Instance.ParkingPage.Content = desiredContent;
             }
-        }
-
-
-
-        private static Xamarin.Forms.View BuildParkingInProgressView()
-        {
-            var view = new ParkingEnabledView();
-
-            var layout = new StackLayout()
-            {
-                HorizontalOptions = LayoutOptions.Center,
-                VerticalOptions = LayoutOptions.Center,
-                Spacing = 30
-            };
-
-            layout.Children.Add(
-                new Label
-                {
-                    HorizontalOptions = LayoutOptions.Center,
-                    Text = "A parkolás kezdete óta eltelt idő:",
-                    FontSize = 30
-                });
-
-            layout.Children.Add(
-                new Label
-                {
-                    HorizontalOptions = LayoutOptions.Center,
-                    Text = "1 : 45 : 48",
-                    FontAttributes = FontAttributes.Bold,
-                    FontSize = 30
-                });
-
-            layout.Children.Add(
-                new Button
-                {
-                    HorizontalOptions = LayoutOptions.Center,
-                    BackgroundColor = Color.FromHex("1a335c"),
-                    TextColor = Color.White,
-                    Text = "Stop",
-                    WidthRequest = 300,
-                    Command = Instance.StopParkingCommand
-                });
-
-            view.BottomContent.Content = layout;
-            return view;
         }
 
         private bool IsParkingInProgress()

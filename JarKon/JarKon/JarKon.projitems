@@ -39,6 +39,10 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Model\Vehicle.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\CardsViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)View\ParkingDetails\ParkingInProgressView.xaml.cs">
+      <DependentUpon>ParkingInProgressView.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)View\ParkingDetails\ParkingStoppedView.xaml.cs">
       <DependentUpon>ParkingStoppedView.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -118,6 +122,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)View\ParkingDetails\ParkingStoppedView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)View\ParkingDetails\ParkingInProgressView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

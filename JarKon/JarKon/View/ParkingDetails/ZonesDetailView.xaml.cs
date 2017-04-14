@@ -8,15 +8,16 @@ using JarKon.Model;
 using Xamarin.Forms;
 using JarKon.ViewModel;
 using static JarKon.ViewModel.ParkingViewModel;
+using GalaSoft.MvvmLight.Command;
 
-namespace JarKon.View.Parking
+namespace JarKon.View.ParkingDetails
 {
 	public partial class ZonesDetailView : ContentView
 	{
         private Zone selectedZone;
-        private StartParkingCommand startParkingCommand;
+        private RelayCommand startParkingCommand;
 
-        public ZonesDetailView(Zone selectedZone, StartParkingCommand startParkingCommand)
+        public ZonesDetailView(Zone selectedZone, RelayCommand startParkingCommand)
         {
             InitializeComponent();
 

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace JarKon.View.Parking
+namespace JarKon.View.ParkingDetails
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ParkingEnabledView : ContentView

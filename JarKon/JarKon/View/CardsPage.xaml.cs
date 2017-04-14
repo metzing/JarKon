@@ -34,7 +34,7 @@ namespace JarKon.View
         #endregion
 
 
-        public List<AccordionSource> mDataSource { get; set; }
+        public new List<AccordionSource> mDataSource { get; set; }
 
 
         public Accordion()
@@ -42,7 +42,7 @@ namespace JarKon.View
             var mMainLayout = new StackLayout();
             Content = mMainLayout;
             mDataSource = new List<AccordionSource>();
-           // DataBind();
+            //DataBind();
         }
 
         public Accordion(List<AccordionSource> aSource)
@@ -50,7 +50,7 @@ namespace JarKon.View
             var mMainLayout = new StackLayout();
             Content = mMainLayout;
             mDataSource = aSource;
-           // DataBind();
+          //  DataBind();
         }
 
 

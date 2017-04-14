@@ -10,6 +10,7 @@ using JarKon.ViewModel;
 using JarKon.View;
 using JarKon;
 
+using Xamarin.Forms;
 
 
 namespace JarKon.ViewModel
@@ -28,6 +29,11 @@ namespace JarKon.ViewModel
         {
             CPAccordion.mDataSource.Clear();
             CPAccordion.mDataSource = GetSampleData();
+
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                CPAccordion.DataBind();
+            });
         }
 
         internal static void OnDataRefreshed()

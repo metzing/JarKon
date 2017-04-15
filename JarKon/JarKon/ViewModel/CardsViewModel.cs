@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text;
 using JarKon.Core;
 using JarKon.ViewModel;
@@ -27,8 +28,7 @@ namespace JarKon.ViewModel
 
         public static void LoadVehicles()
         {
-            CPAccordion.mDataSource.Clear();
-            CPAccordion.mDataSource = GetSampleData();
+           
 
             Device.BeginInvokeOnMainThread(() =>
             {
@@ -38,6 +38,8 @@ namespace JarKon.ViewModel
 
         internal static void OnDataRefreshed()
         {
+            CPAccordion.mDataSource.Clear();
+            CPAccordion.mDataSource = GetSampleData();
             LoadVehicles();
         }
 
@@ -53,12 +55,12 @@ namespace JarKon.ViewModel
             int EXPANDED_DATA_TYPES_NUM = 4;
 
 
-
-            CardText[] cardTextList = new CardText[VEHICLE_DATA_TYPES_NUM];
-            CardText[] expandTextList = new CardText[EXPANDED_DATA_TYPES_NUM];
-
             foreach (Vehicle vehicle in vehicles)
             {
+
+
+                CardText[] cardTextList = new CardText[VEHICLE_DATA_TYPES_NUM];
+                List<CardText> expandTextList = new List<CardText>();
                 VehicleState vehicleState = Provider.Instance.VehicleStates.Find(vs => vs.vehicleId == vehicle.vehicleId);
 
                 VehicleDataType?[] vehicleDataTypes = new VehicleDataType?[VEHICLE_DATA_TYPES_NUM];
@@ -70,6 +72,7 @@ namespace JarKon.ViewModel
                     {
                         vehicleDataTypes = vhSettings.cellSet;
                     }
+                    
                 }
 
                 for (int i = 0; i < VEHICLE_DATA_TYPES_NUM; i++)
@@ -90,28 +93,37 @@ namespace JarKon.ViewModel
 
                     cardTextList[i] = cardText;
                 }
-                
 
-                for(int i = 0; i < EXPANDED_DATA_TYPES_NUM; i++)
+        
+                List<VehicleDataType> asList = Enum.GetValues(typeof(VehicleDataType)).Cast<VehicleDataType>().ToList();
+
+                foreach (VehicleDataType vdt in asList)
                 {
-                    CardText cardText = new CardText();
-                    cardText.top = i.ToString()+".";
-                    cardText.bottom = "Szöveg";
+                    int i = 0;
+                    if (!vehicleDataTypes.Contains(vdt))
+                    {
+                        try
+                        {
+                            CardText t = GetCardTextByType(vdt, vehicle, vehicleState);
+                            expandTextList.Add(t);
+                        }catch(NullReferenceException e)
+                        {
+                            NullReferenceException ef = e;
+                        }
 
-                    expandTextList[i] = cardText;
-
+                    }
                 }
 
-               
 
-                var vSecond = new AccordionSource ()
+                var vSecond = new AccordionSource()
                 {
                     HeaderImageSource = "Icon.png",
                     // = Color.White,
-                   // HeaderBackGroundColor = Color.Black,
-                   // ContentItems = vViewLayout,
+                    // HeaderBackGroundColor = Color.Black,
+                    // ContentItems = vViewLayout,
                     CardTextArray = cardTextList,
-                    ExpandedTextArray = expandTextList
+                    ExpandedTextList = expandTextList,
+                    PlateNumber = vehicle.plateNumber
 
 
                 };
@@ -122,6 +134,7 @@ namespace JarKon.ViewModel
             return vResult;
         }
 
+        
 
         public static CardText GetCardTextByType(VehicleDataType? dataType, Vehicle vehicle, VehicleState vehicleState)
         {

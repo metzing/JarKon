@@ -86,7 +86,7 @@ namespace JarKon.View
                                   VerticalOptions = LayoutOptions.EndAndExpand,
 
                                          Children = {
-                                            new Label { Text = "DEMO-2",
+                                            new Label { Text = vSingleItem.PlateNumber,
                                                 TextColor = Color.Black,
                                                 FontSize = 24,
                                                 FontAttributes = FontAttributes.Bold,
@@ -113,9 +113,15 @@ namespace JarKon.View
 
                       };//end header
 
+                    AccordionCardView a1 = new AccordionCardView(vSingleItem.CardTextArray[0].top, vSingleItem.CardTextArray[0].bottom);
+                    AccordionCardView a2 = new AccordionCardView(vSingleItem.CardTextArray[1].top, vSingleItem.CardTextArray[1].bottom);
+                    AccordionCardView a3 = new AccordionCardView(vSingleItem.CardTextArray[2].top, vSingleItem.CardTextArray[2].bottom);
 
+                    a1.WidthRequest = (vMainLayout.Width / 3) - 5;
+                    a2.WidthRequest = (vMainLayout.Width / 3) - 5;
+                    a3.WidthRequest = (vMainLayout.Width / 3) - 5;
 
-                      var item = new StackLayout
+                    var item = new StackLayout
                       {
                           Orientation = StackOrientation.Horizontal,
                           VerticalOptions = LayoutOptions.FillAndExpand,
@@ -123,28 +129,39 @@ namespace JarKon.View
                           BackgroundColor = Color.White,
                           Children =
                                 {
-
-
-                                    new AccordionCardView(vSingleItem.CardTextArray[0].top,vSingleItem.CardTextArray[0].bottom),
-                                    new AccordionCardView(vSingleItem.CardTextArray[1].top,vSingleItem.CardTextArray[1].bottom),
-                                    new AccordionCardView(vSingleItem.CardTextArray[2].top,vSingleItem.CardTextArray[2].bottom),
+                                    a1,
+                                    a2,
+                                    a3,
                                 }
 
 
                       };
 
-                      var item2 = new StackLayout
-                      {
-                          Orientation = StackOrientation.Horizontal,
-                          VerticalOptions = LayoutOptions.FillAndExpand,
-                          HorizontalOptions = LayoutOptions.FillAndExpand,
-                          BackgroundColor = Color.White,
+                    AccordionCardView a4 = new AccordionCardView(vSingleItem.CardTextArray[3].top, vSingleItem.CardTextArray[3].bottom);
+                    AccordionCardView a5 = new AccordionCardView(vSingleItem.CardTextArray[4].top, vSingleItem.CardTextArray[4].bottom);
+                    AccordionCardView a6 = new AccordionCardView(vSingleItem.CardTextArray[5].top, vSingleItem.CardTextArray[5].bottom);
+
+                    a4.WidthRequest = (vMainLayout.Width / 3) -5;
+                    a5.WidthRequest = (vMainLayout.Width / 3) - 5;
+                    a6.WidthRequest = (vMainLayout.Width / 3) - 5;
+
+
+                    var item2 = new StackLayout
+                    {
+                        Orientation = StackOrientation.Horizontal,
+                        VerticalOptions = LayoutOptions.FillAndExpand,
+                        HorizontalOptions = LayoutOptions.FillAndExpand,
+                        BackgroundColor = Color.White,
+
+                      
+
                           Children =
                                 {
 
-                                    new AccordionCardView(vSingleItem.CardTextArray[3].top,vSingleItem.CardTextArray[3].bottom),
-                                    new AccordionCardView(vSingleItem.CardTextArray[4].top,vSingleItem.CardTextArray[4].bottom),
-                                    new AccordionCardView(vSingleItem.CardTextArray[5].top,vSingleItem.CardTextArray[5].bottom),
+                                   a4,
+                                   a5,
+                                   a6,
+                                   
                                 }
 
 
@@ -152,7 +169,7 @@ namespace JarKon.View
 
                       var vHeaderButton = new AccordionButton();
 
-                      var expanded = new ExpandedView(vSingleItem.ExpandedTextArray);
+                      var expanded = new ExpandedView(vSingleItem.ExpandedTextList);
 
                       var vAccordionContent = new ContentView()
                       {
@@ -322,7 +339,7 @@ namespace JarKon.View
                 {
                     Text = textTop,
                     TextColor = Color.Black,
-                    HorizontalOptions = LayoutOptions.StartAndExpand
+                    HorizontalOptions = LayoutOptions.Start
 
                 };
 
@@ -332,13 +349,14 @@ namespace JarKon.View
                     Text = textBottom,
                     TextColor = Color.Black,
                     FontAttributes = FontAttributes.Bold,
-                    HorizontalOptions = LayoutOptions.EndAndExpand,
+                    HorizontalOptions = LayoutOptions.End,
 
                 };
 
                 Orientation = StackOrientation.Vertical;
                 VerticalOptions = LayoutOptions.FillAndExpand;
                 HorizontalOptions = LayoutOptions.FillAndExpand;
+             
                 BackgroundColor = Color.FromHex("f4f4f3");
                 Padding = 5;
                 Children.Add(labelTop);
@@ -389,9 +407,9 @@ namespace JarKon.View
         public class ExpandedView : StackLayout
         {
 
-            public ExpandedView(CardText[] cardtexts)
+            public ExpandedView(List<CardText> cardtexts)
             {
-                for (int i = 0; i < cardtexts.Length; i++)
+                foreach (CardText cardItem in cardtexts)
                 {
 
                     StackLayout stack = new StackLayout
@@ -404,18 +422,19 @@ namespace JarKon.View
 
                     Label labelTop = new Label
                     {
-                        Text = cardtexts[i].top,
+                        Text = cardItem.top,
                         TextColor = Color.Black,
-                        HorizontalOptions = LayoutOptions.StartAndExpand
+                        HorizontalOptions = LayoutOptions.StartAndExpand,
+                        FontAttributes = FontAttributes.Bold,
 
                     };
 
 
                     Label labelBottom = new Label
                     {
-                        Text = cardtexts[i].bottom,
+                        Text = cardItem.bottom,
                         TextColor = Color.Black,
-                        FontAttributes = FontAttributes.Bold,
+                        
                         HorizontalOptions = LayoutOptions.EndAndExpand,
 
                     };
@@ -435,14 +454,16 @@ namespace JarKon.View
             public string bottom { get; set; }
         }
 
-        public class AccordionSource
+   
+
+    public class AccordionSource
         {
             public string HeaderImageSource { get; set; }
-            //public Color HeaderTextColor { get; set; }
+            public string PlateNumber { get; set; }
             // public Color HeaderBackGroundColor { get; set; }
             // public Xamarin.Forms.View ContentItems { get; set; }
             public CardText[] CardTextArray { get; set; }
-            public CardText[] ExpandedTextArray { get; set; }
+            public List<CardText> ExpandedTextList { get; set; }
 
         }
 

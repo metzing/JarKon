@@ -7,14 +7,14 @@
   <ContentPage.Padding>
     <OnPlatform x:TypeArguments="Thickness"
                 iOS ="0,30,0,0"
-                Android ="20,20,20,20 "/>
+                Android ="10,10,10,10 "/>
   </ContentPage.Padding>
  
   <ScrollView HorizontalOptions="FillAndExpand">
       <StackLayout
         HorizontalOptions="FillAndExpand"
         BackgroundColor ="White"
-        Padding="20,0,20,0">
+        Padding="10,0,10,0">
         <ctrl:Accordion x:Name="MainOne" />
       </StackLayout>
      

@@ -63,12 +63,12 @@ namespace JarKon.View
         public void DataBind()
         {
               var vMainLayout = new StackLayout();
-              vMainLayout.HeightRequest = 0;
+             // vMainLayout.HeightRequest = 0;
               if (mDataSource != null)
               {
                   foreach (var vSingleItem in mDataSource)
                   {
-                      vMainLayout.HeightRequest += 300;
+                     // vMainLayout.HeightRequest += 300;
                       var vHeaderViewLayout = new StackLayout()
                       {
                           Orientation = StackOrientation.Horizontal,
@@ -247,13 +247,15 @@ namespace JarKon.View
              {
                  vSenderButton.Expand = false;
                  vSenderButton.AssosiatedContent.IsVisible = false;
+               // mMainLayout.HeightRequest = mMainLayout.Height + 1000;
 
              }
              else
              {
                  vSenderButton.Expand = true;
                  vSenderButton.AssosiatedContent.IsVisible = true;
-             }
+                // mMainLayout.HeightRequest = mMainLayout.Height - 1000;
+            }
 
          }
     }

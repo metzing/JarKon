@@ -22,25 +22,34 @@ namespace JarKon.ViewModel
         int VEHICLE_DATA_TYPES_NUM = 6;
         int EXPANDED_DATA_TYPES_NUM = 4;
 
-        
+        public static bool canLoadVehicles = true;
 
         private static Accordion  CPAccordion { get { return Provider.Instance.CardsPage.Accordion; } }
 
         public static void LoadVehicles()
         {
-           
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    if (canLoadVehicles)
+                    {
+                        CPAccordion.mDataSource.Clear();
+                        CPAccordion.mDataSource = GetSampleData();
+                        CPAccordion.DataBind();
+                        canLoadVehicles = false;
 
-            Device.BeginInvokeOnMainThread(() =>
-            {
-                CPAccordion.DataBind();
-            });
+                    }
+                });
+
+             
+            
         }
 
         internal static void OnDataRefreshed()
         {
-            CPAccordion.mDataSource.Clear();
-            CPAccordion.mDataSource = GetSampleData();
+           //TODO hogy csak egyszer fusson le, de igazából ez a callback hívódik meg valamiért sokszor
             LoadVehicles();
+            
+
         }
 
 

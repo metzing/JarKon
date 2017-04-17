@@ -2,4 +2,6 @@
     <string name="app_name">jarkon</string>
     <string name="title_activity_maps">Map</string>
     <string name="my_text"> <u>Cím megjelenítése</u></string>
+    <string name="location_permission_description">A helyhez való hozzáférés az Ön a térképen való megjelenítéséhez szükséges.</string>
+    <string name="ok">OK</string>
 </resources>

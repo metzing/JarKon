@@ -10,11 +10,25 @@ using Xamarin.Forms.Maps;
 
 namespace JarKon.ViewModel
 {
-    public static class MapViewModel
+    public class MapViewModel : BindableObject
     {
-        private static CustomMap Map { get { return Provider.Instance.MapsPage.Map; } }
-        public static void LoadPins()
+        private static MapViewModel instance;
+        public static MapViewModel Instance
         {
+            get { return instance ?? (instance = new MapViewModel()); }
+        }
+
+        public static BindableProperty ShouldShowUserProperty =
+            BindableProperty.Create(nameof(ShouldShowUser), typeof(bool), typeof(MapViewModel), false);
+        public bool ShouldShowUser
+        {
+            get { return (bool)GetValue(ShouldShowUserProperty); }
+            set { SetValue(ShouldShowUserProperty, value); }
+        }
+
+        public void LoadPins()
+        {
+            var Map = Provider.Instance.MapsPage.Map;
             Map.Pins.Clear();
 
             foreach (var vehicle in Provider.Instance.Vehicles.ToArray())
@@ -30,13 +44,13 @@ namespace JarKon.ViewModel
 
         internal static void OnDataRefreshed()
         {
-            LoadPins();
+            Instance.LoadPins();
         }
 
         public static void OnUserLoggedIn()
         {
             var pos = Provider.Instance.CurrentUser.settings.generalViewSettings.defaultLocation.position;
-            Map.MoveToRegion
+            Provider.Instance.MapsPage.Map.MoveToRegion
             (
                 MapSpan.FromCenterAndRadius
                 (
@@ -48,6 +62,16 @@ namespace JarKon.ViewModel
                     Distance.FromKilometers(Provider.Instance.CurrentUser.settings.generalViewSettings.defaultLocation.zoom)
                 )
             );
+        }
+
+        internal void DisableUserLocation()
+        {
+            ShouldShowUser = false;
+        }
+
+        internal void EnableUserLocation()
+        {
+            ShouldShowUser = true;
         }
     }
 }

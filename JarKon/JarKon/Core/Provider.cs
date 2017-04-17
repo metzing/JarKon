@@ -25,7 +25,7 @@ namespace JarKon.Core
             }
         }
 
-        public MapsPage MapsPage { get; set; }
+        public MapPage MapsPage { get; set; }
         public CardsPage CardsPage { get; set; }
         public ParkingPage ParkingPage { get; set; }
 

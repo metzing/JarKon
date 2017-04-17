@@ -13,6 +13,9 @@ using System.ComponentModel;
 using Android.Widget;
 using JarKon.Model;
 using JarKon.Core;
+using Android;
+using Android.Support.V4.App;
+using Android.Content.PM;
 
 [assembly: ExportRenderer(typeof(CustomMap), typeof(CustomMapRenderer))]
 namespace JarKon.Droid

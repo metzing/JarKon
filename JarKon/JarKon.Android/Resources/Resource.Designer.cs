@@ -3477,6 +3477,9 @@ namespace JarKon.Droid
 			// aapt resource value: 0x7f06001e
 			public const int common_signin_button_text_long = 2131099678;
 			
+			// aapt resource value: 0x7f060048
+			public const int location_permission_description = 2131099720;
+			
 			// aapt resource value: 0x7f06001f
 			public const int mr_button_content_description = 2131099679;
 			
@@ -3524,6 +3527,9 @@ namespace JarKon.Droid
 			
 			// aapt resource value: 0x7f060047
 			public const int my_text = 2131099719;
+			
+			// aapt resource value: 0x7f060049
+			public const int ok = 2131099721;
 			
 			// aapt resource value: 0x7f060041
 			public const int status_bar_notification_info_overflow = 2131099713;

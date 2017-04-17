@@ -1,5 +1,6 @@
 ﻿using JarKon.Core;
 using JarKon.Model;
+using JarKon.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,12 +14,13 @@ using Xamarin.Forms.Xaml;
 namespace JarKon.View
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class MapsPage : ContentPage
+    public partial class MapPage : ContentPage
     {
-        public MapsPage()
+        public MapPage()
         {
             InitializeComponent();
             Provider.Instance.MapsPage = this;
+            BindingContext = MapViewModel.Instance;
         }
 
         public CustomMap Map

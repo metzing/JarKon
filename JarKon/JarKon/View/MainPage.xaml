@@ -6,7 +6,7 @@
             BarBackgroundColor="White"
             BarTextColor="Gray">
     
-    <local:MapsPage Title="Map"
+    <local:MapPage Title="Map"
                     x:Name="mapsPage"/>
     
     <local:CardsPage Title="Cards"

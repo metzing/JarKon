@@ -4,6 +4,7 @@ using System.Linq;
 
 using Foundation;
 using UIKit;
+using JarKon.Core;
 
 namespace JarKon.iOS
 {
@@ -24,6 +25,9 @@ namespace JarKon.iOS
         {
             global::Xamarin.Forms.Forms.Init();
             global::Xamarin.FormsMaps.Init();
+
+            Provider.Instance.ScreenHeight = (int)(UIScreen.MainScreen.Bounds.Height * UIScreen.MainScreen.Scale);
+            Provider.Instance.ScreenWidth = (int)(UIScreen.MainScreen.Bounds.Width * UIScreen.MainScreen.Scale);
 
             LoadApplication(new JarKon.App());
 

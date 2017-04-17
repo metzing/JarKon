@@ -59,6 +59,9 @@ namespace JarKon.Core
             }
         }
 
+        public int ScreenHeight { get; set; }
+        public int ScreenWidth { get; set; }
+
         /// <summary>
         /// Should be called from App.OnStart
         /// </summary>

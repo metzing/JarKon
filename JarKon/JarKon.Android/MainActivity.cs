@@ -10,6 +10,7 @@ using Android.Support.V4.App;
 using Android;
 using Android.Support.Design.Widget;
 using JarKon.ViewModel;
+using JarKon.Core;
 
 namespace JarKon.Droid
 {
@@ -17,7 +18,8 @@ namespace JarKon.Droid
         Icon = "@drawable/icon",
         Theme = "@style/MainTheme",
         MainLauncher = true,
-        ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+        ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation,
+        ScreenOrientation = ScreenOrientation.Portrait)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
         static string[] LOCATION_PERMISSIONS =
@@ -39,6 +41,9 @@ namespace JarKon.Droid
 
             base.OnCreate(bundle);
 
+            Provider.Instance.ScreenHeight = (int)(Resources.DisplayMetrics.HeightPixels / Resources.DisplayMetrics.Density);
+            Provider.Instance.ScreenWidth = (int)(Resources.DisplayMetrics.WidthPixels / Resources.DisplayMetrics.Density);
+
             layout = FindViewById(Android.Resource.Id.Content);
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
@@ -48,6 +53,10 @@ namespace JarKon.Droid
             {
                 MapViewModel.Instance.DisableUserLocation();
                 RequestCoarseLocation();
+            }
+            else
+            {
+                MapViewModel.Instance.EnableUserLocation();
             }
 
             LoadApplication(new JarKon.App());

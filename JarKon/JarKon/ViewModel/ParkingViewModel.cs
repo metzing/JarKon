@@ -77,7 +77,12 @@ namespace JarKon.ViewModel
         ParkingViewModel()
         {
             DisplayZoneOptionsCommand = new RelayCommand(() => { Provider.Instance.ParkingPage.Navigation.PushPopupAsync(new ZonesPopup()); });
-            ShowZoneDetailsCommand = new RelayCommand(() => { Provider.Instance.ParkingPage.Navigation.PushPopupAsync(new ZoneDetailsPopup()); });
+            ShowZoneDetailsCommand = new RelayCommand(
+                () => {
+                    if (SelectedZone == null)
+                        return;
+                    Provider.Instance.ParkingPage.Navigation.PushPopupAsync(new ZoneDetailsPopup());
+                });
             StopParkingCommand = new RelayCommand(StopParking);
             StartParkingCommand = new RelayCommand(StartParking);
         }
@@ -150,7 +155,7 @@ namespace JarKon.ViewModel
 
                 Content = new ContentView
                 {
-                    Padding = new Thickness(30, 200),
+                    Padding = new Thickness(30, Provider.Instance.ScreenHeight / 5),
                     Content = listView = new ListView
                     {
                         ItemsSource = MockZones,
@@ -177,7 +182,7 @@ namespace JarKon.ViewModel
 
                 Content = new ContentView
                 {
-                    Padding = new Thickness(30, 200),
+                    Padding = new Thickness(30, Provider.Instance.ScreenHeight / 5),
                     Content = new ZonesDetailView(Instance.SelectedZone, Instance.StartParkingCommand)
                 };
             }

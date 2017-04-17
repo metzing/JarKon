@@ -38,19 +38,27 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Model\Vehicle.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\CardsViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)View\ParkingDetails\ParkingInProgressView.xaml.cs">
+      <DependentUpon>ParkingInProgressView.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)View\ParkingDetails\ParkingStoppedView.xaml.cs">
+      <DependentUpon>ParkingStoppedView.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)View\ParkingPage.xaml.cs">
       <DependentUpon>ParkingPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)View\Parking\ParkingDisabledView.xaml.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)View\ParkingDetails\ParkingDisabledView.xaml.cs">
       <DependentUpon>ParkingDisabledView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)View\Parking\ParkingEnabledView.xaml.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)View\ParkingDetails\ParkingEnabledView.xaml.cs">
       <DependentUpon>ParkingEnabledView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)View\Parking\ZonesDetailView.xaml.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)View\ParkingDetails\ZonesDetailView.xaml.cs">
       <DependentUpon>ZonesDetailView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
@@ -94,19 +102,31 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)View\Parking\ParkingDisabledView.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)View\ParkingDetails\ParkingDisabledView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)View\Parking\ParkingEnabledView.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)View\ParkingDetails\ParkingEnabledView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)View\Parking\ZonesDetailView.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)View\ParkingDetails\ZonesDetailView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)View\ParkingDetails\ParkingStoppedView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)View\ParkingDetails\ParkingInProgressView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

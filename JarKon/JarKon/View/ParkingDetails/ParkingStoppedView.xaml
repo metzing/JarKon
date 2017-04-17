@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             x:Class="JarKon.View.ParkingDetails.ParkingStoppedView">
+    <StackLayout HorizontalOptions="Center"
+             VerticalOptions="Center"
+             Spacing="25">
+        <StackLayout.Children>
+            <Button x:Name="SelectZoneButton"
+                    Style="{StaticResource ConfirmButton}" 
+                    HorizontalOptions="Center"
+                    Text="Válasszon parkolási zónát..."
+                    Command="{Binding DisplayZoneOptionsCommand}"
+                    WidthRequest="300"/>
+            <Label HorizontalOptions="Center"
+                   Text="Biztosan el akarja indítani a parkolást?"
+                   FontSize="20"/>
+            <Button Style="{StaticResource ConfirmButton}"
+                    HorizontalOptions="Center"
+                    Text="Start"
+                    Command="{Binding ShowZoneDetailsCommand}"
+                    WidthRequest="300"/>
+            <Button Style="{StaticResource CancelButton}"
+                    HorizontalOptions="Center"
+                    Text="Mégse"
+                    WidthRequest="300"/>
+        </StackLayout.Children>
+    </StackLayout>
+</ContentView>

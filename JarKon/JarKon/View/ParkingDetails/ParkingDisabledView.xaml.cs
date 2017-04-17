@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 
-namespace JarKon.View.Parking
+namespace JarKon.View.ParkingDetails
 {
 	public partial class ParkingDisabledView : ContentView
 	{
@@ -15,4 +15,4 @@ namespace JarKon.View.Parking
 			InitializeComponent ();
 		}
 	}
-}
+} 

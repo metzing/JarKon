@@ -2,9 +2,34 @@
 <Application xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="JarKon.App">
-	<Application.Resources>
+    <Application.Resources>
+        <ResourceDictionary x:Name="AppDictionary">
+            <Color x:Key="CustomBlue">#1A335C</Color>
+            <Color x:Key="LightGrey">#EEEEEE</Color>
 
-		<!-- Application resource dictionary -->
+            <Style x:Key="PaddedPage" TargetType="Page">
+                <Setter Property="Padding">
+                    <Setter.Value>
+                        <OnPlatform x:TypeArguments="Thickness"
+                                    iOS ="0,30,0,0" 
+                                    Android="0,0,0,0"/>
+                    </Setter.Value>
+                </Setter>
+            </Style>
 
-	</Application.Resources>
+            <Style x:Key="ConfirmButton" TargetType="Button">
+                <Setter Property="BackgroundColor"
+                        Value="{StaticResource CustomBlue}"/>
+                <Setter Property="TextColor"
+                        Value="White"/>
+            </Style>
+            
+            <Style x:Key="CancelButton" TargetType="Button">
+                <Setter Property="BackgroundColor"
+                        Value="White"/>
+                <Setter Property="TextColor"
+                        Value="{StaticResource CustomBlue}"/>
+            </Style>
+        </ResourceDictionary>
+    </Application.Resources>
 </Application>

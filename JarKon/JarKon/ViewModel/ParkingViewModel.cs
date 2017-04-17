@@ -8,12 +8,21 @@ using System.Collections.Generic;
 using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
-using JarKon.View.Parking;
+using JarKon.View.ParkingDetails;
+using JarKon.View.ParkingDetails;
+using GalaSoft.MvvmLight.Command;
 
 namespace JarKon.ViewModel
 {
-    public class ParkingViewModel
+    public class ParkingViewModel : BindableObject
     {
+        //Singleton
+        private static ParkingViewModel instance;
+        public static ParkingViewModel Instance
+        {
+            get { return instance ?? (instance = new ParkingViewModel()); }
+        }
+
         private static List<Zone> MockZones = new List<Zone>
         {
             new Zone
@@ -48,156 +57,71 @@ namespace JarKon.ViewModel
             }
         };
 
-        private static ZonesPopup zonePicker = null;
+        private Zone selectedZone;
 
-        public static ZonesPopup ZonePicker
-        {
-            get { return zonePicker ?? (zonePicker = new ZonesPopup()); }
-        }
-
-        private static Zone selectedZone;
-
-        public static Zone SelectedZone
+        public Zone SelectedZone
         {
             get { return selectedZone; }
             set
             {
                 selectedZone = value;
-                OnSelectedZoneChanged();
+                Provider.Instance.ParkingPage.OnSelectedZoneChanged(value);
             }
         }
 
-        private static Button SelectZoneButton;
+        public RelayCommand DisplayZoneOptionsCommand { get; private set; }
+        public RelayCommand ShowZoneDetailsCommand { get; private set; }
+        public RelayCommand StopParkingCommand { get; private set; }
+        public RelayCommand StartParkingCommand { get; private set; }
 
-        private static void OnSelectedZoneChanged()
+        ParkingViewModel()
         {
-            if (selectedZone == null) return;
+            DisplayZoneOptionsCommand = new RelayCommand(() => { Provider.Instance.ParkingPage.Navigation.PushPopupAsync(new ZonesPopup()); });
+            ShowZoneDetailsCommand = new RelayCommand(() => { Provider.Instance.ParkingPage.Navigation.PushPopupAsync(new ZoneDetailsPopup()); });
+            StopParkingCommand = new RelayCommand(StopParking);
+            StartParkingCommand = new RelayCommand(StartParking);
+        }
 
-            SelectZoneButton.Text = "Zóna:" + selectedZone.zoneCode;
+        private void StartParking()
+        {
+            if (SelectedZone == null)
+            {
+                App.DisplayAlert("Hiba", "Kérem, válasszon egy zónát", "OK");
+                return;
+            }
+
+            (Provider.Instance.ParkingPage.Content as ParkingEnabledView).BottomContent.Content = new ParkingInProgressView();
+        }
+
+        private void StopParking()
+        {
+            (Provider.Instance.ParkingPage.Content as ParkingEnabledView).BottomContent.Content = new ParkingStoppedView(selectedZone);
         }
 
         public static void OnUserLoggedIn()
         {
-            if (!CheckParkingPermission())
+            if (!ParkingViewModel.Instance.CheckParkingPermission())
             {
                 //User doesn't have permission for the feature, disable it
-                Provider.Instance.ParkingPage.Content = new View.Parking.ParkingDisabledView();
+                Provider.Instance.ParkingPage.Content = new ParkingDisabledView();
             }
             else
             {
+                var desiredContent = new ParkingEnabledView();
                 //User has permission for the feature, enable it
-                if (IsParkingInProgress())
+                if (ParkingViewModel.Instance.IsParkingInProgress())
                 {
-                    Provider.Instance.ParkingPage.Content = BuildParkingInProgressView();
+                    desiredContent.BottomContent.Content = new ParkingInProgressView();
                 }
                 else
                 {
-                    Provider.Instance.ParkingPage.Content = BuildParkingStoppedView();
+                    desiredContent.BottomContent.Content = new ParkingStoppedView();
                 }
+                Provider.Instance.ParkingPage.Content = desiredContent;
             }
         }
 
-        private static Xamarin.Forms.View BuildParkingStoppedView()
-        {
-            var view = new ParkingEnabledView();
-            var layout = new StackLayout()
-            {
-                HorizontalOptions = LayoutOptions.Center,
-                VerticalOptions = LayoutOptions.Center,
-                Spacing = 25
-            };
-
-            layout.Children.Add(SelectZoneButton = new Button
-            {
-                HorizontalOptions = LayoutOptions.Center,
-                BackgroundColor = Color.FromHex("1a335c"),
-                TextColor = Color.White,
-                Text = "Válasszon parkolási zónát...",
-                Command = new DisplayZoneOptionsCommand(),
-                CommandParameter = ZonePicker,
-                WidthRequest = 300
-            });
-
-            layout.Children.Add(
-                new Label
-                {
-                    HorizontalOptions = LayoutOptions.Center,
-                    Text = "Biztosan el akarja indítani a parkolást?",
-                    FontSize = 20
-                });
-
-            layout.Children.Add(
-                new Button
-                {
-                    HorizontalOptions = LayoutOptions.Center,
-                    BackgroundColor = Color.FromHex("1a335c"),
-                    TextColor = Color.White,
-                    Text = "Start",
-                    Command = new StartParkingCommand(),
-                    WidthRequest = 300
-                });
-
-            layout.Children.Add(
-                new Button
-                {
-                    HorizontalOptions = LayoutOptions.Center,
-                    BackgroundColor = Color.White,
-                    BorderColor = Color.FromHex("1a335c"),
-                    BorderWidth = 2,
-                    TextColor = Color.FromHex("1a335c"),
-                    Text = "Mégse",
-                    WidthRequest = 300
-                });
-
-            view.BottomContent.Content=layout;
-
-            return view;
-        }
-
-        private static Xamarin.Forms.View BuildParkingInProgressView()
-        {
-            var view = new ParkingEnabledView();
-
-            var layout = new StackLayout()
-            {
-                HorizontalOptions = LayoutOptions.Center,
-                VerticalOptions = LayoutOptions.Center,
-                Spacing = 30
-            };
-
-            layout.Children.Add(
-                new Label
-                {
-                    HorizontalOptions = LayoutOptions.Center,
-                    Text = "A parkolás kezdete óta eltelt idő:",
-                    FontSize = 30
-                });
-
-            layout.Children.Add(
-                new Label
-                {
-                    HorizontalOptions = LayoutOptions.Center,
-                    Text = "1 : 45 : 48",
-                    FontAttributes = FontAttributes.Bold,
-                    FontSize = 30
-                });
-
-            layout.Children.Add(
-                new Button
-                {
-                    HorizontalOptions = LayoutOptions.Center,
-                    BackgroundColor = Color.FromHex("1a335c"),
-                    TextColor = Color.White,
-                    Text = "Stop",
-                    WidthRequest = 300,
-                    Command = new StopParkingCommand()
-                });
-
-            view.BottomContent.Content = layout;
-            return view;
-        }
-
-        private static bool IsParkingInProgress()
+        private bool IsParkingInProgress()
         {
             //Ez majd lekérhető lesz az API-tól
 
@@ -205,7 +129,7 @@ namespace JarKon.ViewModel
             return false;
         }
 
-        private static bool CheckParkingPermission()
+        private bool CheckParkingPermission()
         {
             //ONLY FOR DEVELOPMENT PURPOSES
             return true;
@@ -217,49 +141,6 @@ namespace JarKon.ViewModel
             return false;
         }
 
-        public class StartParkingCommand : ICommand
-        {
-            public event EventHandler CanExecuteChanged;
-
-            public bool CanExecute(object parameter)
-            {
-                return true;
-            }
-
-            public void Execute(object parameter)
-            {
-                App.DisplayAlert("Button pressed", "Start parking", "OK");
-                Provider.Instance.ParkingPage.Content = BuildParkingInProgressView();
-            }
-        }
-        private class StopParkingCommand : ICommand
-        {
-            public event EventHandler CanExecuteChanged;
-
-            public bool CanExecute(object parameter)
-            {
-                return true;
-            }
-
-            public void Execute(object parameter)
-            {
-                Provider.Instance.ParkingPage.Content = BuildParkingStoppedView();
-            }
-        }
-        private class DisplayZoneOptionsCommand : ICommand
-        {
-            public event EventHandler CanExecuteChanged;
-
-            public bool CanExecute(object parameter)
-            {
-                return true;
-            }
-
-            public void Execute(object parameter)
-            {
-                Provider.Instance.ParkingPage.Navigation.PushPopupAsync(new ZonesPopup());
-            }
-        }
         public class ZonesPopup : PopupPage
         {
             private ListView listView;
@@ -278,12 +159,12 @@ namespace JarKon.ViewModel
                 };
 
                 listView.ItemTapped += ZoneTapped;
-                if (SelectedZone != null) listView.SelectedItem = SelectedZone;
+                if (Instance.SelectedZone != null) listView.SelectedItem = Instance.SelectedZone;
             }
 
             private void ZoneTapped(object sender, ItemTappedEventArgs e)
             {
-                SelectedZone = (Zone)e.Item;
+                Instance.SelectedZone = (Zone)e.Item;
                 Navigation.PopPopupAsync();
                 Navigation.PushPopupAsync(new ZoneDetailsPopup());
             }
@@ -297,11 +178,9 @@ namespace JarKon.ViewModel
                 Content = new ContentView
                 {
                     Padding = new Thickness(30, 200),
-                    Content = new ZonesDetailView(SelectedZone, new StartParkingCommand())
+                    Content = new ZonesDetailView(Instance.SelectedZone, Instance.StartParkingCommand)
                 };
             }
         }
     }
-
-    
 }

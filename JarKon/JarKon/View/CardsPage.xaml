@@ -4,20 +4,9 @@
              xmlns:ctrl="clr-namespace:JarKon.View"
              x:Class="JarKon.View.CardsPage"
              BackgroundColor ="White">
-  <ContentPage.Padding>
-    <OnPlatform x:TypeArguments="Thickness"
-                iOS ="0,30,0,0"
-                Android ="10,10,10,10 "/>
-  </ContentPage.Padding>
- 
-  <ScrollView HorizontalOptions="FillAndExpand">
-      <StackLayout
-        HorizontalOptions="FillAndExpand"
-        BackgroundColor ="White"
-        Padding="10,0,10,0">
+    <ScrollView HorizontalOptions="FillAndExpand"
+                BackgroundColor="Red">
         <ctrl:Accordion x:Name="MainOne" />
-      </StackLayout>
-     
-   </ScrollView>
-     
+    </ScrollView>
+
 </ContentPage>

@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using JarKon.Model;
+using JarKon.View.ParkingDetails;
 
 namespace JarKon.View
 {
@@ -18,5 +20,11 @@ namespace JarKon.View
 			InitializeComponent ();
             Provider.Instance.ParkingPage = this;
 		}
-	}
+
+        internal void OnSelectedZoneChanged(Zone NewZone)
+        {
+            var view = ((Content as ParkingEnabledView)?.BottomContent.Content as ParkingStoppedView);
+            view?.OnSelectedZoneChanged(NewZone);
+        }
+    }
 }

@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="JarKon.View.ParkingDetails.ParkingEnabledView">
+    <ContentView.Content>
+        <RelativeLayout HorizontalOptions="FillAndExpand"
+                        VerticalOptions="FillAndExpand">
+            <ContentView BackgroundColor="#eeeeee"
+                         RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0}"
+                         RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
+                         RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.5}">
+                <StackLayout VerticalOptions="Center"
+                             HorizontalOptions="Center">
+                    <Image HorizontalOptions="Center" 
+                           Source="Icon.png"/>
+                    <Label HorizontalOptions="Center"
+                           TextColor="#8aba18"
+                           Text="Az Ön rendszáma:"
+                           FontSize="15"/>
+                    <Label x:Name="PlateNumberLabel" 
+                           x:FieldModifier="Public"
+                           HorizontalOptions="Center"
+                           Text="AAA-111"
+                           FontSize="25"/>
+                </StackLayout>
+            </ContentView>
+            <ContentView x:Name="bottomContent"
+                         BackgroundColor="White"
+                         RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.5}"
+                         RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
+                         RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.5}"/>
+        </RelativeLayout>
+    </ContentView.Content>
+</ContentView>

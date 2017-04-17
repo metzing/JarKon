@@ -5,49 +5,122 @@
           x:Class="JarKon.View.Card">
     <ViewCell.View>
         <Frame OutlineColor="Black"
-               BackgroundColor="Gray"
                HasShadow="True"
                HorizontalOptions="Fill"
                VerticalOptions="Fill"
-               Margin="6">
+               Margin="6"
+               WidthRequest="300"
+               HeightRequest="300">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="3*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="4*"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="2*"/>
                 </Grid.ColumnDefinitions>
                 <BoxView Grid.Column="0"
                          Grid.Row="0"
                          Color="Lime"/>
                 <StackLayout Grid.Column="1"
-                             Grid.ColumnSpan="2"
                              Grid.Row="0">
-                    <Label Text="{Binding DriverName}"/>
-                    <Label Text="{Binding DriverName}"/>
-                    <Label Text="{Binding DriverName}"/>
+                    <Label HorizontalOptions="End"
+                           Text="{Binding driver}"/>
+                    <Label HorizontalOptions="End"
+                           Text="{Binding driver}"/>
+                    <Label HorizontalOptions="End"
+                           Text="{Binding driver}"/>
                 </StackLayout>
 
-                <Label Grid.Column="0"
-                       Grid.Row="1"
-                       Text="Longitude"/>
-                
-                <Label Grid.Column="0"
-                       Grid.Row="2"
-                       Text="{Binding Longitude}"/>
-                
+                <Grid Grid.Column="0"
+                      Grid.ColumnSpan="2"
+                      Grid.Row="1"
+                      x:Name="DataGrid"
+                      ColumnSpacing="2"
+                      RowSpacing="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Frame Grid.Row="0"
+                           Grid.Column="0"
+                           BackgroundColor="Gray"
+                           OutlineColor="Black">
+                        <StackLayout>
+                            <Label Text="Longitude"
+                                   HorizontalOptions="Start"/>
+                            <Label Text="{Binding position.lng}"
+                                   HorizontalOptions="End"/>
+                        </StackLayout>
+                    </Frame>
+                    <Frame Grid.Row="0"
+                           Grid.Column="1"
+                           BackgroundColor="Gray"
+                           OutlineColor="Black">
+                        <StackLayout>
+                            <Label Text="Latitude"
+                                   HorizontalOptions="Start"/>
+                            <Label Text="{Binding position.lat}"
+                                   HorizontalOptions="End"/>
+                        </StackLayout>
+                    </Frame>
+                    <Frame Grid.Row="0"
+                           Grid.Column="2"
+                           BackgroundColor="Gray"
+                           OutlineColor="Black">
+                        <StackLayout>
+                            <Label Text="ID"
+                                   HorizontalOptions="Start"/>
+                            <Label Text="{Binding vehicleId}"
+                                   HorizontalOptions="End"/>
+                        </StackLayout>
+                    </Frame>
+                    <Frame Grid.Row="1"
+                           Grid.Column="0"
+                           BackgroundColor="Gray"
+                           OutlineColor="Black">
+                        <StackLayout>
+                            <Label Text="Speed"
+                                   HorizontalOptions="Start"/>
+                            <Label Text="{Binding speed}"
+                                   HorizontalOptions="End"/>
+                        </StackLayout>
+                    </Frame>
+                    <Frame Grid.Row="1"
+                           Grid.Column="1"
+                           BackgroundColor="Gray"
+                           OutlineColor="Black">
+                        <StackLayout>
+                            <Label Text="Ignition"
+                                   HorizontalOptions="Start"/>
+                            <Label Text="{Binding ignition}"
+                                   HorizontalOptions="End"/>
+                        </StackLayout>
+                    </Frame>
+                    <Frame Grid.Row="1"
+                           Grid.Column="2"
+                           BackgroundColor="Gray"
+                           OutlineColor="Black">
+                        <StackLayout>
+                            <Label Text="Internal Voltage"
+                                   HorizontalOptions="Start"/>
+                            <Label Text="{Binding intBattVolt}"
+                                   HorizontalOptions="End"/>
+                        </StackLayout>
+                    </Frame>
+                </Grid>
                 <Button Grid.Column="0"
-                        Grid.ColumnSpan="3"
-                        Grid.Row="5"
-                        Text="Expand"
-                        Clicked="Button_Clicked"/>
+                        Grid.ColumnSpan="2"
+                        Grid.Row="3"
+                        Text="Expand"/>
             </Grid>
         </Frame>
     </ViewCell.View>

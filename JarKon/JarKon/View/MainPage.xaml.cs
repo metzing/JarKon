@@ -8,11 +8,11 @@ using Xamarin.Forms;
 
 namespace JarKon.View
 {
-	public partial class MainPage : TabbedPage
-	{
-		public MainPage()
-		{
+    public partial class MainPage : TabbedPage
+    {
+        public MainPage()
+        {
             InitializeComponent();
-		}
-	}
+        }
+    }
 }

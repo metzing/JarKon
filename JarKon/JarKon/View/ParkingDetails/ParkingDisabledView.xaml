@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="JarKon.View.ParkingDetails.ParkingDisabledView">
+    <ContentView.Content>
+        <StackLayout HorizontalOptions="Center"
+                 VerticalOptions="Center">
+            <Image HorizontalOptions="Center" Source="Icon.png"/>
+            <Label Text="Ez a funkció nem elérhető"
+                HorizontalOptions="Center" FontSize="30" HorizontalTextAlignment="Center"/>
+            <Label HorizontalOptions="Center" FontSize="25" HorizontalTextAlignment="Center" 
+               Text="Ön jelenleg nem tartózkodik parkoló zónában vagy előfizetése nem teszi lehetővé a szolgáltatás használatát."/>
+        </StackLayout>
+    </ContentView.Content>
+</ContentView>

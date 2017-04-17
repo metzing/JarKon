@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             x:Class="JarKon.View.ParkingDetails.ZonesDetailView"
+             BackgroundColor="White"
+             Padding="5">
+    <ContentView.Content>
+        <Grid HorizontalOptions="Center"
+              VerticalOptions="Center"
+              ColumnSpacing="10"
+              RowSpacing="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="2*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0"
+                   Grid.ColumnSpan="4"
+                   Grid.Row="0"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"
+                   Text="Az Ön által kiválasztott parkolási zóna adatai:"
+                   FontSize="Medium"
+                   HorizontalTextAlignment="Center"/>
+            <Label Grid.Column="0"
+                   Grid.Row="1"
+                   HorizontalOptions="End"
+                   VerticalOptions="Center"
+                   Text="Kód:"
+                   FontSize="Medium"/>
+            <Label Grid.Column="1"
+                   Grid.ColumnSpan="3"
+                   Grid.Row="1"
+                   HorizontalOptions="Start"
+                   VerticalOptions="Center"
+                   FontSize="Medium"
+                   x:Name="CodeLabel"/>
+            <Label Grid.Column="0"
+                   Grid.Row="2"
+                   HorizontalOptions="End"
+                   VerticalOptions="Start"
+                   Text="Név:"
+                   FontSize="Medium"/>
+            <Label Grid.Column="1"
+                   Grid.ColumnSpan="3"
+                   Grid.Row="2"
+                   HorizontalOptions="Start"
+                   VerticalOptions="Start"
+                   FontSize="Medium"
+                   x:Name="NameLabel"/>
+            <Label Grid.Column="0"
+                   Grid.Row="3"
+                   HorizontalOptions="End"
+                   VerticalOptions="Center"
+                   Text="Tarifa:"
+                   FontSize="Medium"/>
+            <Label Grid.Column="1"
+                   Grid.ColumnSpan="3"
+                   Grid.Row="3"
+                   HorizontalOptions="Start"
+                   VerticalOptions="Center"
+                   FontSize="Medium"
+                   x:Name="TarifLabel"/>
+            <Button Grid.Row="4"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    BackgroundColor="#1a335c"
+                    TextColor="White"
+                    Text="OK"
+                    HeightRequest="50"
+                    WidthRequest="200"
+                    Clicked="OKButtonClicked"/>
+            <Button Grid.Row="4"
+                    Grid.Column="2"
+                    Grid.ColumnSpan="2"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    TextColor="#1a335c"
+                    BorderColor="#1a335c"
+                    BackgroundColor="White"
+                    Text="Mégse"
+                    HeightRequest="50"
+                    WidthRequest="200"
+                    Clicked="CancelButtonClicked"/>
+        </Grid>
+    </ContentView.Content>
+</ContentView>

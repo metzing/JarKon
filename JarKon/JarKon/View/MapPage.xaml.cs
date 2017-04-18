@@ -1,6 +1,7 @@
 ﻿using JarKon.Core;
 using JarKon.Model;
 using JarKon.ViewModel;
+using Rg.Plugins.Popup.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,6 +30,11 @@ namespace JarKon.View
             {
                 return map;
             }
+        }
+
+        internal static void ShowCardPopup(object sender, EventArgs e)
+        {
+            Provider.Instance.MapsPage.Navigation.PushPopupAsync(new CardPopup((sender as CustomPin).Vehicle));
         }
     }
 

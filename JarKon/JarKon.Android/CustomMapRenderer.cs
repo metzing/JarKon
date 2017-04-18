@@ -16,6 +16,7 @@ using JarKon.Core;
 using Android;
 using Android.Support.V4.App;
 using Android.Content.PM;
+using JarKon.ViewModel;
 
 [assembly: ExportRenderer(typeof(CustomMap), typeof(CustomMapRenderer))]
 namespace JarKon.Droid
@@ -27,6 +28,9 @@ namespace JarKon.Droid
 
         public Android.Views.View GetInfoContents(Marker marker)
         {
+            MapPage.ShowCardPopup(GetCustomPin(marker),new EventArgs());
+            return null;
+
             var inflater = Android.App.Application.Context.GetSystemService("layout_inflater") as Android.Views.LayoutInflater;
             if (inflater != null)
             {
@@ -83,7 +87,7 @@ namespace JarKon.Droid
                     vehicleDataTypes[i] = VehicleDataType.PLATE_NUMBER;
                 }*/
 
-                VehicleViewSettings[] settings = currentUser.settings.vehicleViewSettings;
+                var settings = currentUser.settings.vehicleViewSettings;
                 foreach(VehicleViewSettings vhSettings in settings)
                 {
                     if(vhSettings.vehicleId == vehicle.vehicleId)

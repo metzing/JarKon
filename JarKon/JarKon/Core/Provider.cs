@@ -55,7 +55,7 @@ namespace JarKon.Core
             private set
             {
                 currentUser = value;
-                if (value != null) (App.Current as App).OnUserLoaded();
+                if (value != null) (App.Current as App).FireUserLoaded();
             }
         }
 
@@ -66,7 +66,7 @@ namespace JarKon.Core
         /// Should be called from App.OnStart
         /// </summary>
         /// <returns></returns>
-        public async Task OnStartAsync()
+        public void OnStart()
         {
             TestLogin();
 
@@ -97,7 +97,7 @@ namespace JarKon.Core
 
             Vehicles = await GetVehiclesAsync();
             VehicleStates = await GetVehicleStatesAsync();
-            (App.Current as App).OnDataChanged();
+            (App.Current as App).FireDataChanged();
         }
 
         /// <summary>

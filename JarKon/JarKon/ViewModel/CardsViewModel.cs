@@ -12,143 +12,106 @@ using JarKon.View;
 using JarKon;
 
 using Xamarin.Forms;
-
+using JarKon.View.CardDetails;
 
 namespace JarKon.ViewModel
 
 {
     class CardsViewModel
     {
-        int VEHICLE_DATA_TYPES_NUM = 6;
-        int EXPANDED_DATA_TYPES_NUM = 4;
-
-        public static bool canLoadVehicles = true;
-
-        private static Accordion  CPAccordion { get { return Provider.Instance.CardsPage.Accordion; } }
-
-        public static void LoadVehicles()
+        private static CardsViewModel instance;
+        public static CardsViewModel Instance
         {
-                Device.BeginInvokeOnMainThread(() =>
-                {
-                    if (canLoadVehicles)
-                    {
-                        CPAccordion.mDataSource.Clear();
-                        CPAccordion.mDataSource = GetSampleData();
-                        CPAccordion.DataBind();
-                        canLoadVehicles = false;
+            get
+            {
+                return instance ?? (instance = new CardsViewModel());
+            }
+        }
 
-                    }
-                });
+        public ObservableCollection<CardData> CardDataSource;
 
-             
-            
+        private CardsViewModel()
+        {
+            CardDataSource = new ObservableCollection<CardData>();
         }
 
         internal static void OnDataRefreshed()
         {
-           //TODO hogy csak egyszer fusson le, de igazából ez a callback hívódik meg valamiért sokszor
             LoadVehicles();
-            
-
         }
 
-
-        public static List<AccordionSource> GetSampleData()
+        public static void LoadVehicles()
         {
-            var vResult = new List<AccordionSource>();
+            Instance.CardDataSource.Clear();
 
-            User currentUser = Provider.Instance.CurrentUser;
             List<Vehicle> vehicles = Provider.Instance.Vehicles;
 
-            int VEHICLE_DATA_TYPES_NUM = 6;
-            int EXPANDED_DATA_TYPES_NUM = 4;
-
-
-            foreach (Vehicle vehicle in vehicles)
+            foreach (var vehicle in vehicles)
             {
-
-
-                CardText[] cardTextList = new CardText[VEHICLE_DATA_TYPES_NUM];
-                List<CardText> expandTextList = new List<CardText>();
-                VehicleState vehicleState = Provider.Instance.VehicleStates.Find(vs => vs.vehicleId == vehicle.vehicleId);
-
-                VehicleDataType?[] vehicleDataTypes = new VehicleDataType?[VEHICLE_DATA_TYPES_NUM];
-
-                VehicleViewSettings[] settings = currentUser.settings.vehicleViewSettings;
-                foreach (VehicleViewSettings vhSettings in settings)
-                {
-                    if (vhSettings.vehicleId == vehicle.vehicleId)
-                    {
-                        vehicleDataTypes = vhSettings.cellSet;
-                    }
-                    
-                }
-
-                for (int i = 0; i < VEHICLE_DATA_TYPES_NUM; i++)
-                {
-
-                    CardText cardText = new CardText();
-
-                    try
-                    {
-                        cardText = GetCardTextByType(vehicleDataTypes[i], vehicle, vehicleState);
-                    }
-                    catch (NullReferenceException e)
-                    {
-                        NullReferenceException error = e;
-                        cardText.top = "";
-                        cardText.bottom = "";
-                    }
-
-                    cardTextList[i] = cardText;
-                }
-
-        
-                List<VehicleDataType> asList = Enum.GetValues(typeof(VehicleDataType)).Cast<VehicleDataType>().ToList();
-
-                foreach (VehicleDataType vdt in asList)
-                {
-                    int i = 0;
-                    if (!vehicleDataTypes.Contains(vdt))
-                    {
-                        try
-                        {
-                            CardText t = GetCardTextByType(vdt, vehicle, vehicleState);
-                            expandTextList.Add(t);
-                        }catch(NullReferenceException e)
-                        {
-                            NullReferenceException ef = e;
-                        }
-
-                    }
-                }
-
-
-                var vSecond = new AccordionSource()
-                {
-                    HeaderImageSource = "Icon.png",
-                    // = Color.White,
-                    // HeaderBackGroundColor = Color.Black,
-                    // ContentItems = vViewLayout,
-                    CardTextArray = cardTextList,
-                    ExpandedTextList = expandTextList,
-                    PlateNumber = vehicle.plateNumber
-
-
-                };
-
-                vResult.Add(vSecond);
-
+                Instance.CardDataSource.Add(CreateDataSource(vehicle));
             }
-            return vResult;
         }
 
-        
-
-        public static CardText GetCardTextByType(VehicleDataType? dataType, Vehicle vehicle, VehicleState vehicleState)
+        private static CardData CreateDataSource(Vehicle vehicle)
         {
-            CardText cardText = new CardText();
+            VehicleState vehicleState = Provider.Instance.VehicleStates.Find(vs => vs.vehicleId == vehicle.vehicleId);
 
+            List<DetailText> cardTextList = new List<DetailText>();
+            var selectedDetails = Provider.Instance.CurrentUser.settings.vehicleViewSettings.Find(p => p.vehicleId == vehicle.vehicleId).cellSet;
+
+            foreach (var item in selectedDetails)
+            {
+                DetailText cardText;
+
+                try
+                {
+                    cardText = GetCardTextByType(item, vehicle, vehicleState);
+                }
+                catch (NullReferenceException e)
+                {
+                    cardText = new DetailText();
+                    cardText.top = "";
+                    cardText.bottom = "";
+                }
+
+                cardTextList.Add(cardText);
+            }
+
+            List<DetailText> expandTextList = new List<DetailText>();
+
+            var notSelectedDetails = Enum.GetValues(typeof(VehicleDataType)).Cast<VehicleDataType>().ToList();
+            notSelectedDetails.RemoveAll(p => selectedDetails.Contains(p));
+
+            foreach (var item in notSelectedDetails)
+            {
+                try
+                {
+                    DetailText t = GetCardTextByType(item, vehicle, vehicleState);
+                    expandTextList.Add(t);
+                }
+                catch (NullReferenceException e)
+                {
+                    NullReferenceException ef = e;
+                }
+            }
+
+            return new CardData()
+            {
+                HeaderImageSource = "Icon.png",
+                SelectedDetails = cardTextList,
+                ExpandedTextList = expandTextList,
+                PlateNumber = vehicle.plateNumber
+            };
+        }
+
+        internal Xamarin.Forms.View GetCardForPopup(Vehicle vehicle)
+        {
+            return CardListView.BuildCard(CreateDataSource(vehicle)); 
+        }
+
+        public static DetailText GetCardTextByType(VehicleDataType? dataType, Vehicle vehicle, VehicleState vehicleState)
+        {
+            DetailText cardText = new DetailText();
 
             switch (dataType)
             {
@@ -266,80 +229,26 @@ namespace JarKon.ViewModel
             }
 
             return cardText;
-
         }
     }
 
+    public class CardData
+    {
+        public string HeaderImageSource { get; set; }
+        public string PlateNumber { get; set; }
+        public List<DetailText> SelectedDetails { get; set; }
+        public List<DetailText> ExpandedTextList { get; set; }
 
-   /* public static ObservableCollection<VehicleState> GetDummyData()
+    }
+
+    public class DetailText
+    {
+        public string top { get; set; }
+        public string bottom { get; set; }
+        public DetailText()
         {
-            ObservableCollection<VehicleState> retu = new ObservableCollection<VehicleState> {(
-
-            new VehicleState
-            {
-                vehicleId = 1,
-                position = new Position{
-                    lat=47.472999f,
-                    lng=19.052566f},
-                speed = 69,
-                ignition = true,
-                extBattVolt = 1,
-                intBattVolt = 2,
-                driver = "John Doe"
-            }),
-
-            new VehicleState
-            {
-                vehicleId = 2,
-                position = new Position{
-                    lat=47.408770f,
-                    lng =19.017055f},
-                speed = 420,
-                ignition = false,
-                intBattVolt = 3,
-                extBattVolt = 4,
-                driver = "Pikachu"
-            },
-            new VehicleState
-            {
-                vehicleId = 2,
-                position = new Position{
-                    lat=47.408770f,
-                    lng =19.017055f},
-                speed = 420,
-                ignition = false,
-                intBattVolt = 3,
-                extBattVolt = 4,
-                driver = "Pikachu"
-            },
-            new VehicleState
-            {
-                vehicleId = 2,
-                position = new Position{
-                    lat=47.408770f,
-                    lng =19.017055f},
-                speed = 420,
-                ignition = false,
-                intBattVolt = 3,
-                extBattVolt = 4,
-                driver = "Pikachu"
-            },
-            new VehicleState
-            {
-                vehicleId = 2,
-                position = new Position{
-                    lat=47.408770f,
-                    lng =19.017055f},
-                speed = 420,
-                ignition = false,
-                intBattVolt = 3,
-                extBattVolt = 4,
-                driver = "Pikachu"
-            }
-            };
-
-            return retu;
+            top = "";
+            bottom = "";
         }
-
-    }*/
+    }
 }

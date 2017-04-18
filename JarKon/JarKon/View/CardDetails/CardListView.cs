@@ -10,6 +10,7 @@ namespace JarKon.View.CardDetails
 {
     public class CardListView : ContentView
     {
+        bool cardsBuilt = false;
         public CardListView()
         {
             Content = new Label
@@ -24,6 +25,8 @@ namespace JarKon.View.CardDetails
 
         private void RefreshCards(object sender, NotifyCollectionChangedEventArgs e)
         {
+            if (cardsBuilt) return;
+
             Device.BeginInvokeOnMainThread(
                 () =>
                 {
@@ -33,6 +36,8 @@ namespace JarKon.View.CardDetails
 
         private void BuildCards()
         {
+            if (CardsViewModel.Instance.CardDataSource.Count == 3) cardsBuilt = true;
+
             var container = new StackLayout();
 
             foreach (var item in CardsViewModel.Instance.CardDataSource.ToList())

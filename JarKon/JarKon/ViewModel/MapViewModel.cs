@@ -1,6 +1,7 @@
 ﻿using JarKon.Core;
 using JarKon.Model;
 using JarKon.View;
+using Rg.Plugins.Popup.Pages;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -38,6 +39,7 @@ namespace JarKon.ViewModel
                 newPin.Vehicle = vehicle;
                 newPin.Pin.Position = new Xamarin.Forms.Maps.Position(state.position.lat, state.position.lng);
                 newPin.Pin.Label = vehicle.plateNumber;
+                newPin.Pin.Clicked += MapPage.ShowCardPopup;
                 Map.Pins.Add(newPin);
             }
         }
@@ -72,6 +74,22 @@ namespace JarKon.ViewModel
         internal void EnableUserLocation()
         {
             ShouldShowUser = true;
+        }
+    }
+    public class CardPopup : PopupPage
+    {
+        public CardPopup(Vehicle vehicle)
+        {
+            CloseWhenBackgroundIsClicked = true;
+
+            Content = new ContentView
+            {
+                Padding = new Thickness(5, Provider.Instance.ScreenHeight / 4),
+                Content = new ScrollView
+                {
+                    Content = CardsViewModel.Instance.GetCardForPopup(vehicle)
+                }
+            };
         }
     }
 }

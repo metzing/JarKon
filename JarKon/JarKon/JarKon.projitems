@@ -21,10 +21,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Service\VehicleService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\MapViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\ParkingViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)View\Card.xaml.cs">
-      <DependentUpon>Card.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)View\CardDetails\CardListView.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)View\CardsPage.xaml.cs">
       <DependentUpon>CardsPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -81,12 +78,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)View\MapPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)View\Card.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

@@ -15,7 +15,7 @@ namespace JarKon.Model
 
     public class UserSettings
     {
-        public VehicleViewSettings[] vehicleViewSettings { get; set; }
+        public List<VehicleViewSettings> vehicleViewSettings { get; set; }
         public GeneralViewSettings generalViewSettings { get; set; }
         public Permissions permissions { get; set; }
     }

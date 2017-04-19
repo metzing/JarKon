@@ -21,15 +21,28 @@ namespace JarKon
         public App()
         {
             InitializeComponent();
+#if __ANDROID__
+            AndroidInit();
+#elif __IOS__
+            IOSInit(); 
+#endif
+        }
 
+        private void AndroidInit()
+        {
             MainPage = new NavigationPage(new JarKon.View.MainPage());
 
-            MainPage.ToolbarItems.Add(new ToolbarItem {
+            MainPage.ToolbarItems.Add(new ToolbarItem
+            {
                 Order = ToolbarItemOrder.Secondary,
                 Text = "Menu Item 1"
             });
         }
 
+        private void IOSInit()
+        {
+            MainPage = new MainPage();
+        }
         protected override void OnStart()
         {
             // Handle when your app starts
@@ -53,12 +66,12 @@ namespace JarKon
             // Handle when your app resumes
         }
 
-        public void OnDataChanged()
+        public void FireDataChanged()
         {
             DataChanged();
         }
 
-        public void OnUserLoaded()
+        public void FireUserLoaded()
         {
             UserLoaded();
         }

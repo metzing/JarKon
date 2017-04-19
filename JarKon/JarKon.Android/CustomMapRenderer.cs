@@ -28,125 +28,7 @@ namespace JarKon.Droid
 
         public Android.Views.View GetInfoContents(Marker marker)
         {
-            MapPage.ShowCardPopup(GetCustomPin(marker),new EventArgs());
-            return null;
-
-            var inflater = Android.App.Application.Context.GetSystemService("layout_inflater") as Android.Views.LayoutInflater;
-            if (inflater != null)
-            {
-                Android.Views.View view;
-
-                var customPin = GetCustomPin(marker);
-                if (customPin == null)
-                {
-                    throw new Exception("Custom pin not found");
-                }
-                
-
-
-
-
-                //TODO inflate real view instead
-                view = inflater.Inflate(Resource.Layout.CardCollapsed, null);
-
-                var imageView = view.FindViewById<ImageView>(Resource.Id.imageView);
-                var textViewTop1 = view.FindViewById<TextView>(Resource.Id.textViewTop1);
-                var textViewTop2 = view.FindViewById<TextView>(Resource.Id.textViewTop2);
-                var textViewTop3 = view.FindViewById<TextView>(Resource.Id.textViewTop3);
-
-                var textViewGridTop00 = view.FindViewById<TextView>(Resource.Id.textViewGridTop00);
-                var textViewGridBottom00 = view.FindViewById<TextView>(Resource.Id.textViewGridBottom00);
-                var textViewGridTop01 = view.FindViewById<TextView>(Resource.Id.textViewGridTop01);
-                var textViewGridBottom01 = view.FindViewById<TextView>(Resource.Id.textViewGridBottom01);
-                var textViewGridTop02 = view.FindViewById<TextView>(Resource.Id.textViewGridTop02);
-                var textViewGridBottom02 = view.FindViewById<TextView>(Resource.Id.textViewGridBottom02);
-
-                var textViewGridTop10 = view.FindViewById<TextView>(Resource.Id.textViewGridTop10);
-                var textViewGridBottom10 = view.FindViewById<TextView>(Resource.Id.textViewGridBottom10);
-                var textViewGridTop11 = view.FindViewById<TextView>(Resource.Id.textViewGridTop11);
-                var textViewGridBottom11 = view.FindViewById<TextView>(Resource.Id.textViewGridBottom11);
-                var textViewGridTop12 = view.FindViewById<TextView>(Resource.Id.textViewGridTop12);
-                var textViewGridBottom12 = view.FindViewById<TextView>(Resource.Id.textViewGridBottom12);
-
-
-
-                User currentUser = Provider.Instance.CurrentUser;
-                Vehicle vehicle = Provider.Instance.Vehicles.Find(v => v.plateNumber == marker.Title);
-                VehicleState vehicleState = Provider.Instance.VehicleStates.Find(vs => vs.vehicleId == vehicle.vehicleId);
-                
-
-
-                const int VEHICLE_DATA_TYPES_NUM = 6;
-                VehicleDataType?[] vehicleDataTypes = new VehicleDataType?[VEHICLE_DATA_TYPES_NUM];
-               /* for (int i = 0; i < VEHICLE_DATA_TYPES_NUM; i++)
-                {
-                    Array values = Enum.GetValues(typeof(VehicleDataType));
-                    Random random = new Random();
-                    VehicleDataType randomVehicleType = (VehicleDataType)values.GetValue(random.Next(values.Length));
-
-                    vehicleDataTypes[i] = VehicleDataType.PLATE_NUMBER;
-                }*/
-
-                var settings = currentUser.settings.vehicleViewSettings;
-                foreach(VehicleViewSettings vhSettings in settings)
-                {
-                    if(vhSettings.vehicleId == vehicle.vehicleId)
-                    {
-                        vehicleDataTypes = vhSettings.cellSet;
-                    }
-                }
-
-                for(int i =0; i<VEHICLE_DATA_TYPES_NUM; i++)
-                {
-                    CardText cardText = new CardText();
-                    try
-                    {
-                       cardText  = GetCardTextByType(vehicleDataTypes[i], vehicle, vehicleState);
-                    }catch(NullReferenceException e)
-                    {
-                        NullReferenceException error = e; 
-                        cardText.top = "";
-                        cardText.bottom = "";
-                    }
-
-                    switch (i)
-                    {
-                        case 0:
-                            textViewGridTop00.Text = cardText.top;
-                            textViewGridBottom00.Text = cardText.bottom;
-                            break;
-
-                        case 1:
-                            textViewGridTop01.Text = cardText.top;
-                            textViewGridBottom01.Text = cardText.bottom;
-                            break;
-
-                        case 2:
-                            textViewGridTop02.Text = cardText.top;
-                            textViewGridBottom02.Text = cardText.bottom;
-                            break;
-
-                        case 3:
-                            textViewGridTop10.Text = cardText.top;
-                            textViewGridBottom10.Text = cardText.bottom;
-                            break;
-                        case 4:
-                            textViewGridTop11.Text = cardText.top;
-                            textViewGridBottom11.Text = cardText.bottom;
-                            break;
-                        case 5:
-                            textViewGridTop12.Text = cardText.top;
-                            textViewGridBottom12.Text = cardText.bottom;
-                            break;
-                       
-                    } 
-                }
-              
-
-
-
-                return view;
-            }
+            MapPage.ShowCardPopup(GetCustomPin(marker), new EventArgs());
             return null;
         }
 
@@ -177,7 +59,7 @@ namespace JarKon.Droid
 
                 case VehicleDataType.TIME:
                     cardText.top = "Time:";
-                    cardText.bottom = vehicleState.time.ToString();  ///TODO epoch time vagy mi gyün?
+                    cardText.bottom = vehicleState.time.ToString();  ///TODO epoch time vagy mi gyï¿½n?
                     break;
 
                 case VehicleDataType.ADDRESS:

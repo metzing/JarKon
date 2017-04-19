@@ -5,11 +5,11 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using Xamarin.Forms;
-
 namespace JarKon.View.CardDetails
 {
     public class CardListView : ContentView
     {
+        bool cardsBuilt = false;
         public CardListView()
         {
             Content = new Label
@@ -18,7 +18,6 @@ namespace JarKon.View.CardDetails
                 HorizontalOptions = LayoutOptions.Center,
                 Text = "Loading..."
             };
-
             CardsViewModel.Instance.CardDataSource.CollectionChanged += RefreshCards;
         }
 
@@ -31,8 +30,12 @@ namespace JarKon.View.CardDetails
                 });
         }
 
-        private void BuildCards()
+        public void BuildCards()
         {
+            if (cardsBuilt) return;
+
+            if (CardsViewModel.Instance.CardDataSource.Count == 3) cardsBuilt = true;
+
             var container = new StackLayout();
 
             foreach (var item in CardsViewModel.Instance.CardDataSource.ToList())
@@ -41,19 +44,14 @@ namespace JarKon.View.CardDetails
             }
             Content = container;
         }
-
         public static Xamarin.Forms.View BuildCard(CardData data)
         {
             var Header = BuildHeader(data);
             var SelectedDetails = BuildSelectedDetails(data);
-
             var NotSelectedDetails = new ExpandedView(data.ExpandedTextList);
             NotSelectedDetails.IsVisible = false;
-
             var vHeaderButton = new AccordionButton();
             vHeaderButton.AssosiatedContent = NotSelectedDetails;
-
-
             StackLayout content = new StackLayout
             {
                 Orientation = StackOrientation.Vertical,
@@ -69,7 +67,6 @@ namespace JarKon.View.CardDetails
                         NotSelectedDetails
                     }
             };
-
             return new Frame
             {
                 Padding = 5,
@@ -77,7 +74,6 @@ namespace JarKon.View.CardDetails
                 Content = content
             };
         }
-
         private static Xamarin.Forms.View BuildSelectedDetails(CardData vSingleItem)
         {
             var container = new StackLayout();
@@ -98,14 +94,12 @@ namespace JarKon.View.CardDetails
             }
             return container;
         }
-
         private static Xamarin.Forms.View BuildHeader(CardData vSingleItem)
         {
             return new StackLayout()
             {
                 Orientation = StackOrientation.Horizontal,
                 BackgroundColor = Color.White,
-
                 Children =
                 {
                     new Image
@@ -125,18 +119,14 @@ namespace JarKon.View.CardDetails
                                 FontSize = 24,
                                 FontAttributes = FontAttributes.Bold,
                                 HorizontalOptions = LayoutOptions.EndAndExpand,
-
                             },
-
                             new Label { Text = "2015.04.08 10:46",
                                 TextColor = Color.Black,
                                 HorizontalOptions = LayoutOptions.EndAndExpand,
-
                             },
                             new Label { Text = "Cím megjelenítése",
                                 TextColor = Color.Black,
                                 HorizontalOptions = LayoutOptions.EndAndExpand,
-
                             }
                         }
                     }
@@ -145,8 +135,6 @@ namespace JarKon.View.CardDetails
         }
     }
 }
-
-
 public class ExpandedView : ContentView
 {
     public ExpandedView(List<DetailText> cardtexts)
@@ -173,24 +161,20 @@ public class ExpandedView : ContentView
                     {
                         Text = cardItem.bottom,
                         TextColor = Color.Black,
-
                         HorizontalOptions = LayoutOptions.EndAndExpand,
                     }
                 }
             };
-
             stack.Children.Add(entry);
         }
         Content = stack;
     }
 }
-
 public class AccordionButton : StackLayout
 {
     #region Private Variables
     bool mExpand = false;
     #endregion
-
     #region Properties
     public bool Expand
     {
@@ -202,8 +186,6 @@ public class AccordionButton : StackLayout
     public Image ArrowImage
     { get; set; }
     #endregion
-
-
     public AccordionButton()
     {
         Orientation = StackOrientation.Vertical;
@@ -216,18 +198,15 @@ public class AccordionButton : StackLayout
             WidthRequest = 25,
             Source = "expand_arrow.png",
         });
-
         var tapGestureRecognizer = new TapGestureRecognizer();
         tapGestureRecognizer.Tapped += (s, e) =>
         {
             var vSenderButton = (AccordionButton)s;
-
             if (vSenderButton.Expand)
             {
                 vSenderButton.Expand = false;
                 vSenderButton.AssosiatedContent.IsVisible = false;
                 ArrowImage.Source = "expand_arrow.png";
-
             }
             else
             {
@@ -235,14 +214,10 @@ public class AccordionButton : StackLayout
                 vSenderButton.AssosiatedContent.IsVisible = true;
                 ArrowImage.Source = "collapse_arrow.png";
             }
-
         };
         GestureRecognizers.Add(tapGestureRecognizer);
-
     }
-
 }
-
 public class SelectedDetailView : StackLayout
 {
     public SelectedDetailView(DetailText detail, double width)
@@ -252,19 +227,14 @@ public class SelectedDetailView : StackLayout
             Text = detail.top,
             TextColor = Color.Black,
             HorizontalOptions = LayoutOptions.Start
-
         };
-
-
         Label labelBottom = new Label
         {
             Text = detail.bottom,
             TextColor = Color.Black,
             FontAttributes = FontAttributes.Bold,
             HorizontalOptions = LayoutOptions.End,
-
         };
-
         Orientation = StackOrientation.Vertical;
         VerticalOptions = LayoutOptions.FillAndExpand;
         HorizontalOptions = LayoutOptions.FillAndExpand;
@@ -273,6 +243,5 @@ public class SelectedDetailView : StackLayout
         Padding = 5;
         Children.Add(labelTop);
         Children.Add(labelBottom);
-
     }
 }

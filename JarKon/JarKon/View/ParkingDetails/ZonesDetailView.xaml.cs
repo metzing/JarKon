@@ -14,7 +14,6 @@ namespace JarKon.View.ParkingDetails
 {
 	public partial class ZonesDetailView : ContentView
 	{
-        private Zone selectedZone;
         private RelayCommand startParkingCommand;
 
         public ZonesDetailView(Zone selectedZone, RelayCommand startParkingCommand)

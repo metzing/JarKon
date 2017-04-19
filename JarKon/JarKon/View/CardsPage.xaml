@@ -7,6 +7,6 @@
              Style="{StaticResource PaddedPage}">
     <ScrollView HorizontalOptions="FillAndExpand"
                 Padding="5">
-        <details:CardListView x:Name="CardsList" />
+        <details:CardListView x:Name="CardList" />
     </ScrollView>
 </ContentPage>

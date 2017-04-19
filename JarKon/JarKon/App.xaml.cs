@@ -24,7 +24,7 @@ namespace JarKon
 #if __ANDROID__
             AndroidInit();
 #elif __IOS__
-            IOSInit();
+            IOSInit(); 
 #endif
         }
 
@@ -43,7 +43,6 @@ namespace JarKon
         {
             MainPage = new MainPage();
         }
-
         protected override void OnStart()
         {
             // Handle when your app starts

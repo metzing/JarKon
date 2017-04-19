@@ -8,7 +8,6 @@ using System.Collections.ObjectModel;
 using System.Text;
 using Xamarin.Forms;
 using Xamarin.Forms.Maps;
-
 namespace JarKon.ViewModel
 {
     public class MapViewModel : BindableObject
@@ -18,7 +17,6 @@ namespace JarKon.ViewModel
         {
             get { return instance ?? (instance = new MapViewModel()); }
         }
-
         public static BindableProperty ShouldShowUserProperty =
             BindableProperty.Create(nameof(ShouldShowUser), typeof(bool), typeof(MapViewModel), false);
         public bool ShouldShowUser
@@ -26,12 +24,10 @@ namespace JarKon.ViewModel
             get { return (bool)GetValue(ShouldShowUserProperty); }
             set { SetValue(ShouldShowUserProperty, value); }
         }
-
         public void LoadPins()
         {
             var Map = Provider.Instance.MapsPage.Map;
             Map.Pins.Clear();
-
             foreach (var vehicle in Provider.Instance.Vehicles.ToArray())
             {
                 CustomPin newPin = new CustomPin();
@@ -43,12 +39,10 @@ namespace JarKon.ViewModel
                 Map.Pins.Add(newPin);
             }
         }
-
         internal static void OnDataRefreshed()
         {
             Instance.LoadPins();
         }
-
         public static void OnUserLoggedIn()
         {
             var pos = Provider.Instance.CurrentUser.settings.generalViewSettings.defaultLocation.position;
@@ -65,12 +59,10 @@ namespace JarKon.ViewModel
                 )
             );
         }
-
         internal void DisableUserLocation()
         {
             ShouldShowUser = false;
         }
-
         internal void EnableUserLocation()
         {
             ShouldShowUser = true;
@@ -81,7 +73,6 @@ namespace JarKon.ViewModel
         public CardPopup(Vehicle vehicle)
         {
             CloseWhenBackgroundIsClicked = true;
-
             Content = new ContentView
             {
                 Padding = new Thickness(5, Provider.Instance.ScreenHeight / 4),
@@ -93,4 +84,3 @@ namespace JarKon.ViewModel
         }
     }
 }
-

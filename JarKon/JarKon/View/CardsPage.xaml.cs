@@ -1,5 +1,5 @@
 ﻿using JarKon.Core;
-using JarKon.ViewModel;
+using JarKon.View.CardDetails;
 using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -21,8 +21,7 @@ namespace JarKon.View
             Device.BeginInvokeOnMainThread(
                 () =>
                 {
-                    CardsList.BuildCards();
-
+                    CardList.BuildCards();
                 });
         }
     }

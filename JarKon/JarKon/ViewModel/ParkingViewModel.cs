@@ -137,7 +137,7 @@ namespace JarKon.ViewModel
         private bool CheckParkingPermission()
         {
             //ONLY FOR DEVELOPMENT PURPOSES
-            return true;
+            return false;
 
             foreach (var item in Provider.Instance.CurrentUser.settings.permissions.funtionalities)
             {

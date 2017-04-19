@@ -6,12 +6,12 @@
             BarBackgroundColor="White"
             BarTextColor="Gray">
     
-    <local:MapPage Title="Map"
+    <local:MapPage Icon="map_page_icon.png"
                     x:Name="mapsPage"/>
     
-    <local:CardsPage Title="Cards"
+    <local:CardsPage Icon="cards_page_icon.png"
                      x:Name="cardsPage"/>
 
-    <local:ParkingPage Title="Parking"
+    <local:ParkingPage Icon="parking_page_icon.png"
                        x:Name="parkingPage"/>
 </TabbedPage>

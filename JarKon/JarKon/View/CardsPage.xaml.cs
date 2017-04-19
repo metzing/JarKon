@@ -15,5 +15,15 @@ namespace JarKon.View
             InitializeComponent();
             Provider.Instance.CardsPage = this;
         }
+
+        public void LoadCards()
+        {
+            Device.BeginInvokeOnMainThread(
+                () =>
+                {
+                    CardsList.BuildCards();
+
+                });
+        }
     }
 }

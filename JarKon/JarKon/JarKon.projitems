@@ -21,7 +21,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)Service\VehicleService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\MapViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\ParkingViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)View\CardDetails\AccordionButton.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)View\CardDetails\CardListView.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)View\CardDetails\ExpandedView.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)View\CardDetails\SelectedDetailView.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)View\CardsPage.xaml.cs">
       <DependentUpon>CardsPage.xaml</DependentUpon>
       <SubType>Code</SubType>

@@ -19,6 +19,7 @@ namespace JarKon.ViewModel
 {
     class CardsViewModel
     {
+        private static object lockObject = new object();
         private static CardsViewModel instance;
         public static CardsViewModel Instance
         {
@@ -42,13 +43,18 @@ namespace JarKon.ViewModel
 
         public static void LoadVehicles()
         {
-            Instance.CardDataSource.Clear();
-
-            List<Vehicle> vehicles = Provider.Instance.Vehicles;
-
-            foreach (var vehicle in vehicles)
+            lock (lockObject)
             {
-                Instance.CardDataSource.Add(CreateDataSource(vehicle));
+                Instance.CardDataSource.Clear();
+
+                List<Vehicle> vehicles = Provider.Instance.Vehicles;
+
+                foreach (var vehicle in vehicles)
+                {
+                    Instance.CardDataSource.Add(CreateDataSource(vehicle));
+                }
+
+                Provider.Instance.CardsPage.LoadCards();
             }
         }
 

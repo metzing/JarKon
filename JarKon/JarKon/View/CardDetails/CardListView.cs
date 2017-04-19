@@ -19,13 +19,10 @@ namespace JarKon.View.CardDetails
                 HorizontalOptions = LayoutOptions.Center,
                 Text = "Loading..."
             };
-
-            CardsViewModel.Instance.CardDataSource.CollectionChanged += RefreshCards;
         }
 
         private void RefreshCards(object sender, NotifyCollectionChangedEventArgs e)
         {
-            if (cardsBuilt) return;
 
             Device.BeginInvokeOnMainThread(
                 () =>
@@ -34,8 +31,12 @@ namespace JarKon.View.CardDetails
                 });
         }
 
-        private void BuildCards()
+
+
+        public void BuildCards()
         {
+            if (cardsBuilt) return;
+
             if (CardsViewModel.Instance.CardDataSource.Count == 3) cardsBuilt = true;
 
             var container = new StackLayout();
@@ -152,132 +153,6 @@ namespace JarKon.View.CardDetails
 }
 
 
-public class ExpandedView : ContentView
-{
-    public ExpandedView(List<DetailText> cardtexts)
-    {
-        var stack = new StackLayout();
-        foreach (DetailText cardItem in cardtexts)
-        {
-            StackLayout entry = new StackLayout
-            {
-                Orientation = StackOrientation.Horizontal,
-                VerticalOptions = LayoutOptions.FillAndExpand,
-                HorizontalOptions = LayoutOptions.FillAndExpand,
-                BackgroundColor = Color.White,
-                Children =
-                {
-                    new Label
-                    {
-                        Text = cardItem.top,
-                        TextColor = Color.Black,
-                        HorizontalOptions = LayoutOptions.StartAndExpand,
-                        FontAttributes = FontAttributes.Bold
-                    },
-                    new Label
-                    {
-                        Text = cardItem.bottom,
-                        TextColor = Color.Black,
-
-                        HorizontalOptions = LayoutOptions.EndAndExpand,
-                    }
-                }
-            };
-
-            stack.Children.Add(entry);
-        }
-        Content = stack;
-    }
-}
-
-public class AccordionButton : StackLayout
-{
-    #region Private Variables
-    bool mExpand = false;
-    #endregion
-
-    #region Properties
-    public bool Expand
-    {
-        get { return mExpand; }
-        set { mExpand = value; }
-    }
-    public ContentView AssosiatedContent
-    { get; set; }
-    public Image ArrowImage
-    { get; set; }
-    #endregion
 
 
-    public AccordionButton()
-    {
-        Orientation = StackOrientation.Vertical;
-        BackgroundColor = Color.White;
-        HorizontalOptions = LayoutOptions.FillAndExpand;
-        VerticalOptions = LayoutOptions.CenterAndExpand;
-        Children.Add(ArrowImage = new Image
-        {
-            HeightRequest = 25,
-            WidthRequest = 25,
-            Source = "expand_arrow.png",
-        });
 
-        var tapGestureRecognizer = new TapGestureRecognizer();
-        tapGestureRecognizer.Tapped += (s, e) =>
-        {
-            var vSenderButton = (AccordionButton)s;
-
-            if (vSenderButton.Expand)
-            {
-                vSenderButton.Expand = false;
-                vSenderButton.AssosiatedContent.IsVisible = false;
-                ArrowImage.Source = "expand_arrow.png";
-
-            }
-            else
-            {
-                vSenderButton.Expand = true;
-                vSenderButton.AssosiatedContent.IsVisible = true;
-                ArrowImage.Source = "collapse_arrow.png";
-            }
-
-        };
-        GestureRecognizers.Add(tapGestureRecognizer);
-
-    }
-
-}
-
-public class SelectedDetailView : StackLayout
-{
-    public SelectedDetailView(DetailText detail, double width)
-    {
-        Label labelTop = new Label
-        {
-            Text = detail.top,
-            TextColor = Color.Black,
-            HorizontalOptions = LayoutOptions.Start
-
-        };
-
-
-        Label labelBottom = new Label
-        {
-            Text = detail.bottom,
-            TextColor = Color.Black,
-            FontAttributes = FontAttributes.Bold,
-            HorizontalOptions = LayoutOptions.End,
-
-        };
-
-        Orientation = StackOrientation.Vertical;
-        VerticalOptions = LayoutOptions.FillAndExpand;
-        HorizontalOptions = LayoutOptions.FillAndExpand;
-        WidthRequest = width;
-        BackgroundColor = Color.FromHex("f4f4f3");
-        Padding = 5;
-        Children.Add(labelTop);
-        Children.Add(labelBottom);
-
-    }
-}

@@ -37,10 +37,12 @@ namespace JarKon.View.CardDetails
             if (CardsViewModel.Instance.CardDataSource.Count == 3) cardsBuilt = true;
 
             var container = new StackLayout();
-
-            foreach (var item in CardsViewModel.Instance.CardDataSource.ToList())
+            lock (CardsViewModel.Instance.CardDataSource)
             {
-                container.Children.Add(BuildCard(item));
+                foreach (var item in CardsViewModel.Instance.CardDataSource)
+                {
+                    container.Children.Add(BuildCard(item));
+                }
             }
             Content = container;
         }
@@ -102,12 +104,12 @@ namespace JarKon.View.CardDetails
                 BackgroundColor = Color.White,
                 Children =
                 {
-                    new Image
+                   /* new Image
                     {
                         Source = vSingleItem.HeaderImageSource,
                         VerticalOptions = LayoutOptions.StartAndExpand,
                         HorizontalOptions = LayoutOptions.StartAndExpand
-                    },
+                    },*/
                     new StackLayout
                     {
                         Orientation = StackOrientation.Vertical,
@@ -192,12 +194,13 @@ public class AccordionButton : StackLayout
         BackgroundColor = Color.White;
         HorizontalOptions = LayoutOptions.FillAndExpand;
         VerticalOptions = LayoutOptions.CenterAndExpand;
-        Children.Add(ArrowImage = new Image
-        {
-            HeightRequest = 25,
-            WidthRequest = 25,
-            Source = "expand_arrow.png",
-        });
+        Children.Add(
+            ArrowImage = new Image
+            {
+                HeightRequest = 25,
+                WidthRequest = 25,
+                Source = "expand_arrow.png",
+            });
         var tapGestureRecognizer = new TapGestureRecognizer();
         tapGestureRecognizer.Tapped += (s, e) =>
         {

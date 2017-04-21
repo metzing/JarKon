@@ -114,9 +114,10 @@ namespace JarKon.Core
             {
                 userId = CurrentUser.userId
             });
-
-            vehicleStates.AddRange(response.states);
-
+            lock (VehicleStates)
+            {
+                vehicleStates.AddRange(response.states);
+            }
             return vehicleStates;
         }
 
@@ -134,12 +135,14 @@ namespace JarKon.Core
                 userId = CurrentUser.userId
             });
 
-            vehicles.AddRange(response.vehicles);
-
+            lock (Vehicles)
+            {
+                vehicles.AddRange(response.vehicles);
+            }
             return vehicles;
         }
 
-        
+
 
         /// <summary>
         /// Logs in using the test data or token

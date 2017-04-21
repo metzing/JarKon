@@ -28,16 +28,19 @@ namespace JarKon.ViewModel
         {
             var Map = Provider.Instance.MapsPage.Map;
             Map.Pins.Clear();
-            foreach (var vehicle in Provider.Instance.Vehicles.ToArray())
-            {
-                CustomPin newPin = new CustomPin();
-                VehicleState state = Provider.Instance.VehicleStates.Find(s => s.vehicleId == vehicle.vehicleId);
-                newPin.Vehicle = vehicle;
-                newPin.Pin.Position = new Xamarin.Forms.Maps.Position(state.position.lat, state.position.lng);
-                newPin.Pin.Label = vehicle.plateNumber;
-                newPin.Pin.Clicked += MapPage.ShowCardPopup;
-                Map.Pins.Add(newPin);
-            }
+            lock (Provider.Instance.Vehicles) lock (Provider.Instance.VehicleStates)
+                {
+                    foreach (var vehicle in Provider.Instance.Vehicles.ToArray())
+                    {
+                        CustomPin newPin = new CustomPin();
+                        VehicleState state = Provider.Instance.VehicleStates.Find(s => s.vehicleId == vehicle.vehicleId);
+                        newPin.Vehicle = vehicle;
+                        newPin.Pin.Position = new Xamarin.Forms.Maps.Position(state.position.lat, state.position.lng);
+                        newPin.Pin.Label = vehicle.plateNumber;
+                        newPin.Pin.Clicked += MapPage.ShowCardPopup;
+                        Map.Pins.Add(newPin);
+                    }
+                }
         }
         internal static void OnDataRefreshed()
         {

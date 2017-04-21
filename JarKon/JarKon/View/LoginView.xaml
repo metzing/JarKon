@@ -4,7 +4,8 @@
              x:Class="JarKon.View.LoginView"
              BackgroundColor="{StaticResource CustomBlue}"
              VerticalOptions="FillAndExpand"
-             HorizontalOptions="FillAndExpand">
+             HorizontalOptions="FillAndExpand"
+             Padding="20">
     <ContentView.Content>
         <StackLayout VerticalOptions="Center">
             <StackLayout.Children>

@@ -33,11 +33,17 @@ namespace JarKon.ViewModel
         }
         public static void LoadVehicles()
         {
-            Instance.CardDataSource.Clear();
-            List<Vehicle> vehicles = Provider.Instance.Vehicles;
-            foreach (var vehicle in vehicles)
+            lock (Instance.CardDataSource)
             {
-                Instance.CardDataSource.Add(CreateDataSource(vehicle));
+                Instance.CardDataSource.Clear();
+                lock (Provider.Instance.Vehicles) lock (Provider.Instance.VehicleStates)
+                    {
+                        List<Vehicle> vehicles = Provider.Instance.Vehicles;
+                        foreach (var vehicle in vehicles)
+                        {
+                            Instance.CardDataSource.Add(CreateDataSource(vehicle));
+                        }
+                    }
             }
         }
         private static CardData CreateDataSource(Vehicle vehicle)
@@ -75,14 +81,41 @@ namespace JarKon.ViewModel
                     NullReferenceException ef = e;
                 }
             }
+
+            string ImageSource = GetImageSource(vehicle);
+
             return new CardData()
             {
-                HeaderImageSource = "Icon.png",
+                HeaderImageSource = ImageSource,
                 SelectedDetails = cardTextList,
                 ExpandedTextList = expandTextList,
                 PlateNumber = vehicle.plateNumber
             };
         }
+
+        private static string GetImageSource(Vehicle vehicle)
+        {
+            string iconName = "vehicle_bubble_13_";
+
+            var vehicleState = Provider.Instance.VehicleStates.Find(vs => vs.vehicleId == vehicle.vehicleId);
+
+            if (!vehicleState.ignition)
+            {
+                iconName += "blue";
+            }
+            else if (vehicleState.speed < 5)
+            {
+                iconName += "orange";
+            }
+            else
+            {
+                iconName += "green";
+            }
+
+            iconName += ".png";
+            return iconName;
+        }
+
         internal Xamarin.Forms.View GetCardForPopup(Vehicle vehicle)
         {
             return CardListView.BuildCard(CreateDataSource(vehicle));

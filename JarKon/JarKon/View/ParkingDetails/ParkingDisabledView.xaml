@@ -4,7 +4,7 @@
         <StackLayout HorizontalOptions="Center"
                  VerticalOptions="Center"
                      Padding="10">
-            <Image HorizontalOptions="Center" Source="lock.png"/>
+            <Image HorizontalOptions="Center" Source="lock_circle.png"/>
             <Label Text="Ez a funkció nem elérhető"
                 HorizontalOptions="Center" FontSize="Large" HorizontalTextAlignment="Center"/>
             <Label HorizontalOptions="Center" FontSize="Medium" HorizontalTextAlignment="Center" 

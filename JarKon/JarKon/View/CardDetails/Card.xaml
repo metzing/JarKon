@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             x:Class="JarKon.View.CardDetails.Card"
+             Padding="5">
+    <ContentView.Content>
+        <Frame Padding="5"
+               OutlineColor="Gray">
+            <StackLayout HorizontalOptions="FillAndExpand"
+                         VerticalOptions="FillAndExpand"
+                         BackgroundColor="White"
+                         Padding="5">
+                <!--Header-->
+                <StackLayout Orientation="Horizontal"
+                             BackgroundColor="White">
+                    <Image Source="{Binding Data.HeaderImageSource}"
+                           VerticalOptions="StartAndExpand"
+                           HorizontalOptions="StartAndExpand"
+                           HeightRequest="120"/>
+                    <StackLayout VerticalOptions="EndAndExpand">
+                        <Label Text="{Binding Data.PlateNumber}"
+                               FontSize="Large"
+                               FontAttributes="Bold"
+                               HorizontalOptions="EndAndExpand"/>
+                        <Label Text="2015.04.08 10:46"
+                               HorizontalOptions="EndAndExpand"/>
+                        <Label Text="Cím megjelenítése"
+                               HorizontalOptions="EndAndExpand"/>
+                    </StackLayout>
+                </StackLayout>
+                <!--Selected Details-->
+                <Grid x:Name="SelectedDetailsGrid"
+                      VerticalOptions="FillAndExpand">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="60"/>
+                        <RowDefinition Height="60"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                </Grid>
+                <ContentView x:Name="Button"
+                             BackgroundColor="White"
+                             HorizontalOptions="FillAndExpand"
+                             VerticalOptions="CenterAndExpand">
+                    <Image x:Name="ArrowImage"/>
+                </ContentView>
+                <StackLayout x:Name="NotSelectedDetails"
+                             IsVisible="False"/>
+            </StackLayout>
+        </Frame>
+    </ContentView.Content>
+</ContentView>

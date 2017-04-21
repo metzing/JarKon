@@ -81,7 +81,7 @@ namespace JarKon.ViewModel
                 Padding = new Thickness(5, Provider.Instance.ScreenHeight / 4),
                 Content = new ScrollView
                 {
-                    Content = CardsViewModel.Instance.GetCardForPopup(vehicle)
+                    Content = CardViewModel.Instance.GetCardForPopup(vehicle)
                 }
             };
         }

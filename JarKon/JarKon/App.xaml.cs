@@ -55,7 +55,7 @@ namespace JarKon
             UserLoaded += MapViewModel.OnUserLoggedIn;
             UserLoaded += ParkingViewModel.OnUserLoggedIn;
             DataChanged += MapViewModel.OnDataRefreshed;
-            DataChanged += CardsViewModel.OnDataRefreshed;
+            DataChanged += CardViewModel.OnDataRefreshed;
         }
 
         protected override void OnSleep()

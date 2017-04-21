@@ -22,7 +22,18 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\LoginViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\MapViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\ParkingViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)View\CardDetails\CardListView.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)View\CardDetails\Card.xaml.cs">
+      <DependentUpon>Card.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)View\CardDetails\NotSelectedDetail.xaml.cs">
+      <DependentUpon>NotSelectedDetail.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)View\CardDetails\SelectedDetail.xaml.cs">
+      <DependentUpon>SelectedDetail.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)View\CardsPage.xaml.cs">
       <DependentUpon>CardsPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -129,6 +140,24 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)View\LoginView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)View\CardDetails\Card.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)View\CardDetails\SelectedDetail.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)View\CardDetails\NotSelectedDetail.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

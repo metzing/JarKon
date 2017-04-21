@@ -12,24 +12,25 @@ using Xamarin.Forms;
 using JarKon.View.CardDetails;
 namespace JarKon.ViewModel
 {
-    class CardsViewModel
+    class CardViewModel
     {
-        private static CardsViewModel instance;
-        public static CardsViewModel Instance
+        private static CardViewModel instance;
+        public static CardViewModel Instance
         {
             get
             {
-                return instance ?? (instance = new CardsViewModel());
+                return instance ?? (instance = new CardViewModel());
             }
         }
         public ObservableCollection<CardData> CardDataSource;
-        private CardsViewModel()
+        private CardViewModel()
         {
             CardDataSource = new ObservableCollection<CardData>();
         }
         internal static void OnDataRefreshed()
         {
             LoadVehicles();
+            Provider.Instance.CardsPage.LoadCards();
         }
         public static void LoadVehicles()
         {
@@ -45,6 +46,7 @@ namespace JarKon.ViewModel
                         }
                     }
             }
+            Provider.Instance.CardsPage.LoadCards();
         }
         private static CardData CreateDataSource(Vehicle vehicle)
         {
@@ -86,6 +88,7 @@ namespace JarKon.ViewModel
 
             return new CardData()
             {
+                VehicleID = vehicle.vehicleId,
                 HeaderImageSource = ImageSource,
                 SelectedDetails = cardTextList,
                 ExpandedTextList = expandTextList,
@@ -95,7 +98,7 @@ namespace JarKon.ViewModel
 
         private static string GetImageSource(Vehicle vehicle)
         {
-            string iconName = "vehicle_bubble_13_";
+            string iconName = "vehicle_13_";
 
             var vehicleState = Provider.Instance.VehicleStates.Find(vs => vs.vehicleId == vehicle.vehicleId);
 
@@ -118,7 +121,9 @@ namespace JarKon.ViewModel
 
         internal Xamarin.Forms.View GetCardForPopup(Vehicle vehicle)
         {
-            return CardListView.BuildCard(CreateDataSource(vehicle));
+            Card card = new Card();
+            card.SetData(CreateDataSource(vehicle));
+            return card;
         }
         public static DetailText GetCardTextByType(VehicleDataType? dataType, Vehicle vehicle, VehicleState vehicleState)
         {
@@ -220,11 +225,13 @@ namespace JarKon.ViewModel
     }
     public class CardData
     {
+        public int VehicleID { get; set; }
         public string HeaderImageSource { get; set; }
         public string PlateNumber { get; set; }
         public List<DetailText> SelectedDetails { get; set; }
         public List<DetailText> ExpandedTextList { get; set; }
     }
+
     public class DetailText
     {
         public string top { get; set; }

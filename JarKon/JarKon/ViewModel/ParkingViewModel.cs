@@ -137,13 +137,13 @@ namespace JarKon.ViewModel
         private bool CheckParkingPermission()
         {
             //ONLY FOR DEVELOPMENT PURPOSES
-            return false;
+            return true;
 
-            foreach (var item in Provider.Instance.CurrentUser.settings.permissions.funtionalities)
-            {
-                if (item == Model.Functionality.PARKING) return true;
-            }
-            return false;
+            //foreach (var item in Provider.Instance.CurrentUser.settings.permissions.funtionalities)
+            //{
+            //    if (item == Model.Functionality.PARKING) return true;
+            //}
+            //return false;
         }
 
         public class ZonesPopup : PopupPage
@@ -163,11 +163,11 @@ namespace JarKon.ViewModel
                     }
                 };
 
-                listView.ItemTapped += ZoneTapped;
+                listView.ItemTapped += OnZoneTapped;
                 if (Instance.SelectedZone != null) listView.SelectedItem = Instance.SelectedZone;
             }
 
-            private void ZoneTapped(object sender, ItemTappedEventArgs e)
+            private void OnZoneTapped(object sender, ItemTappedEventArgs e)
             {
                 Instance.SelectedZone = (Zone)e.Item;
                 Navigation.PopPopupAsync();

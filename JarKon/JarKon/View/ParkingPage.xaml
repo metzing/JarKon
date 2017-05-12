@@ -3,5 +3,4 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:parkingView="clr-namespace:JarKon.View.ParkingDetails"
              x:Class="JarKon.View.ParkingPage"
-             Style="{StaticResource PaddedPage}">
-</ContentPage>
+             Style="{StaticResource PaddedPage}"/>

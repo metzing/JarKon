@@ -41,12 +41,11 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                 </Grid>
-                <ContentView x:Name="Button"
-                             BackgroundColor="White"
-                             HorizontalOptions="FillAndExpand"
-                             VerticalOptions="CenterAndExpand">
-                    <Image x:Name="ArrowImage"/>
-                </ContentView>
+                <Button x:Name="AccordionButton"
+                        BackgroundColor="{StaticResource Key=CustomBlue}"
+                        TextColor="White"
+                        Text="Details"
+                        Clicked="ToggleExpand"/>
                 <StackLayout x:Name="NotSelectedDetails"
                              IsVisible="False"/>
             </StackLayout>

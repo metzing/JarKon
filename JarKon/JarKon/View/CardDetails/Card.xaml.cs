@@ -33,16 +33,21 @@ namespace JarKon.View.CardDetails
 
             IsExpanded = false;
             IsInflated = false;
-            ArrowImage.Source = "expand_arrow.png";
-
-            var recognizer = new TapGestureRecognizer();
-            recognizer.Tapped += ToggleExpand;
-            Button.GestureRecognizers.Add(recognizer);
         }
 
         private void ToggleExpand(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            if (IsExpanded)
+            {
+                AccordionButton.Text = "Collapse";
+                NotSelectedDetails.IsVisible = true;
+            }
+            else
+            {
+                AccordionButton.Text = "Details";
+                NotSelectedDetails.IsVisible = false;
+            }
+            IsExpanded = !IsExpanded;
         }
 
         public async void SetData(CardData data)

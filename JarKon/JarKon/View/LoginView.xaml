@@ -8,15 +8,19 @@
              Padding="20">
     <ContentView.Content>
         <StackLayout VerticalOptions="Center">
-            <StackLayout.Children>
-                <Entry x:Name="Username"
-                   Text="{Binding UserName, Mode=TwoWay}"/>
-                <Entry x:Name="Password"
-                   Text="{Binding Password, Mode=TwoWay}"
-                   IsPassword="True"/>
-                <Button Text="Bejelentkezés"
+            <Image Source="logo.png"/>
+            <ContentView HeightRequest="100"/>
+            <Entry x:Name="Username"
+                    BackgroundColor="White"
+                    TextColor="Black"
+                    Text="{Binding UserName, Mode=TwoWay}"/>
+            <Entry x:Name="Password"
+                    BackgroundColor="White"
+                    TextColor="Black"
+                    Text="{Binding Password, Mode=TwoWay}"
+                    IsPassword="True"/>
+            <Button Text="Bejelentkezés"
                     Command="{Binding LoginCommand}"/>
-            </StackLayout.Children>
         </StackLayout>
     </ContentView.Content>
 </ContentView>

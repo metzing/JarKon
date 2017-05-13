@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
 using Xamarin.Forms;
-using Xamarin.Forms.Maps;
+using Xamarin.Forms.GoogleMaps;
 namespace JarKon.ViewModel
 {
     public class MapViewModel : BindableObject
@@ -32,19 +32,19 @@ namespace JarKon.ViewModel
                 {
                     foreach (var vehicle in Provider.Instance.Vehicles.ToArray())
                     {
-                        CustomPin newPin = new CustomPin();
+                        Pin newPin = new Pin();
                         VehicleState state = Provider.Instance.VehicleStates.Find(s => s.vehicleId == vehicle.vehicleId);
-                        newPin.Vehicle = vehicle;
-                        newPin.Pin.Position = new Xamarin.Forms.Maps.Position(state.position.lat, state.position.lng);
-                        newPin.Pin.Label = vehicle.plateNumber;
-                        newPin.Pin.Clicked += MapPage.ShowCardPopup;
+                        newPin.Label = vehicle.plateNumber;
+                        newPin.Position = new Xamarin.Forms.GoogleMaps.Position(state.position.lat,state.position.lng);
                         Map.Pins.Add(newPin);
                     }
                 }
         }
         internal static void OnDataRefreshed()
         {
-            Instance.LoadPins();
+            Device.BeginInvokeOnMainThread(() =>
+                Instance.LoadPins()
+            );
         }
         public static void OnUserLoggedIn()
         {
@@ -53,7 +53,7 @@ namespace JarKon.ViewModel
             (
                 MapSpan.FromCenterAndRadius
                 (
-                    new Xamarin.Forms.Maps.Position
+                    new Xamarin.Forms.GoogleMaps.Position
                     (
                         pos.lat,
                         pos.lng

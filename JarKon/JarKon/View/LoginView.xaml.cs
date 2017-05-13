@@ -1,4 +1,5 @@
-﻿using JarKon.ViewModel;
+﻿using JarKon.Core;
+using JarKon.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,7 @@ namespace JarKon.View
 		public LoginView ()
 		{
 			InitializeComponent ();
-            BindingContext = LoginViewModel.Instance;
+            BindingContext = LoginManager.Instance;
 		}
 	}
 }

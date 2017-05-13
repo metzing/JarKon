@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Xamarin.Forms;
-using Xamarin.Forms.Maps;
+using Xamarin.Forms.GoogleMaps;
 using Xamarin.Forms.Xaml;
 
 namespace JarKon.View
@@ -21,42 +21,21 @@ namespace JarKon.View
         {
             InitializeComponent();
             Provider.Instance.MapsPage = this;
+            Map.PinClicked += Map_PinClicked;
             BindingContext = MapViewModel.Instance;
         }
 
-        public CustomMap Map
+        private void Map_PinClicked(object sender, PinClickedEventArgs e)
+        {
+            Provider.Instance.MapsPage.Navigation.PushPopupAsync(new CardPopup(Provider.Instance.Vehicles.Find(a => a.plateNumber == e.Pin.Label)));
+        }
+
+        public Map Map
         {
             get
             {
                 return map;
             }
-        }
-
-        internal static void ShowCardPopup(object sender, EventArgs e)
-        {
-            Provider.Instance.MapsPage.Navigation.PushPopupAsync(new CardPopup((sender as CustomPin).Vehicle));
-        }
-    }
-
-    public class CustomMap : Map
-    {
-        public new List<CustomPin> Pins { get; set; }
-
-        public CustomMap()
-        {
-            Pins = new List<CustomPin>();
-        }
-    }
-
-    public class CustomPin
-    {
-        public Pin Pin { get; set; }
-        public Vehicle Vehicle { get; set; }
-        public int Id { get { return Vehicle.vehicleId; } }
-
-        public CustomPin()
-        {
-            Pin = new Pin();
         }
     }
 }

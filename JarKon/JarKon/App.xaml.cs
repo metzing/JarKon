@@ -50,12 +50,12 @@ namespace JarKon
         protected override void OnStart()
         {
             // Handle when your app starts
-            Provider.Instance.OnStart();
-
-            UserLoaded += MapViewModel.OnUserLoggedIn;
             UserLoaded += ParkingViewModel.OnUserLoggedIn;
+            UserLoaded += MapViewModel.OnUserLoggedIn;
             DataChanged += MapViewModel.OnDataRefreshed;
             DataChanged += CardViewModel.OnDataRefreshed;
+
+            LoginManager.Instance.OnStartAsync();
         }
 
         protected override void OnSleep()
@@ -86,22 +86,6 @@ namespace JarKon
         public static void DisplayAlert(string title, string message, string cancel)
         {
             Current.MainPage.DisplayAlert(title, message, cancel);
-        }
-
-        internal class LogoutCommand : ICommand
-        {
-            public event EventHandler CanExecuteChanged;
-
-            public bool CanExecute(object parameter)
-            {
-                return true;
-            }
-
-            public void Execute(object parameter)
-            {
-                Settings.LoginToken = "";
-                (App.Current as App).MainPage.Navigation.PushPopupAsync(new LoginPopUp());
-            }
         }
     }
 }

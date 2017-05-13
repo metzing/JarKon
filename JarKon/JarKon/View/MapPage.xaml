@@ -2,13 +2,13 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:JarKon.View"
-             xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
+             xmlns:maps="clr-namespace:Xamarin.Forms.GoogleMaps;assembly=Xamarin.Forms.GoogleMaps"
              x:Class="JarKon.View.MapPage"
              Style="{StaticResource PaddedPage}">
 
         <StackLayout VerticalOptions="FillAndExpand"
                      HorizontalOptions="FillAndExpand">
-            <local:CustomMap VerticalOptions="FillAndExpand"
+            <maps:Map VerticalOptions="FillAndExpand"
                              HorizontalOptions="FillAndExpand"
                              IsShowingUser="{Binding ShouldShowUser}"
                              MapType="Street"

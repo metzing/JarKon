@@ -14,7 +14,6 @@ namespace JarKon.View.CardDetails
         const int SELECTED_DETAIL_COLUMN_COUNT = 3;
         const int SELECTED_DETAIL_ROW_COUNT = 2;
 
-        private bool IsExpanded;
         private bool IsInflated;
 
         public static BindableProperty DataProperty =
@@ -31,26 +30,16 @@ namespace JarKon.View.CardDetails
             InitializeComponent();
             BindingContext = this;
 
-            IsExpanded = false;
             IsInflated = false;
         }
 
         private void ToggleExpand(object sender, EventArgs e)
         {
-            if (IsExpanded)
-            {
-                AccordionButton.Text = "Collapse";
-                NotSelectedDetails.IsVisible = true;
-            }
-            else
-            {
-                AccordionButton.Text = "Details";
-                NotSelectedDetails.IsVisible = false;
-            }
-            IsExpanded = !IsExpanded;
+            NotSelectedDetails.IsVisible = !NotSelectedDetails.IsVisible;
+            AccordionButton.Text = NotSelectedDetails.IsVisible ? "Collapse" : "Details";
         }
 
-        public async void SetData(CardData data)
+        public void SetData(CardData data)
         {
             Data = data;
             if (IsInflated)

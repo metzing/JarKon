@@ -47,7 +47,7 @@ namespace JarKon.Droid
             layout = FindViewById(Android.Resource.Id.Content);
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
-            global::Xamarin.FormsMaps.Init(this, bundle);
+            global::Xamarin.FormsGoogleMaps.Init(this, bundle);
 
             if (CheckSelfPermission(Manifest.Permission.AccessCoarseLocation) != Permission.Granted)
             {

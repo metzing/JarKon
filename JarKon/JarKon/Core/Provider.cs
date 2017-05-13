@@ -24,6 +24,8 @@ namespace JarKon.Core
                 return instance ?? (instance = new Provider());
             }
         }
+        public int ScreenHeight { get; set; }
+        public int ScreenWidth { get; set; }
 
         public MapPage MapsPage { get; set; }
         public CardsPage CardsPage { get; set; }
@@ -39,6 +41,9 @@ namespace JarKon.Core
         /// </summary>
         public List<VehicleState> VehicleStates { get; private set; }
 
+        /// <summary>
+        /// List of the parking zones from the API
+        /// </summary>
         public List<Zone> ParkingZones { get; private set; }
 
         private User currentUser;
@@ -52,23 +57,19 @@ namespace JarKon.Core
                 return currentUser;
             }
 
-            private set
+            set
             {
                 currentUser = value;
                 if (value != null) (App.Current as App).FireUserLoaded();
             }
         }
 
-        public int ScreenHeight { get; set; }
-        public int ScreenWidth { get; set; }
-
-        /// <summary>
-        /// Should be called from App.OnStart
-        /// </summary>
-        /// <returns></returns>
-        public void OnStart()
+        private Provider()
         {
-            TestLogin();
+            Vehicles = new List<Vehicle>();
+            VehicleStates = new List<VehicleState>();
+            ParkingZones = new List<Zone>();
+            CurrentUser = null;
 
             //Create a timer that calls the RefreshVehicles method every ten seconds
             var timer = new System.Threading.Timer(
@@ -81,13 +82,6 @@ namespace JarKon.Core
                 10000);
         }
 
-        private Provider()
-        {
-            Vehicles = new List<Vehicle>();
-            VehicleStates = new List<VehicleState>();
-            ParkingZones = new List<Zone>();
-        }
-
         /// <summary>
         /// Refreshes the data displayed from the server
         /// </summary>
@@ -95,8 +89,8 @@ namespace JarKon.Core
         {
             if (CurrentUser == null) return;
 
-            Vehicles = await GetVehiclesAsync();
-            VehicleStates = await GetVehicleStatesAsync();
+            await GetVehiclesAsync();
+            await GetVehicleStatesAsync();
             (App.Current as App).FireDataChanged();
         }
 
@@ -104,9 +98,8 @@ namespace JarKon.Core
         /// Gets the states of the tracked vehicles from the server
         /// </summary>
         /// <returns>List of the states of the tracked vehicles</returns>
-        private async Task<List<VehicleState>> GetVehicleStatesAsync()
+        private async Task GetVehicleStatesAsync()
         {
-
             List<VehicleState> vehicleStates = new List<VehicleState>();
             VehicleService service = new VehicleService();
 
@@ -114,18 +107,19 @@ namespace JarKon.Core
             {
                 userId = CurrentUser.userId
             });
+
             lock (VehicleStates)
             {
-                vehicleStates.AddRange(response.states);
+                VehicleStates.Clear();
+                VehicleStates.AddRange(response.states);
             }
-            return vehicleStates;
         }
 
         /// <summary>
         /// Gets the tracked vehicles from the server
         /// </summary>
         /// <returns>List of the tracked vehicles</returns>
-        private async Task<List<Vehicle>> GetVehiclesAsync()
+        private async Task GetVehiclesAsync()
         {
             List<Vehicle> vehicles = new List<Vehicle>();
             VehicleService service = new VehicleService();
@@ -137,54 +131,8 @@ namespace JarKon.Core
 
             lock (Vehicles)
             {
-                vehicles.AddRange(response.vehicles);
-            }
-            return vehicles;
-        }
-
-
-
-        /// <summary>
-        /// Logs in using the test data or token
-        /// </summary>
-        /// <returns></returns>
-        public async Task TestLogin()
-        {
-            try
-            {
-                VehicleService service = new VehicleService();
-                LoginResponse response;
-                if (Settings.LoginToken == "")
-                {
-                    //Log in using creditentials
-                    //TODO input fields for this
-                    response = await service.Login(new LoginRequest
-                    {
-                        username = "mobilTest",
-                        password = "MobilTest123",
-#if __ANDROID__
-                        clientType = "ANDROID",
-#elif __IOS__
-                        clientType = "IOS",
-#endif
-                        deviceType = "",
-                        deviceId = "test"
-                    });
-                }
-                else
-                {
-                    response = await service.LoginWithToken(new RenewLoginRequest
-                    {
-                        token = Settings.LoginToken,
-                    });
-                }
-                Settings.LoginToken = response.token;
-                CurrentUser = response.user;
-            }
-            catch (Exception e)
-            {
-                Settings.LoginToken = "";
-                (App.Current as App).DisplayException(e);
+                Vehicles.Clear();
+                Vehicles.AddRange(response.vehicles);
             }
         }
     }

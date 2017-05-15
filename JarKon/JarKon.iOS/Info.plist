@@ -21,11 +21,11 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>MinimumOSVersion</key>
-	<string>8.0</string>
+	<string>10.3</string>
 	<key>CFBundleDisplayName</key>
 	<string>JarKon</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.CodeCluster.JarKon</string>
+	<string>com.metzing.JarKon</string>
 	<key>CFBundleVersion</key>
 	<string>1.0</string>
 	<key>CFBundleIconFiles</key>
@@ -62,11 +62,11 @@
 			<key>TintColor</key>
 			<dict>
 				<key>Red</key>
-				<real>0.713725490196078</real>
+				<real>0.705882352941177</real>
 				<key>Green</key>
 				<real>0.819607843137255</real>
 				<key>Blue</key>
-				<real>0.905882352941176</real>
+				<real>0.901960784313726</real>
 			</dict>
 		</dict>
 	</dict>

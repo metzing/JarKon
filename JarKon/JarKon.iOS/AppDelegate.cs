@@ -24,7 +24,7 @@ namespace JarKon.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.Init();
-            global::Xamarin.FormsMaps.Init();
+            //global::Xamarin.FormsMaps.Init();
 
             Provider.Instance.ScreenHeight = (int)(UIScreen.MainScreen.Bounds.Height * UIScreen.MainScreen.Scale);
             Provider.Instance.ScreenWidth = (int)(UIScreen.MainScreen.Bounds.Width * UIScreen.MainScreen.Scale);
